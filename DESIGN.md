@@ -10,6 +10,7 @@ Below are the use cases for the application from the point of view of 4 differen
 | Use case ID 	| Role  	 | Action | Software Reaction |
 | ----------- 	| ---------- | ----------- | ----------- |
 | UC1			| Anonymous/Customer  | User loads the site | The application displays a page with all items that are in stock |
+| UC1			| Anonymous/Customer  | User searches for an item | The application displays a page with all items that are in stock that match the search criteria |
 | UC2			| Anonymous/Customer  | User adds item to cart | The application adds the item to the cart or increases the quantity of an existing item by 1 |
 | UC3			| Anonymous/Customer  | User modifies cart | The application removes items from cart when selected by the customer to do so |
 | UC4			| Anonymous  | User signs in  | The application stores the user in session storage |
@@ -33,7 +34,23 @@ Below are the use cases for the application from the point of view of 4 differen
 
 
 # Test Plan
-(Integration Tests)
+For this application I will provide Unit Tests to cover every low level element including Models & Services. This will, by itself, provide a large test coverage of the system. Unit tests alone however will only provide testing of individual compenents on thier own. In order to provide integration testing - testing of components working together - I will perform manual User Interface tests. These tests not only make sure the UI is funcitonal but also test the system as a whole - integrating multiple components of the system into single tests.  
+
+For this application I have decided to write manual tests from the point of view of each of the Roles in the system
+
+### Anonymous Tests
+| Test case ID 	| Action  	 | Expected Result | Date Passed |
+| ----------- 	| ---------- | ----------- | ----------- |
+| TC1			| New user loads up the site  | All products are available to be viewed on this page |  |
+| TC2.0			| New user searches for a product  | All products matching the search criteria are displayed |  |
+| TC2.1			| New user searches for a product that is out of stock  | The product is not displayed |  |
+| TC3.0    		| New user adds an item to their cart  | Heading to the cart page shows the product in the cart |  |
+| TC3.1    		| New user adds the same item to their cart again  | Heading to the cart page shows the product quantity has increased by 1 |  |
+| TC4   		| New user adds the same item to their cart again  | Heading to the cart page shows the product quantity has increased by 1 |  |
+
+### Customer Tests
+
+### Admin Tests
 
 # Features
 
