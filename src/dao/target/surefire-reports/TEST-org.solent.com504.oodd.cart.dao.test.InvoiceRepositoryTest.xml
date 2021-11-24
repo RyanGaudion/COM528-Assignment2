@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="org.solent.com504.oodd.cart.dao.test.InvoiceRepositoryTest" time="0.303" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="org.solent.com504.oodd.cart.dao.test.InvoiceRepositoryTest" time="0.324" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11+28"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\VSCode\Uni\solent2Public\myPracticeCourseWork\Session8\shopping-cart-application"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\VSCode\Uni\COM528-Assignment2\src"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.script" value=""/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="user.dir" value="C:\VSCode\Uni\solent2Public\myPracticeCourseWork\Session8\shopping-cart-application"/>
+    <property name="user.dir" value="C:\VSCode\Uni\COM528-Assignment2\src"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.runtime.version" value="11+28"/>
@@ -28,7 +28,7 @@
     <property name="os.name" value="Windows 10"/>
     <property name="classworlds.conf" value="C:\Users\rgaud\Downloads\000_uni\apache-maven-3.8.2\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-11\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Scripts;C:\Program Files\PuTTY\;C:\Program Files\WireGuard\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-11\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Users\rgaud\Downloads\000_uni\apache-maven-3.8.2\bin;C:\Program Files\nodejs\;C:\Program Files\Inkscape\bin;C:\Program Files\MongoDB\Tools\100.5.0\bin;C:\Program Files\MongoDB\Server\5.0\bin;C:\Users\rgaud\AppData\Local\Microsoft\WindowsApps;C:\Users\rgaud\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files (x86)\Nmap;C:\Users\rgaud\.dotnet\tools;C:\Users\rgaud\AppData\Roaming\npm;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-11\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\Scripts;C:\Program Files\PuTTY\;C:\Program Files\WireGuard\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-11\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Users\rgaud\Downloads\000_uni\apache-maven-3.8.2\bin;C:\Program Files\nodejs\;C:\Program Files\Inkscape\bin;C:\Program Files\MongoDB\Tools\100.5.0\bin;C:\Program Files\MongoDB\Server\5.0\bin;C:\Users\rgaud\AppData\Local\Microsoft\WindowsApps;C:\Users\rgaud\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files (x86)\Nmap;C:\Users\rgaud\.dotnet\tools;C:\Users\rgaud\AppData\Roaming\npm;;."/>
     <property name="maven.conf" value="C:\Users\rgaud\Downloads\000_uni\apache-maven-3.8.2/conf"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
@@ -64,5 +64,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="org.solent.com504.oodd.cart.dao.test.InvoiceRepositoryTest" name="testInvoice" time="0.303"/>
+  <testcase classname="org.solent.com504.oodd.cart.dao.test.InvoiceRepositoryTest" name="testInvoice" time="0.324"/>
 </testsuite>
