@@ -133,14 +133,21 @@ Potential Additional Features (for future phases):
 - As Admin - Edit account details & state of any user
 
 
+# UML Diagram
+## Use Case Diagram
+Below you can see the Use Case Diagram for the application. From the diagram you can see the 2 main actors, the User and the Admin, as well as a 3rd Party Actor - the bank.
 
-# Class Diagram
+![Use Cases](Diagrams/UseCaseDiagram.drawio.png "Use Case Diagram")
+
+## Class Diagram
 types & interfaces
 
-# Data Model (For DB)
+## Data Model (For DB)
 ??
 
-# Robustness Diagram
+## Robustness Diagram
 (Must include bank client)
 
-# Sequence Diagram
+Change "Tables" to repos and add bank client
+
+## Sequence Diagram
