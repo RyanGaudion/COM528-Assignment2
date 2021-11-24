@@ -46,7 +46,9 @@
                         <c:if test="${item.quantity <= 0}">
                             <p style="color:red;">Item out of Stock</p>
                         </c:if>
-
+                            <form action="./viewModifyItem" method="get">
+                                <input type="hidden" name="itemID" value="${item.id}">
+                            <button type="submit" >View Item</button>
                     </form> 
                     </div>
                 </div>

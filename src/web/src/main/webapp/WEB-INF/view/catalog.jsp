@@ -37,7 +37,7 @@
                         <td>${item.quantity}</td>
                         <td>
                             <form action="./viewModifyItem" method="GET">
-                                <input type="hidden" name="uuid" value="${item.uuid}">
+                                <input type="hidden" name="itemID" value="${item.id}">
                                 <button class="btn" type="submit" >Modify Item</button>
                             </form> 
                         </td>
