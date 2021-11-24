@@ -19,7 +19,7 @@
         <div style="color:red;">${errorMessage}</div>
         <div style="color:green;">${message}</div>
 
-        <form action="./viewModifyUser" method="POST">
+        <form action="./viewModifyItem" method="POST">
             <table class="table">
                 <thead>
                 </thead>

@@ -41,14 +41,16 @@
                             <form action="./home" method="get">
                                 <input type="hidden" name="itemName" value="${item.name}">
                                 <input type="hidden" name="action" value="addItemToCart">
-                            <button type="submit" >Add Item</button>
+                                <button type="submit" >Add Item</button>
+                            </form>
                         </c:if>
                         <c:if test="${item.quantity <= 0}">
                             <p style="color:red;">Item out of Stock</p>
                         </c:if>
                             <form action="./viewModifyItem" method="get">
                                 <input type="hidden" name="itemID" value="${item.id}">
-                            <button type="submit" >View Item</button>
+                                <button type="submit" >View Item</button>
+                            </form>
                     </form> 
                     </div>
                 </div>
