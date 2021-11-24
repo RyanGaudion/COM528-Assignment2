@@ -63,6 +63,7 @@ The following tests must be performed by a logged in user. These tests must be c
 | TC10			| User clicks on shopping cart and clicks checkout  | Page loads for user to enter card details |  |
 | TC10.1		| User enters valid card details  | Success message is shown and link to order is displayed |  |
 | TC10.2		| User enters valid card details  | Money in the Bank Rest API has been moved to the correct account |  |
+| TC10.2.2		| User enters valid card details  | The Quantity of the item in inventory is reduced |  |
 | TC10.3		| User enters invalid card details  | Error message is shown and user is redirected back to shopping cart |  |
 | TC11		    | User clicks on the orders page  | All the user's orders as well as their status are displayed |  |
 
@@ -70,6 +71,7 @@ The following tests must be performed by a logged in user. These tests must be c
 ### Admin Tests
 | Test case ID 	| Action  	 | Expected Result | Date Passed |
 | ----------- 	| ---------- | ----------- | ----------- |
+| TC20			| Admin clicks add on the catalog page  | Page loads for admin to enter product details for item |  |
 | TC20			| Admin clicks add on the catalog page  | Page loads for admin to enter product details for item |  |
 | TC20.1		| Admin clicks save  | The product is viewable on the catalog page |  |
 | TC21	    	| Admin deletes an item  | The product is no longer viewable in the catalog page |  |
@@ -111,6 +113,17 @@ Potential Additional Features (for future phases):
 - As Admin - View all orders from all users
 - As Admin - Edit status of order
 
+Potential Additional Features (for future phases):
+- As Admin - Refund an Order
+
+### Catalog View
+- As Admin - View all items in the catalog
+- As Admin - Add new item to catalog
+- As Admin - Modify Item Quantity
+
+Potential Additional Features (for future phases):
+- Add the ability to add a 'sale price' which shows differently on the homepage
+
 ### Shopping Cart View
 - View all products & their quantity in the cart
 - View total cost of shopping cart  
@@ -146,8 +159,8 @@ types & interfaces
 ??
 
 ## Robustness Diagram
-(Must include bank client)
+Here is the robustness diagram for the whole system. Here we can see how each page is setup and how different objects interact with each other.
 
-Change "Tables" to repos and add bank client
+![Use Cases](Diagrams/Robustness.drawio.png "Robustness Diagram")
 
 ## Sequence Diagram
