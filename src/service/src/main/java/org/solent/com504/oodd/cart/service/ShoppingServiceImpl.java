@@ -30,35 +30,19 @@ import org.springframework.stereotype.Service;
 @DependsOn({"populate-database"})
 public class ShoppingServiceImpl implements ShoppingService {
 
-    private static final Logger LOG = LogManager.getLogger(ShoppingServiceImpl.class);
-    
-    // note ConcurrentHashMap instead of HashMap if map can be altered while being read
-    private Map<String, ShoppingItem> itemMap = new ConcurrentHashMap<String, ShoppingItem>();
-
-    
+    private static final Logger LOG = LogManager.getLogger(ShoppingServiceImpl.class);    
     @Autowired
     ShoppingItemCatalogRepository shoppingItemRepo;
 
-    private List<ShoppingItem> itemlist = new ArrayList<ShoppingItem>();
-    
+
     public ShoppingServiceImpl() {
 
     }
 
-    @PostConstruct
-    public void populateItemList(){
-        LOG.info("populatItemsList started");
-        itemlist = shoppingItemRepo.findAll();
-        LOG.info("populatItemsList found : " + itemlist.size());
-        // initialised the hashmap
-        for (ShoppingItem item : itemlist) {
-            itemMap.put(item.getName(), item);
-        }
-    }
     
     @Override
     public List<ShoppingItem> getAvailableItems() {
-        return itemlist;
+        return shoppingItemRepo.findAll();
     }
 
     @Override
@@ -73,7 +57,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     @Override
     public ShoppingItem getNewItemByName(String name) {
-        ShoppingItem templateItem = itemMap.get(name);
+        ShoppingItem templateItem = shoppingItemRepo.findByName(name).get(0);
         
         if(templateItem==null) return null;
         

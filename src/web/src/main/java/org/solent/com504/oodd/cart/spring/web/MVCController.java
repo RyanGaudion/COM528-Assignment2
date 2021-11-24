@@ -30,12 +30,12 @@ public class MVCController {
     // this could be done with an autowired bean
     //private ShoppingService shoppingService = WebObjectFactory.getShoppingService();
     @Autowired
-    ShoppingService shoppingService = null;
+    ShoppingService shoppingService;
 
     // note that scope is session in configuration
     // so the shopping cart is unique for each web session
     @Autowired
-    ShoppingCart shoppingCart = null;
+    ShoppingCart shoppingCart;
 
     private User getSessionUser(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
