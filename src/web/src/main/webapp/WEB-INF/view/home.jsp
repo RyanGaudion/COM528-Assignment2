@@ -25,23 +25,24 @@
             <th>Price</th>
             <th></th>
         </tr>
-
+        
         <c:forEach var="item" items="${availableItems}">
-
-            <tr>
-                <td>${item.name}</td>
-                <td>${item.price}</td>
-                <td></td>
-                <td>
-                    <!-- post avoids url encoded parameters -->
-                    <form action="./home" method="get">
-                        <input type="hidden" name="itemName" value="${item.name}">
-                        <input type="hidden" name="action" value="addItemToCart">
+            <div class ="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>${item.name}</h4></div>
+                    <div class="panel-body">
+                        <img class="img-responsive img-rounded"  src="https://thumbs.dreamstime.com/b/transparent-designer-must-have-fake-background-39672616.jpg"/>
+                    </div>
+                    <div class="panel-footer">
+                        <p>Price: ${item.price}</p>
+                        <form action="./home" method="get">
+                            <input type="hidden" name="itemName" value="${item.name}">
+                            <input type="hidden" name="action" value="addItemToCart">
                         <button type="submit" >Add Item</button>
                     </form> 
-                </td>
-            </tr>
-
+                    </div>
+                </div>
+            </div>
         </c:forEach>
     </table>
 
