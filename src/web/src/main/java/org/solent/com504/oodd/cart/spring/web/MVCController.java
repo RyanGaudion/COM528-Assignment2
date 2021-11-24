@@ -113,31 +113,6 @@ public class MVCController {
         return "home";
     }
 
-    @RequestMapping(value = "/about", method = {RequestMethod.GET, RequestMethod.POST})
-    public String aboutCart(Model model, HttpSession session) {
-
-        // get sessionUser from session
-        User sessionUser = getSessionUser(session);
-        model.addAttribute("sessionUser", sessionUser);
-        
-        // used to set tab selected
-        model.addAttribute("selectedPage", "about");
-        return "about";
-    }
-
-    @RequestMapping(value = "/contact", method = {RequestMethod.GET, RequestMethod.POST})
-    public String contactCart(Model model, HttpSession session) {
-
-        // get sessionUser from session
-        User sessionUser = getSessionUser(session);
-        model.addAttribute("sessionUser", sessionUser);
-        
-        // used to set tab selected
-        model.addAttribute("selectedPage", "contact");
-        return "contact";
-    }
-
-
     /*
      * Default exception handler, catches all exceptions, redirects to friendly
      * error page. Does not catch request mapping errors
