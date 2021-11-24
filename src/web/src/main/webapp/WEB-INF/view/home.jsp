@@ -25,9 +25,9 @@
             <th>Price</th>
             <th></th>
         </tr>
-        
+
         <c:forEach var="item" items="${availableItems}">
-            <div class ="col-md-4">
+            <div class ="col-md-4" style="min-height: 550px; max-height: 550px">
                 <div class="panel panel-default">
                     <div class="panel-heading"><h4>${item.name}</h4></div>
                     <div class="panel-body">
@@ -35,10 +35,18 @@
                     </div>
                     <div class="panel-footer">
                         <p>Price: ${item.price}</p>
-                        <form action="./home" method="get">
-                            <input type="hidden" name="itemName" value="${item.name}">
-                            <input type="hidden" name="action" value="addItemToCart">
-                        <button type="submit" >Add Item</button>
+
+                        <c:if test="${item.quantity > 0}">
+                            <p>Quantity ${item.quantity}</p>
+                            <form action="./home" method="get">
+                                <input type="hidden" name="itemName" value="${item.name}">
+                                <input type="hidden" name="action" value="addItemToCart">
+                            <button type="submit" >Add Item</button>
+                        </c:if>
+                        <c:if test="${item.quantity <= 0}">
+                            <p style="color:red;">Item out of Stock</p>
+                        </c:if>
+
                     </form> 
                     </div>
                 </div>

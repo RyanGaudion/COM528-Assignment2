@@ -73,18 +73,25 @@ public class PopulateDatabaseOnStart {
             LOG.info("defaultuser already exists. Not creating new :" + defaultUser);
         }
 
-        addShoppingItem("house", 20000.00);        
-        addShoppingItem("hen", 5.00);        
-        addShoppingItem("car", 5000.00);        
-        addShoppingItem("pet alligator", 65.00); 
+        addShoppingItem("house", 20000.00, 3);        
+        addShoppingItem("hen", 5.00, 1);        
+        addShoppingItem("car", 5000.00, 0);        
+        addShoppingItem("pet alligator", 65.00, 3);        
+        addShoppingItem("elephant", 100.00, 2);        
+        addShoppingItem("dog", 65.00, 2); 
+        addShoppingItem("cat", 10.50, 2); 
+        addShoppingItem("pen", 2.50, 0); 
+ 
+ 
         
         LOG.debug("database initialised");
     }
     
-        private void addShoppingItem(String name, Double price){
+        private void addShoppingItem(String name, Double price, Integer quantity){
         ShoppingItem item = new ShoppingItem();
         item.setName(name);
         item.setPrice(price);
+        item.setQuantity(quantity);
         List<ShoppingItem> itemsFound = catalogRepo.findByName(name);
         if(itemsFound.size() < 1){
             catalogRepo.save(item);
