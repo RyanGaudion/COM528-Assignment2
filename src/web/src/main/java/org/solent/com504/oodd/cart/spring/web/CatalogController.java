@@ -5,10 +5,21 @@
  */
 package org.solent.com504.oodd.cart.spring.web;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import org.apache.commons.io.FilenameUtils;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.dto.Address;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
@@ -21,6 +32,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -29,6 +41,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class CatalogController {
+    
+    private static final String UPLOAD_DIRECTORY ="/images";  
     
     @Autowired
     ShoppingItemCatalogRepository catalogRepo;
@@ -97,13 +111,14 @@ public class CatalogController {
         model.addAttribute("errorMessage", errorMessage);
         return "viewModifyItem";
     }
-    
+
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.POST)
     public String updateuser(
             @RequestParam(value = "name", required = true) String newName,            
             @RequestParam(value = "id", required = true) Long itemId,
             @RequestParam(value = "price", required = false) Double newPrice,
             @RequestParam(value = "quantity", required = false) Integer newQuantity,
+            @RequestParam(value = "file", required = false) MultipartFile file,
             Model model,
             HttpSession session) {
         String message = "";
@@ -143,6 +158,34 @@ public class CatalogController {
             if(newQuantity != null){
                 modifyItem.setQuantity(newQuantity);
             }
+            if (file.isEmpty()) {
+                LOG.warn("file is empty");
+            }
+            else{
+                LOG.info("file is not empty");
+                ServletContext context = session.getServletContext();  
+                String path = context.getRealPath(UPLOAD_DIRECTORY);  
+                String filename = file.getOriginalFilename();  
+
+                LOG.info(path+ File.separator+filename);        
+
+                byte[] bytes;  
+                try {
+                    bytes = file.getBytes();
+                    BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(  
+                         new File(path + File.separator + filename)));  
+                    stream.write(bytes);  
+                    stream.flush();  
+                    stream.close();  
+                    modifyItem.setFilename(filename);
+                    LOG.info(path + File.separator + filename);
+                    } catch (IOException ex) {
+                    LOG.error("failed to upload image");
+                }
+            }
+
+
+            
             modifyItem = catalogRepo.save(modifyItem);
         }
 

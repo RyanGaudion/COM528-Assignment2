@@ -5,10 +5,15 @@
  */
 package org.solent.com504.oodd.cart.model.dto;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -22,6 +27,7 @@ public class ShoppingItem {
     private String name=null;
     private Integer quantity=0;
     private Double price=0.0;
+    private String filename;
     
     public ShoppingItem(){
         
@@ -48,6 +54,14 @@ public class ShoppingItem {
 
     public void setUuid(String uuuid) {
         this.uuid = uuuid;
+    }
+    
+    public String getFilename(){
+        return filename;
+    }
+    
+    public void setFilename(String filename){
+        this.filename = filename;
     }
 
     public String getName() {

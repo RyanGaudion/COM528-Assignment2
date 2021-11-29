@@ -19,7 +19,7 @@
         <div style="color:red;">${errorMessage}</div>
         <div style="color:green;">${message}</div>
 
-        <form action="./viewModifyItem" method="POST">
+        <form action="./viewModifyItem" method="POST" enctype="multipart/form-data">
             <table class="table">
                 <thead>
                 </thead>
@@ -33,13 +33,17 @@
                         <td><input type="text" name="name" value="${modifyItem.name}" /></td>
                     </tr>
                     <tr>
-                        <td>Second Name</td>
+                        <td>Price</td>
                         <td><input type="text" name="price" value="${modifyItem.price}" /></td>
                     </tr>
                     <tr>
                         <td>Quantity</td>
                         <td><input type="text" name="quantity" value="${modifyItem.quantity}" /></td>
                     </tr>
+                    <tr>
+                       <td>Pick Image File</td>
+                       <td><input type="file" name="file" size="50" /></td>
+                 </tr>
 
                 </tbody>
 

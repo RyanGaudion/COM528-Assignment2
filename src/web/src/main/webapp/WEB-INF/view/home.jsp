@@ -31,7 +31,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h4>${item.name}</h4></div>
                     <div class="panel-body">
-                        <img class="img-responsive img-rounded"  src="https://thumbs.dreamstime.com/b/transparent-designer-must-have-fake-background-39672616.jpg"/>
+                        <c:if test="${item.filename != null && item.filename.length() > 0}">
+                            <img style="width:auto; max-height:250px; margin-left: auto; margin-right: auto;" class="img-responsive img-rounded"  src="images/${item.filename}"/>
+                        </c:if>
+                        <c:if test="${item.filename  == null || item.filename.length() == 0}">
+                            <img style="width:auto; max-height:250px; margin-left: auto; margin-right: auto;" class="img-responsive img-rounded"  src="https://thumbs.dreamstime.com/b/transparent-designer-must-have-fake-background-39672616.jpg"/>
+                        </c:if>
                     </div>
                     <div class="panel-footer">
                         <p>Price: ${item.price}</p>
