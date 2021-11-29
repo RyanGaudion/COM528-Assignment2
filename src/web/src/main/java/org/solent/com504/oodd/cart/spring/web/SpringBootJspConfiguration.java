@@ -4,6 +4,7 @@ import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
 import org.solent.com504.oodd.cart.service.ServiceObjectFactory;
 import org.solent.com504.oodd.cart.spring.service.ServiceConfiguration;
+import org.solent.com504.oodd.properties.dao.impl.PropertiesSpringConfig;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
-@Import(ServiceConfiguration.class)
+@Import({ServiceConfiguration.class, PropertiesSpringConfig.class})
+
 @PropertySource("classpath:persistence-app.properties")
 public class SpringBootJspConfiguration {
 
