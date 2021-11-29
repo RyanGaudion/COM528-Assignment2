@@ -48,8 +48,8 @@ public class PropertiesDao {
 
     public PropertiesDao() {
         String tempDir = System.getProperty("java.io.tmpdir");
-        File propertiesFile = new File(tempDir + "/application.properties");
-        String propertiesFileLocation = propertiesFile.getAbsolutePath();
+        File propertiesFileLocal = new File(tempDir + "/application.properties");
+        String propertiesFileLocation = propertiesFileLocal.getAbsolutePath();
         
         try {
             propertiesFile = new File(propertiesFileLocation);

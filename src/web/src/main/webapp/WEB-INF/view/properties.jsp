@@ -17,12 +17,12 @@
     <div style="color:red;">${errorMessage}</div>
     <div style="color:green;">${message}</div>
 
-    <form action="./properties.jsp" method="POST">
+    <form action="./properties" method="POST">
 
         <p>URL Property <input type="text" name="url" value="${url}" required></p>
         <p>Username Property <input type="text" name="username" value="${username}" required></p>
         <p>Password Property <input type="text" name="password" value="${password}" required></p>
-        <p>Shop Keeper Card Property <input type="text" name="shopKeeperCard" value="${shopkeepercard}" required></p>
+        <p>Shop Keeper Card Property <input type="text" name="shopKeeperCard" value="${shopcard}" required></p>
         <input type="hidden" name="action" value="updateProperties">
 
         <button class="btn" type="submit" >Update Properties</button>

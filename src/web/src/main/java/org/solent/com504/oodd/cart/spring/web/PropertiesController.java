@@ -45,19 +45,24 @@ public class PropertiesController {
     @RequestMapping(value = "/properties", method = {RequestMethod.GET, RequestMethod.POST})
     public String propertiesPage(
             @RequestParam(name = "action", required = false) String action,            
-            @RequestParam(name = "apiUrl", required = false) String url,            
-            @RequestParam(name = "apiUsername", required = false) String username,            
-            @RequestParam(name = "apiPassword", required = false) String password,            
+            @RequestParam(name = "url", required = false) String url,            
+            @RequestParam(name = "username", required = false) String username,            
+            @RequestParam(name = "password", required = false) String password,            
             @RequestParam(name = "shopKeeperCard", required = false) String shopKeeperCard,
             Model model,
             HttpSession session) {
         
         
+        LOG.info("Input values " + action + url + username + password + shopKeeperCard);
+        
         String message = "";
         User sessionuser = getSessionUser(session);
-        if(sessionuser.getUserRole().toString().equals("ADMINISTRATOR")){
+        LOG.info(sessionuser.getUserRole());
+        if(UserRole.ADMINISTRATOR.equals(sessionuser.getUserRole())){
             try{
+                LOG.info("User is an admin");
                 if ("updateProperties".equals(action)) {
+                    LOG.info("Update action correct");
                     message = "Properties updated sucessfully";
                     propertiesDao.setProperty("org.solent.oodd.pos.service.apiUrl", url);
                     propertiesDao.setProperty("org.solent.oodd.pos.service.apiUsername", username);
@@ -77,6 +82,13 @@ public class PropertiesController {
         String newusername = propertiesDao.getProperty("org.solent.oodd.pos.service.apiUsername");
         String newpassword = propertiesDao.getProperty("org.solent.oodd.pos.service.apiPassword");
         String newshopKeeperCard = propertiesDao.getProperty("org.solent.oodd.pos.service.shopKeeperCard");
+        
+        
+        LOG.info(newshopKeeperCard);
+        LOG.info(newurl);
+        LOG.info(newusername);
+        LOG.info(newpassword);
+
         
         model.addAttribute("sessionUser", sessionuser);        
         model.addAttribute("message", message);        
