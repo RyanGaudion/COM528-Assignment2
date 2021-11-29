@@ -69,4 +69,14 @@ public class ShoppingServiceImpl implements ShoppingService {
         return item;
     }
 
+    @Override
+    public List<ShoppingItem> searchAvailableItems(String searchQuery) {
+        if(searchQuery == null || searchQuery.length() == 0){
+            return getAvailableItems();
+        }
+        else{
+            return shoppingItemRepo.findByName(searchQuery);
+        }
+    }
+
 }

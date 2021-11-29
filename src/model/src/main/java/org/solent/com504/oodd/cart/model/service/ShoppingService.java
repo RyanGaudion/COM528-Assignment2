@@ -14,7 +14,9 @@ import java.util.List;
  */
 public interface ShoppingService {
     
-        public List<ShoppingItem> getAvailableItems();
+        public List<ShoppingItem> getAvailableItems();        
+        public List<ShoppingItem> searchAvailableItems(String searchQuery);
+
         
         public boolean purchaseItems(ShoppingCart shoppingCart);
         

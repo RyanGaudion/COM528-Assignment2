@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShoppingItemCatalogRepository  extends JpaRepository<ShoppingItem,Long>{
-    @Query("select i from ShoppingItem i where i.name = :name")
+    @Query("select i from ShoppingItem i where i.name like %:name%")
     public List<ShoppingItem> findByName(@Param("name")String name);
 }

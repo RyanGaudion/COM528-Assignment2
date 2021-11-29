@@ -57,7 +57,9 @@ public class MVCController {
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewCart(@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
-            @RequestParam(name = "itemUUID", required = false) String itemUuid,
+            @RequestParam(name = "itemUUID", required = false) String itemUuid,            
+            @RequestParam(name = "searchQuery", required = false) String searchQuery,
+
             Model model,
             HttpSession session) {
 
@@ -93,11 +95,22 @@ public class MVCController {
         } else if ("removeItemFromCart".equals(action)) {
             message = "removed " + itemName + " from cart";
             shoppingCart.removeItemFromCart(itemUuid);
-        } else {
+        } else if ("search".equals(action) && searchQuery != null){
+            message = "searched for: " +searchQuery; 
+        }
+        else {
             message = "unknown action=" + action;
         }
-
-        List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
+        
+        
+        List<ShoppingItem> availableItems = null;
+        if ("search".equals(action) && searchQuery != null){
+            availableItems = shoppingService.searchAvailableItems(searchQuery);  
+        }
+        else{
+            availableItems = shoppingService.getAvailableItems();
+        }
+        
 
         List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
