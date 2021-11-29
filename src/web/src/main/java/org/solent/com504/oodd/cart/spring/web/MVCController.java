@@ -54,7 +54,7 @@ public class MVCController {
         return "redirect:/index.html";
     }
     
-        @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewCart(
             Model model,
             HttpSession session) {
@@ -81,6 +81,35 @@ public class MVCController {
         model.addAttribute("errorMessage", errorMessage);
 
         return "cart";
+    }
+    
+    @RequestMapping(value = "/checkout", method = {RequestMethod.GET, RequestMethod.POST})
+    public String viewCheckout(
+            Model model,
+            HttpSession session) {
+
+        // get sessionUser from session
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+
+        // used to set tab selected
+        model.addAttribute("selectedPage", "cart");
+
+        String message = "";
+        String errorMessage = "";
+
+
+        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+
+        Double shoppingcartTotal = shoppingCart.getTotal();
+
+        // populate model with values
+        model.addAttribute("shoppingCartItems", shoppingCartItems);
+        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
+
+        return "checkout";
     }
 
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
