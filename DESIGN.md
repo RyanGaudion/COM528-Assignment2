@@ -97,12 +97,12 @@ The following tests must be performed by a logged in user. These tests must be c
 Below you can see the feature list for the application, this list is split into sections - grouped by either the pages the feature will be on or the group of pages they relate to:
 
 ### Home View
-- List of all products
-- Ability to add product to cart
-- Ability to search products to filter list down
+- List of all products ✅
+- Ability to add product to cart ✅
+- Ability to search products to filter list down ✅
 
 Potential Additional Features (for future phases):
-- Display images for each product
+- Display images for each product ✅
 - Advanced filtering/sorting of products
 - Add pagination to result (don't load all products at once)
 
@@ -117,16 +117,16 @@ Potential Additional Features (for future phases):
 - As Admin - Refund an Order
 
 ### Catalog View
-- As Admin - View all items in the catalog
-- As Admin - Add new item to catalog
-- As Admin - Modify Item Quantity
+- As Admin - View all items in the catalog ✅
+- As Admin - Add new item to catalog ✅
+- As Admin - Modify Item Quantity ✅
 
 Potential Additional Features (for future phases):
 - Add the ability to add a 'sale price' which shows differently on the homepage
 
 ### Shopping Cart View
-- View all products & their quantity in the cart
-- View total cost of shopping cart  
+- View all products & their quantity in the cart ✅
+- View total cost of shopping cart ✅
 
 Potential Additional Features (for future phases):
 - Be able to add coupon code to shopping cart to add discounts
@@ -139,11 +139,11 @@ Potential Additional Features (for future phases):
 - Load card details from account (only require entering of CVV)
 
 ### Users 
-- Create a user
-- Login to an account
-- Edit account details
-- Logout of account
-- As Admin - Edit account details & state of any user
+- Create a user ✅
+- Login to an account ✅
+- Edit account details ✅
+- Logout of account ✅
+- As Admin - Edit account details & state of any user ✅
 
 
 # UML Diagram
