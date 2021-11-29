@@ -41,6 +41,10 @@
                         <td><input type="text" name="quantity" value="${modifyItem.quantity}" /></td>
                     </tr>
                     <tr>
+                        <td>File name</td>
+                        <td>${modifyItem.filename}"</td>
+                    </tr>
+                    <tr>
                        <td>Pick Image File</td>
                        <td><input type="file" name="file" size="50" /></td>
                  </tr>
@@ -50,9 +54,12 @@
             </table>
 
 
-            <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
-            <input type="hidden" name="id" value="${modifyItem.id}"/>
-            <button class="btn" type="submit" >Update Item: ${modifyItem.name}</button>
+            <c:if test="${sessionUser.userRole =='ADMINISTRATOR' && modifyItem.id != null}">
+                <input type="hidden" name="id" value="${modifyItem.id}"/>
+                <button class="btn" type="submit" >Update Item: ${modifyItem.name}</button>
+            </c:if>
+            <c:if test="${sessionUser.userRole =='ADMINISTRATOR' && modifyItem.id == null}">
+                <button class="btn" type="submit" >Add Item</button>
             </c:if>
 
         </form>

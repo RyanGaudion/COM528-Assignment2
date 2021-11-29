@@ -58,6 +58,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <!-- user role:  ${sessionUser.userRole}-->
+                            <li <% if ("cart".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="./cart">Cart (${shoppingCartItems.size()})</a></li>
                             <c:if test="${sessionUser.userRole =='ANONYMOUS'}">
                                 <li><a href="./login">Login or create a new Account</a></li>
                                 </c:if>

@@ -82,14 +82,14 @@ public class CatalogController {
     }
     
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.GET)
-    public String modifyuser(
+    public String modifyItem(
             @RequestParam(value = "itemID", required = true) Long itemID,
             Model model,
             HttpSession session) {
         String message = "";
         String errorMessage = "";
 
-        model.addAttribute("selectedPage", "viewModeifyItem");
+        model.addAttribute("selectedPage", "viewModifyItem");
 
         LOG.debug("get viewModeifyItem called for id=" + itemID);
 
@@ -111,11 +111,31 @@ public class CatalogController {
         model.addAttribute("errorMessage", errorMessage);
         return "viewModifyItem";
     }
+    
+    @RequestMapping(value = {"/createItem"}, method = RequestMethod.GET)
+    public String createItem(
+            Model model,
+            HttpSession session) {
+        String message = "";
+        String errorMessage = "";
+
+        model.addAttribute("selectedPage", "createItem");
+
+        LOG.debug("get create item page");
+
+        // check secure access to modifyUser profile
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
+        return "viewModifyItem";
+    }
 
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.POST)
-    public String updateuser(
+    public String updateItem(
             @RequestParam(value = "name", required = true) String newName,            
-            @RequestParam(value = "id", required = true) Long itemId,
+            @RequestParam(value = "id", required = false) Long itemId,
             @RequestParam(value = "price", required = false) Double newPrice,
             @RequestParam(value = "quantity", required = false) Integer newQuantity,
             @RequestParam(value = "file", required = false) MultipartFile file,
@@ -137,14 +157,18 @@ public class CatalogController {
             return ("home");
         }
 
-        
-        Optional<ShoppingItem> shoppingItem = catalogRepo.findById(itemId);
-        if (shoppingItem.isEmpty()) {
-            LOG.error("viewModifyItem Postcalled for unknown id=" + itemId);
-            return ("home");
+        Optional<ShoppingItem> shoppingItem = null;
+        if(itemId != null){
+            shoppingItem = catalogRepo.findById(itemId);
         }
-        ShoppingItem modifyItem = shoppingItem.get();
-        
+        ShoppingItem modifyItem;
+        if (shoppingItem == null || shoppingItem.isEmpty()) {
+            LOG.error("viewModifyItem Postcalled for unknown id=" + itemId);
+            modifyItem = new ShoppingItem();
+        }
+        else{
+            modifyItem = shoppingItem.get();
+        }        
 
         // else update all other properties
         // only admin can update modifyUser role aand enabled
@@ -184,8 +208,6 @@ public class CatalogController {
                 }
             }
 
-
-            
             modifyItem = catalogRepo.save(modifyItem);
         }
 

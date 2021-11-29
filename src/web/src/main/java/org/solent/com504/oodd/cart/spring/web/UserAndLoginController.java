@@ -147,7 +147,7 @@ public class UserAndLoginController {
             model.addAttribute("errorMessage", errorMessage);
             // used to set tab selected
             model.addAttribute("selectedPage", "home");
-            return "home";
+            return "redirect:/home";
         } else {
             model.addAttribute("errorMessage", "unknown action requested:" + action);
             LOG.error("login page unknown action requested:" + action);
