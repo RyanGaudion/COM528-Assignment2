@@ -93,7 +93,7 @@ public class MVCController {
         model.addAttribute("sessionUser", sessionUser);
 
         // used to set tab selected
-        model.addAttribute("selectedPage", "cart");
+        model.addAttribute("selectedPage", "checkout");
 
         String message = "";
         String errorMessage = "";

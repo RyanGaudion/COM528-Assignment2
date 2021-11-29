@@ -16,7 +16,28 @@
 
     
     <div class="col-xs-6 col-md-6">
-        
+        <form action="./checkout" method="POST"> 
+            <p>Card Number: <input type="text" name="cardnumber" required></p>
+            <p>Card CVV:  <input type="text" name="cvv" required></p>
+            <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
+                <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <button class="btn btn-primary" type="submit">
+                              Pay
+                            </button>
+                        </div>
+                </div>
+            </c:if>
+        </form>
+        <c:if test="${sessionUser.userRole =='ANONYMOUS'}">
+            <div class="row">
+                <form action="./checkout" method="GET"> 
+                    <div class="col-xs-6 col-md-4">
+                        <p style="color: red;"><strong>Sign in to pay</strong></p>
+                    </div>
+                </form>
+            </div>
+        </c:if>
     </div>
     
     <div class="col-xs-6 col-md-6">
@@ -46,26 +67,7 @@
     
 
 
-    <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
-        <div class="row">
-            <form action="./checkout" method="POST"> 
-                <div class="col-xs-6 col-md-4">
-                    <button class="btn btn-primary" type="submit">
-                      Pay
-                    </button>
-                </div>
-            </form>
-        </div>
-    </c:if>
-    <c:if test="${sessionUser.userRole =='ANONYMOUS'}">
-        <div class="row">
-            <form action="./checkout" method="GET"> 
-                <div class="col-xs-6 col-md-4">
-                    <p style="color: red;"><strong>Sign in to pay</strong></p>
-                </div>
-            </form>
-        </div>
-    </c:if>
+
     
 
 
