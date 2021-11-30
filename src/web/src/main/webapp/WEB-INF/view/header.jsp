@@ -52,6 +52,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="./users">Manage Users</a></li>
                                         <li><a href="./catalog">Manage Catalogue</a></li>                                        
+                                        <li><a href="./orders">Manage Orders</a></li>                                        
                                         <li><a href="./properties">Manage Properties</a></li>
 
                                     </ul>
