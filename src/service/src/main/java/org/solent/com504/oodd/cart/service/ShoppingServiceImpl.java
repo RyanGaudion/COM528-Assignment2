@@ -15,11 +15,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.bank.Transaction;
+import org.solent.com504.oodd.cart.dao.impl.InvoiceRepository;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.dto.Invoice;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
+import org.solent.com504.oodd.cart.model.service.IBankingService;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
@@ -36,7 +40,12 @@ public class ShoppingServiceImpl implements ShoppingService {
     private static final Logger LOG = LogManager.getLogger(ShoppingServiceImpl.class);    
     @Autowired
     ShoppingItemCatalogRepository shoppingItemRepo;
+    
+    @Autowired
+    InvoiceRepository invoiceRepo;
 
+    @Autowired
+    IBankingService bankingService;
 
     public ShoppingServiceImpl() {
 
@@ -49,7 +58,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser) {
+    public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser, Card purchaserCard) {
         LOG.info("purchased items:");
         for (ShoppingItem shoppingItem : shoppingCart.getShoppingCartItems()) {
             LOG.info(shoppingItem);
@@ -66,10 +75,17 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         
         //Send money with api
-        //If  success - save invoice
-        //If failue - log to new file and display error to user
-
-        return true;
+        Transaction result = bankingService.sendTransaction(purchaserCard, newInvoice.getAmountDue());
+        if(result.getTransactionResponse().getStatus().toLowerCase().equals("success")){
+            //If  success - save invoice
+            invoiceRepo.save(newInvoice);
+            return true;
+            
+            //Reduce Stock amount
+        }
+        
+        //If error return false
+        return false;
     }
 
     @Override

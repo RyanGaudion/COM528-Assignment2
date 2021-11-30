@@ -7,6 +7,7 @@ package org.solent.com504.oodd.bank.client.impl;
 
 
 import java.util.logging.Level;
+import javax.annotation.PostConstruct;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -21,8 +22,10 @@ import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.solent.com504.oodd.bank.model.client.IBankRestClient;
-import org.solent.com504.oodd.bank.model.dto.TransactionRequest;
-import org.solent.com504.oodd.bank.model.dto.TransactionResponse;
+import org.solent.com504.oodd.bank.TransactionRequest;
+import org.solent.com504.oodd.bank.TransactionResponse;
+import org.solent.com504.oodd.properties.dao.impl.PropertiesDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -40,13 +43,25 @@ public class BankRestClient implements IBankRestClient {
 
     final static Logger logger = LogManager.getLogger(BankRestClient.class);
 
-    String urlStr;
+    
+    @Autowired
+    PropertiesDao properties;
+    
+    String urlStr = "";
 
     /** 
-     * @param urlStr A String of the URL endpoint that the API is located at.
+     * Gets the urlString from properties Dao
      */
-    public BankRestClient(String urlStr) {
-        this.urlStr = urlStr;
+    public BankRestClient() {
+
+    }
+    
+    @PostConstruct
+    public void init(){
+        logger.info("Properties: " + properties);        
+        logger.info("Properties: " + properties.getProperty("org.solent.oodd.pos.service.apiUrl"));
+
+        this.urlStr = properties.getProperty("org.solent.oodd.pos.service.apiUrl");
     }
 
     /**

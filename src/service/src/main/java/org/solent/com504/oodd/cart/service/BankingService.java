@@ -10,18 +10,23 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.oodd.bank.model.client.IBankRestClient;
-import org.solent.com504.oodd.bank.model.dto.Card;
-import org.solent.com504.oodd.bank.model.dto.Transaction;
-import org.solent.com504.oodd.bank.model.dto.TransactionRequest;
-import org.solent.com504.oodd.bank.model.dto.TransactionResponse;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.bank.Transaction;
+import org.solent.com504.oodd.bank.TransactionRequest;
+import org.solent.com504.oodd.bank.TransactionResponse;
 import org.solent.com504.oodd.cart.model.service.IBankingService;
 import org.solent.com504.oodd.properties.dao.impl.PropertiesDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * The Banking Service responsible for keeping track of transactions as well as accessing the Bank Rest Client
  * @author rgaud
  */
+@Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class BankingService implements IBankingService{
 
     private final String apiUsername;

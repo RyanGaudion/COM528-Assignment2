@@ -10,6 +10,7 @@
  */
 package org.solent.com504.oodd.cart.spring.service;
 
+import org.solent.com504.oodd.ClientConfiguration;
 import org.solent.com504.oodd.cart.dao.impl.PersistenceJPAConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +26,7 @@ import org.springframework.context.annotation.Import;
 @ComponentScan(basePackages = {"org.solent.com504.oodd.cart.service",
     "org.solent.com504.oodd.cart.spring.service"
 })
-@Import({PersistenceJPAConfig.class})
+@Import({PersistenceJPAConfig.class, ClientConfiguration.class})
 public class ServiceConfiguration {
 
 }

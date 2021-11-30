@@ -1,7 +1,7 @@
 package org.solent.com504.oodd.bank.model.client;
 
-import org.solent.com504.oodd.bank.model.dto.TransactionRequest;
-import org.solent.com504.oodd.bank.model.dto.TransactionResponse;
+import org.solent.com504.oodd.bank.TransactionRequest;
+import org.solent.com504.oodd.bank.TransactionResponse;
 
 /**
  * Interface for the Bank API Client

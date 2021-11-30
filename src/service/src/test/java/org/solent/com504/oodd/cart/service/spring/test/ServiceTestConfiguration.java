@@ -6,6 +6,7 @@
 package org.solent.com504.oodd.cart.service.spring.test;
 
 
+import org.solent.com504.oodd.ClientConfiguration;
 import org.solent.com504.oodd.cart.spring.service.ServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.PropertySource;
  * @author cgallen
  */
 @Configuration
-@Import(ServiceConfiguration.class)
+@Import({ServiceConfiguration.class, ClientConfiguration.class})
 @PropertySource("classpath:service-test.properties")
 public class ServiceTestConfiguration {
     

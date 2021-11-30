@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.cardchecker.CardChecker;
+import org.solent.com504.oodd.cardchecker.CardValidationResult;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
@@ -83,7 +86,7 @@ public class MVCController {
         return "cart";
     }
     
-    @RequestMapping(value = "/checkout", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
     public String viewCheckout(
             Model model,
             HttpSession session) {
@@ -101,6 +104,73 @@ public class MVCController {
 
         List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
+        Double shoppingcartTotal = shoppingCart.getTotal();
+
+        // populate model with values
+        model.addAttribute("shoppingCartItems", shoppingCartItems);
+        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
+
+        return "checkout";
+    }
+    
+    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
+    public String completeCheckout(
+            @RequestParam(name = "cardnumber", required = false) String cardnumber,            
+            @RequestParam(name = "cardname", required = false) String cardname,
+            @RequestParam(name = "cardenddate", required = false) String cardenddate,
+            @RequestParam(name = "cardissuenumber", required = false) String cardissuenumber,
+            @RequestParam(name = "cardcvv", required = false) String cardcvv,
+            Model model,
+            HttpSession session) {
+
+        // get sessionUser from session
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+
+        // used to set tab selected
+        model.addAttribute("selectedPage", "checkout");
+
+        String message = "";
+        String errorMessage = "";
+        
+        //Validate
+        CardValidationResult result = CardChecker.checkValidity(cardnumber);
+        
+        if(!result.getIsValid()){
+            errorMessage = result.getMessage();
+        }
+        else{
+            //Pay & Create Order
+            Card card = new Card();
+            if(!card.setCVV(cardcvv)){
+                errorMessage = "Invalid CVV";
+            }
+            if(!card.setCardnumber(cardnumber)){
+                errorMessage = "Invalid Card Number";
+            }
+            if(!card.setEndDate(cardenddate)){
+                errorMessage = "Invalid End Date";
+            }
+            if(cardissuenumber != null && !card.setIssueNumber(cardissuenumber)){
+                errorMessage = "Invalid Issue Number";
+            }
+            if(!card.setName(cardname)){
+                errorMessage = "Invalid Card Name";
+            }
+            if(errorMessage.equals("")){
+                boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
+                if(!purchased){
+                    errorMessage = "Unable to purchase items";
+                }
+                else{
+                    message = "Successfully purchased items";
+                }
+            }
+        }
+        
+        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
         Double shoppingcartTotal = shoppingCart.getTotal();
 
         // populate model with values

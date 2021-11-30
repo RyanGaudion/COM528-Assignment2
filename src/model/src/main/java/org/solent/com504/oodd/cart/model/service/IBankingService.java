@@ -6,8 +6,8 @@
 package org.solent.com504.oodd.cart.model.service;
 
 import java.util.List;
-import org.solent.com504.oodd.bank.model.dto.Card;
-import org.solent.com504.oodd.bank.model.dto.Transaction;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.bank.Transaction;
 
 /**
  * Interface for the Banking Service abstraction

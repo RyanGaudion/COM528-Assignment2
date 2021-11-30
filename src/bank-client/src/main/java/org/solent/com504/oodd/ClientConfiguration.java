@@ -1,4 +1,7 @@
+package org.solent.com504.oodd;
 
+
+import org.solent.com504.oodd.properties.dao.impl.PropertiesSpringConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -15,7 +18,8 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 
-@ComponentScan(basePackages = {"org.solent.com504.oodd.bank.client"})
+@ComponentScan(basePackages = {"org.solent.com504.oodd.bank.client.impl", "org.solent.com504.oodd.bank.model.client"})
+@Import({PropertiesSpringConfig.class})
 public class ClientConfiguration {
 
 }

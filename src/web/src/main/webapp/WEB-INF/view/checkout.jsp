@@ -17,9 +17,12 @@
     
     <div class="col-xs-6 col-md-6">
         <form action="./checkout" method="POST"> 
-            <p>Card Number: <input type="text" name="cardnumber" required></p>
-            <p>Card CVV:  <input type="text" name="cvv" required></p>
-            <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
+            <p>Card Number: <input type="text" name="cardnumber" required></p>            
+            <p>Card Holder Name: <input type="text" name="cardname" required></p>            
+            <p>Card End Date: (in format MM/yy) <input type="text" name="cardenddate" required></p>            
+            <p>Card Issue Number: <input type="text" name="cardissuenumber"></p>
+            <p>Card CVV:  <input type="text" name="cardcvv" required></p>
+            <c:if test="${sessionUser.userRole !='ANONYMOUS' && !message.toLowerCase().startsWith('success') }">
                 <div class="row">
                         <div class="col-xs-6 col-md-4">
                             <button class="btn btn-primary" type="submit">

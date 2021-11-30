@@ -5,24 +5,37 @@
  */
 package org.solent.com504.oodd.bank.client.test.manual;
 
+import org.solent.com504.oodd.spring.ClientTestConfiguration;
+import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.solent.com504.oodd.bank.client.impl.BankRestClient;
-import org.solent.com504.oodd.bank.model.dto.Card;
-import org.solent.com504.oodd.bank.model.dto.TransactionRequest;
-import org.solent.com504.oodd.bank.model.dto.TransactionResponse;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.bank.TransactionRequest;
+import org.solent.com504.oodd.bank.TransactionResponse;
+import org.solent.com504.oodd.bank.model.client.IBankRestClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 /**
  * 
  * @author rgaudion
  * This Class is responsible for testing the transaction methods of the REST Client
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ClientTestConfiguration.class, loader = AnnotationConfigContextLoader.class)
 public class BankClientTests {
 
     final static Logger logger = LogManager.getLogger(BankClientTests.class);
 
+    @Autowired
+    IBankRestClient client;
+    
     String bankUrl = "http://com528bank.ukwest.cloudapp.azure.com:8080/rest";
     Card fromCard = null;
     Card toCard = null;
@@ -59,8 +72,6 @@ public class BankClientTests {
     @Test
     public void testClient() {
 
-        BankRestClient client = new BankRestClient(bankUrl);
-
         Double amount = 0.0;
 
         TransactionRequest req = new TransactionRequest(fromCard, toCard, amount);
@@ -78,9 +89,6 @@ public class BankClientTests {
      */
     @Test
     public void testClientAuth() {
-
-        BankRestClient client = new BankRestClient(bankUrl);
-
         Double amount = 0.0;
 
         // testing with auth
@@ -104,7 +112,6 @@ public class BankClientTests {
         invalidFromCard.setCardnumber("invalid");
         invalidFromCard.setEndDate("23/43");
 
-        BankRestClient client = new BankRestClient(bankUrl);
         TransactionRequest req = new TransactionRequest(invalidFromCard, toCard, 50.0);
         
         TransactionResponse response =  client.transferMoney(req);
@@ -123,7 +130,6 @@ public class BankClientTests {
         invalidToCard.setCardnumber("invalid");
         invalidToCard.setEndDate("11/22");
         
-        BankRestClient client = new BankRestClient(bankUrl);
         TransactionRequest req = new TransactionRequest(fromCard, invalidToCard, 50.0);
         
         TransactionResponse response =  client.transferMoney(req);
@@ -136,8 +142,7 @@ public class BankClientTests {
      */
     @Test
     public void InvalidTransactionAmountTest(){
-        BankRestClient client = new BankRestClient(bankUrl);
-        
+
         TransactionRequest req = new TransactionRequest(fromCard, toCard, 50000000000.0);
         TransactionResponse response =  client.transferMoney(req);
 

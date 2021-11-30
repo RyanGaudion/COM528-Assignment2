@@ -13,8 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.solent.com504.oodd.bank.model.dto.Card;
-import org.solent.com504.oodd.bank.model.dto.TransactionRequest;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.bank.TransactionRequest;
 
 /**
  *
