@@ -108,10 +108,10 @@ Potential Additional Features (for future phases):
 
 ### Orders View
 - View all orders associated to account
-- View status & price of order as well as products it contains 
+- View status & price of order as well as products it contains  
 - Search orders to filter list donw
-- As Admin - View all orders from all users
-- As Admin - Edit status of order
+- As Admin - View all orders from all users ✅
+- As Admin - Edit status of order ✅
 
 Potential Additional Features (for future phases):
 - As Admin - Refund an Order
@@ -132,8 +132,8 @@ Potential Additional Features (for future phases):
 - Be able to add coupon code to shopping cart to add discounts
 
 ### Checkout View
-- Enter & Submit card details for transaction
-- Card details are validated & rest client sends money
+- Enter & Submit card details for transaction ✅
+- Card details are validated & rest client sends money ✅
 
 Potential Additional Features (for future phases):
 - Load card details from account (only require entering of CVV)
