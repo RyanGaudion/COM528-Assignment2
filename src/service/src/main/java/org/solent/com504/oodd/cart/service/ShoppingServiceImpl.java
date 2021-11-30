@@ -20,6 +20,7 @@ import org.solent.com504.oodd.bank.Transaction;
 import org.solent.com504.oodd.cart.dao.impl.InvoiceRepository;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.dto.Invoice;
+import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
@@ -60,7 +61,10 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser, Card purchaserCard) {
         LOG.info("purchased items:");
-        for (ShoppingItem shoppingItem : shoppingCart.getShoppingCartItems()) {
+        
+        for (OrderItem shoppingItem : shoppingCart.getShoppingCartItems()) {
+            //Fetch Item from DB first
+            shoppingItem.setItem(shoppingItemRepo.findByName(shoppingItem.getItem().getName()).get(0));
             LOG.info(shoppingItem);
         }
         

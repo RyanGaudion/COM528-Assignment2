@@ -17,11 +17,12 @@
     
     <div class="col-xs-6 col-md-6">
         <form action="./checkout" method="POST"> 
-            <p>Card Number: <input type="text" name="cardnumber" required></p>            
+            
+            <p>Card Number: <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardnumber" required/>
             <p>Card Holder Name: <input type="text" name="cardname" required></p>            
             <p>Card End Date: (in format MM/yy) <input type="text" name="cardenddate" required></p>            
-            <p>Card Issue Number: <input type="text" name="cardissuenumber"></p>
-            <p>Card CVV:  <input type="text" name="cardcvv" required></p>
+            <p>Card Issue Number: <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardissuenumber"></p>
+            <p>Card CVV:  <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardcvv" required></p>
             <c:if test="${sessionUser.userRole !='ANONYMOUS' && !message.toLowerCase().startsWith('success') }">
                 <div class="row">
                         <div class="col-xs-6 col-md-4">
@@ -51,12 +52,12 @@
                 <th>Quantity</th>
             </tr>
 
-            <c:forEach var="item" items="${shoppingCartItems}">
+            <c:forEach var="orderItem" items="${shoppingCartItems}">
 
                 <tr>
-                    <td>${item.name}</td>
-                    <td>${item.price}</td>
-                    <td>${item.quantity}</td>
+                    <td>${orderItem.item.name}</td>
+                    <td>${orderItem.item.price}</td>
+                    <td>${orderItem.quantity}</td>
                 </tr>
             </c:forEach>
             <tr>

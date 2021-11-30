@@ -8,6 +8,9 @@ package org.solent.com504.oodd.cart.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 
@@ -17,13 +20,17 @@ import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
  */
 public class ShoppingCartImpl implements ShoppingCart {
 
-    private HashMap<String, ShoppingItem> itemMap = new HashMap<String, ShoppingItem>();
+    private HashMap<String, OrderItem> itemMap = new HashMap<String, OrderItem>();
 
+    private static final Logger LOG = LogManager.getLogger(ShoppingCartImpl.class);   
+    
     @Override
-    public List<ShoppingItem> getShoppingCartItems() {
-        List<ShoppingItem> itemlist = new ArrayList();
+    public List<OrderItem> getShoppingCartItems() {
+        List<OrderItem> itemlist = new ArrayList();
         for (String itemUUID : itemMap.keySet()) {
-            ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
+            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+            LOG.info(shoppingCartItem);            
+            LOG.info(shoppingCartItem.getItem());
             itemlist.add(shoppingCartItem);
         }
         return itemlist;
@@ -36,8 +43,10 @@ public class ShoppingCartImpl implements ShoppingCart {
         // ANSWER
         boolean itemExists = false;
         for (String itemUUID : itemMap.keySet()) {
-            ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
-            if (shoppingCartItem.getName().equals(shoppingItem.getName())){
+            
+            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+            
+            if (shoppingCartItem.getItem().getName().equals(shoppingItem.getName())){
                 Integer q = shoppingCartItem.getQuantity();
                 shoppingCartItem.setQuantity(q+1);
                 itemExists = true;
@@ -45,8 +54,8 @@ public class ShoppingCartImpl implements ShoppingCart {
             }
         }
         if (!itemExists){
-            shoppingItem.setQuantity(1);
-            itemMap.put(shoppingItem.getUuid(), shoppingItem);
+            OrderItem newShoppingCartItem = new OrderItem(shoppingItem, 1);
+            itemMap.put(shoppingItem.getUuid(), newShoppingCartItem);
         }
     }
 
@@ -64,8 +73,8 @@ public class ShoppingCartImpl implements ShoppingCart {
         double total = 0;
 
         for (String itemUUID : itemMap.keySet()) {
-            ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
-            total = total + shoppingCartItem.getPrice() * shoppingCartItem.getQuantity();
+            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+            total = total + shoppingCartItem.getItem().getPrice() * shoppingCartItem.getQuantity();
         }
 
         return total;

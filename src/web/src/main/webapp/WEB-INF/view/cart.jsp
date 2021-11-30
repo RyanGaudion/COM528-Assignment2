@@ -21,17 +21,17 @@
             <th>Quantity</th>
         </tr>
 
-        <c:forEach var="item" items="${shoppingCartItems}">
+        <c:forEach var="orderItem" items="${shoppingCartItems}">
 
             <tr>
-                <td>${item.name}</td>
-                <td>${item.price}</td>
-                <td>${item.quantity}</td>
+                <td>${orderItem.item.name}</td>
+                <td>${orderItem.item.price}</td>
+                <td>${orderItem.quantity}</td>
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form action="./home" method="post">
-                        <input type="hidden" name="itemUUID" value="${item.uuid}">
-                        <input type="hidden" name="itemName" value="${item.name}">
+                        <input type="hidden" name="itemUUID" value="${orderItem.item.uuid}">
+                        <input type="hidden" name="itemName" value="${orderItem.item.name}">
                         <input type="hidden" name="action" value="removeItemFromCart">
                         <button type="submit" >Remove Item</button>
                     </form> 

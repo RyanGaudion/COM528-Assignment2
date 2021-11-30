@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.solent.com504.oodd.bank.Card;
 import org.solent.com504.oodd.cardchecker.CardChecker;
 import org.solent.com504.oodd.cardchecker.CardValidationResult;
+import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
@@ -73,7 +74,7 @@ public class MVCController {
         String errorMessage = "";
 
 
-        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+        List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
         Double shoppingcartTotal = shoppingCart.getTotal();
 
@@ -102,7 +103,7 @@ public class MVCController {
         String errorMessage = "";
 
 
-        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+        List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
         Double shoppingcartTotal = shoppingCart.getTotal();
 
@@ -151,7 +152,7 @@ public class MVCController {
                 errorMessage = "Invalid Card Number";
             }
             if(!card.setEndDate(cardenddate)){
-                errorMessage = "Invalid End Date";
+                errorMessage = "Invalid End Date - make sure the end date is later than the current date";
             }
             if(cardissuenumber != null && !card.setIssueNumber(cardissuenumber)){
                 errorMessage = "Invalid Issue Number";
@@ -162,7 +163,7 @@ public class MVCController {
             if(errorMessage.equals("")){
                 boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
                 if(!purchased){
-                    errorMessage = "Unable to purchase items";
+                    errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
                 }
                 else{
                     message = "Successfully purchased items";
@@ -170,7 +171,7 @@ public class MVCController {
             }
         }
         
-        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+        List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
         Double shoppingcartTotal = shoppingCart.getTotal();
 
         // populate model with values
@@ -240,7 +241,7 @@ public class MVCController {
         }
         
 
-        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+        List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
         Double shoppingcartTotal = shoppingCart.getTotal();
 

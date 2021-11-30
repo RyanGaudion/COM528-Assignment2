@@ -2,6 +2,7 @@ package org.solent.com504.oodd.cart.model.dto;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Invoice {
 
     private Double amountDue;
 
-    private List<ShoppingItem> purchasedItems;
+    private List<OrderItem> purchasedItems;
 
     private User purchaser;
 
@@ -58,12 +59,12 @@ public class Invoice {
         this.amountDue = amountDue;
     }
 
-    @OneToMany
-    public List<ShoppingItem> getPurchasedItems() {
+    @OneToMany(cascade = CascadeType.PERSIST) 
+    public List<OrderItem> getPurchasedItems() {
         return purchasedItems;
     }
 
-    public void setPurchasedItems(List<ShoppingItem> purchasedItems) {
+    public void setPurchasedItems(List<OrderItem> purchasedItems) {
         this.purchasedItems = purchasedItems;
     }
 

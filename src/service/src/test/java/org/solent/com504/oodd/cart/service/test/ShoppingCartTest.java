@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.service.ServiceObjectFactory;
@@ -40,7 +41,7 @@ public class ShoppingCartTest {
     public void testshoppingcart() {
         assertNotNull(shoppingCart);
         
-        List<ShoppingItem> items = shoppingCart.getShoppingCartItems();
+        List<OrderItem> items = shoppingCart.getShoppingCartItems();
         
         assertTrue(items.isEmpty());
         

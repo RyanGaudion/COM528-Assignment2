@@ -7,6 +7,7 @@ package org.solent.com504.oodd.cart.model.service;
 
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import java.util.List;
+import org.solent.com504.oodd.cart.model.dto.OrderItem;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface ShoppingCart {
 
-    public List<ShoppingItem> getShoppingCartItems();
+    public List<OrderItem> getShoppingCartItems();
     
     public void addItemToCart(ShoppingItem shoppingItem);
     

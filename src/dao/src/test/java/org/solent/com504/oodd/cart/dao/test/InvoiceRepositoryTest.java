@@ -21,6 +21,7 @@ import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.dao.impl.UserRepository;
 import org.solent.com504.oodd.cart.model.dto.Invoice;
+import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -76,7 +77,7 @@ public class InvoiceRepositoryTest {
         shoppingItem1.setUuid(UUID.randomUUID().toString());
         shoppingItem1 = shoppingItemCatalogRepository.save(shoppingItem1);
 
-        List<ShoppingItem> purchasedItems = new ArrayList<ShoppingItem>();
+        List<OrderItem> purchasedItems = new ArrayList<OrderItem>();
 
         invoice1.setPurchasedItems(purchasedItems);
         invoice1 = invoiceRepository.save(invoice1);
