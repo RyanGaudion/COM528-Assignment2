@@ -13,8 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.solent.com504.oodd.bank.model.dto.CreditCard;
-import org.solent.com504.oodd.bank.model.dto.TransactionRequestMessage;
+import org.solent.com504.oodd.bank.model.dto.Card;
+import org.solent.com504.oodd.bank.model.dto.TransactionRequest;
 
 /**
  *
@@ -36,10 +36,10 @@ public class JsonDtoTests {
 
     @Test
     public void testJsonMessages() throws JsonProcessingException {
-        TransactionRequestMessage trequest = new TransactionRequestMessage();
-        CreditCard fromCard = new CreditCard();
+        TransactionRequest trequest = new TransactionRequest();
+        Card fromCard = new Card();
         trequest.setFromCard(fromCard);
-        CreditCard toCard = new CreditCard();
+        Card toCard = new Card();
         trequest.setToCard(toCard);
 
         Double amount = 100.01;
@@ -50,7 +50,7 @@ public class JsonDtoTests {
 
         LOG.debug("Json transactionRequest output:\n" + tRequestString);
 
-        TransactionRequestMessage receivedTransactionRequest = objectMapper.readValue(tRequestString, TransactionRequestMessage.class);
+        TransactionRequest receivedTransactionRequest = objectMapper.readValue(tRequestString, TransactionRequest.class);
         
         assertTrue(trequest.toString().equals(receivedTransactionRequest.toString()));
     }

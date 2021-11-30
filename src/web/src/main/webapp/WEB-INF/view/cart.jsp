@@ -44,7 +44,7 @@
         </tr>
     </table>
 
-    <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
+    <c:if test="${sessionUser.userRole !='ANONYMOUS' && shoppingCartItems.size() > 0}">
         <div class="row">
             <form action="./checkout" method="GET"> 
                 <div class="col-xs-6 col-md-4">

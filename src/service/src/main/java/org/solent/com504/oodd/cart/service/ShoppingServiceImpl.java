@@ -7,6 +7,7 @@ package org.solent.com504.oodd.cart.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -15,8 +16,10 @@ import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
+import org.solent.com504.oodd.cart.model.dto.Invoice;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
+import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
@@ -46,11 +49,25 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public boolean purchaseItems(ShoppingCart shoppingCart) {
-        System.out.println("purchased items");
+    public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser) {
+        LOG.info("purchased items:");
         for (ShoppingItem shoppingItem : shoppingCart.getShoppingCartItems()) {
-            System.out.println(shoppingItem);
+            LOG.info(shoppingItem);
         }
+        
+        //ToDo - Start transaction
+        
+        //Create Invoice in DB
+        Invoice newInvoice = new Invoice();
+        newInvoice.setAmountDue(shoppingCart.getTotal());
+        newInvoice.setPurchasedItems(shoppingCart.getShoppingCartItems());
+        newInvoice.setPurchaser(purchaser);
+        newInvoice.setDateOfPurchase(new Date());
+
+        
+        //Send money with api
+        //If  success - save invoice
+        //If failue - log to new file and display error to user
 
         return true;
     }

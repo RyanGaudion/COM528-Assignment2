@@ -7,6 +7,7 @@ package org.solent.com504.oodd.cart.model.service;
 
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import java.util.List;
+import org.solent.com504.oodd.cart.model.dto.User;
 
 /**
  *
@@ -18,7 +19,7 @@ public interface ShoppingService {
         public List<ShoppingItem> searchAvailableItems(String searchQuery);
 
         
-        public boolean purchaseItems(ShoppingCart shoppingCart);
+        public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser);
         
         public ShoppingItem getNewItemByName(String uuid);
 

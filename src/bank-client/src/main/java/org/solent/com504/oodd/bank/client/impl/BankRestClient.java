@@ -5,17 +5,14 @@
  */
 package org.solent.com504.oodd.bank.client.impl;
 
+
 import java.util.logging.Level;
-import org.solent.com504.oodd.bank.model.client.BankRestClient;
-import org.solent.com504.oodd.bank.model.dto.CreditCard;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,26 +20,43 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
 import org.glassfish.jersey.logging.LoggingFeature;
-import org.solent.com504.oodd.bank.model.dto.TransactionReplyMessage;
-import org.solent.com504.oodd.bank.model.dto.TransactionRequestMessage;
+import org.solent.com504.oodd.bank.model.client.IBankRestClient;
+import org.solent.com504.oodd.bank.model.dto.TransactionRequest;
+import org.solent.com504.oodd.bank.model.dto.TransactionResponse;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  *
+ * @author rgaudion 
+ * @author kpeacock
  * @author cgallen
+ * The Bank REST Client is responsible for all REST calls to the Bank API and for deserialising these responses to Java Objects
  */
-public class BankRestClientImpl implements BankRestClient {
+@Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class BankRestClient implements IBankRestClient {
 
-    final static Logger LOG = LogManager.getLogger(BankRestClientImpl.class);
+    final static Logger logger = LogManager.getLogger(BankRestClient.class);
 
     String urlStr;
 
-    public BankRestClientImpl(String urlStr) {
+    /** 
+     * @param urlStr A String of the URL endpoint that the API is located at.
+     */
+    public BankRestClient(String urlStr) {
         this.urlStr = urlStr;
     }
 
+    /**
+     * @param request The TransactionRequest Object for the request
+     * @return TransactionResponse
+     * This method simply calls the Transaction Request endpoint for the API and returns a TransactionResponse object
+     */
     @Override
-    public TransactionReplyMessage transferMoney(CreditCard fromCard, CreditCard toCard, Double amount) {
-        LOG.debug("transferMoney called: ");
+    public TransactionResponse transferMoney(TransactionRequest request) {
+        logger.debug("transferMoney called: ");
 
         // sets up logging for the client       
         Client client = ClientBuilder.newClient(new ClientConfig().register(
@@ -56,24 +70,28 @@ public class BankRestClientImpl implements BankRestClient {
 
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
-        TransactionRequestMessage transactionRequestMessage = new TransactionRequestMessage();
-        transactionRequestMessage.setAmount(amount);
-        transactionRequestMessage.setFromCard(fromCard);
-        transactionRequestMessage.setToCard(toCard);
+        Response response = invocationBuilder.post(Entity.entity(request, MediaType.APPLICATION_JSON));
 
-        Response response = invocationBuilder.post(Entity.entity(transactionRequestMessage, MediaType.APPLICATION_JSON));
+        TransactionResponse transactionReplyMessage = response.readEntity(TransactionResponse.class);
 
-        TransactionReplyMessage transactionReplyMessage = response.readEntity(TransactionReplyMessage.class);
-
-        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + transactionReplyMessage);
+        logger.debug("Response status=" + response.getStatus() + " ReplyMessage: " + transactionReplyMessage);
 
         return transactionReplyMessage;
 
     }
 
+    /**
+     * @param request
+     * @param userName
+     * @param password
+     * @return TransactionResponse
+     * This method performs the same function as the other transferMoney method 
+     * however this method provides Http Authentication using the username and 
+     * password of the ShopKeeper
+     */
     @Override
-    public TransactionReplyMessage transferMoney(CreditCard fromCard, CreditCard toCard, Double amount, String userName, String password) {
-        LOG.debug("transferMoney called: ");
+    public TransactionResponse transferMoney(TransactionRequest request, String userName, String password) {
+        logger.debug("transferMoney called: ");
 
         // sets up logging for the client       
         Client client = ClientBuilder.newClient(new ClientConfig().register(
@@ -91,20 +109,13 @@ public class BankRestClientImpl implements BankRestClient {
 
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
-        TransactionRequestMessage transactionRequestMessage = new TransactionRequestMessage();
-        transactionRequestMessage.setAmount(amount);
-        transactionRequestMessage.setFromCard(fromCard);
-        transactionRequestMessage.setToCard(toCard);
+        Response response = invocationBuilder.post(Entity.entity(request, MediaType.APPLICATION_JSON));
 
-        Response response = invocationBuilder.post(Entity.entity(transactionRequestMessage, MediaType.APPLICATION_JSON));
+        TransactionResponse transactionReplyMessage = response.readEntity(TransactionResponse.class);
 
-        TransactionReplyMessage transactionReplyMessage = response.readEntity(TransactionReplyMessage.class);
-
-        LOG.debug("Response status=" + response.getStatus() + " ReplyMessage: " + transactionReplyMessage);
+        logger.debug("Response status=" + response.getStatus() + " ReplyMessage: " + transactionReplyMessage);
 
         return transactionReplyMessage;
 
     }
-
-
 }
