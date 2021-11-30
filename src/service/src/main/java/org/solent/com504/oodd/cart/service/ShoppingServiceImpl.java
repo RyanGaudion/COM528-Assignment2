@@ -20,6 +20,7 @@ import org.solent.com504.oodd.bank.Transaction;
 import org.solent.com504.oodd.cart.dao.impl.InvoiceRepository;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.dto.Invoice;
+import org.solent.com504.oodd.cart.model.dto.InvoiceStatus;
 import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
@@ -76,6 +77,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         newInvoice.setPurchasedItems(shoppingCart.getShoppingCartItems());
         newInvoice.setPurchaser(purchaser);
         newInvoice.setDateOfPurchase(new Date());
+        newInvoice.setInvoiceStatus(InvoiceStatus.BACKLOG);
 
         
         //Send money with api

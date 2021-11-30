@@ -20,6 +20,8 @@ public class Invoice {
     private Date dateOfPurchase;
 
     private Double amountDue;
+    
+    private InvoiceStatus invoiceStatus;
 
     private List<OrderItem> purchasedItems;
 
@@ -35,6 +37,14 @@ public class Invoice {
         this.id = id;
     }
 
+    public InvoiceStatus getInvoiceStatus(){
+        return invoiceStatus;
+    }
+    
+    public void setInvoiceStatus(InvoiceStatus status){
+        this.invoiceStatus = status;
+    }
+    
     public String getInvoiceNumber() {
         return invoiceNumber;
     }

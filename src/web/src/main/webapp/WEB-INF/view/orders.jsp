@@ -25,7 +25,9 @@
                     <th scope="col">Date of Purchase</th>
                     <th scope="col">Total Cost</th>
                     <th scope="col">Number of Items</th>
-                    <th scope="col">User</th>
+                    <th scope="col">User</th>                    
+                    <th scope="col">Order Status</th>
+
                     <th></th>
                 </tr>
             </thead>
@@ -37,7 +39,9 @@
                         <td>${order.dateOfPurchase}</td>                       
                         <td>${order.amountDue}</td>
                         <td>${order.purchasedItems.size()}</td>                        
-                        <td>${order.purchaser.username}</td>
+                        <td>${order.purchaser.username}</td>                        
+                        <td>${order.invoiceStatus}</td>
+
                         
                         <td>
                             <form action="./viewModifyOrder" method="GET">
@@ -50,6 +54,7 @@
 
             </tbody>
         </table>
+        
     </div>
 </main>
 
