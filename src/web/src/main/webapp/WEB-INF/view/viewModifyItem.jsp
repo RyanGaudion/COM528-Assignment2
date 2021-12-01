@@ -40,14 +40,17 @@
                         <td>Quantity</td>
                         <td><input type="text" name="quantity" value="${modifyItem.quantity}" /></td>
                     </tr>
-                    <tr>
-                        <td>File name</td>
-                        <td>${modifyItem.filename}"</td>
-                    </tr>
-                    <tr>
-                       <td>Pick Image File</td>
-                       <td><input type="file" name="file" size="50" /></td>
-                 </tr>
+                    <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
+                        <tr>
+                            <td>File name</td>
+                            <td>${modifyItem.filename}"</td>
+                        </tr>
+                        <tr>
+                           <td>Pick Image File</td>
+                           <td><input type="file" name="file" size="50" /></td>
+                        </tr>
+                    </c:if>
+
 
                 </tbody>
 

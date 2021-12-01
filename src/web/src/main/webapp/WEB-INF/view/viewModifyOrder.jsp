@@ -48,11 +48,17 @@
                 <tr>
                     <td>Order Status</td>
                     <td>
-                        <select class="form-control" name="orderStatus" >
-                            <c:forEach var="value" items="${InvoiceStatus.values()}">
-                                <option value="${value}" <c:if test="${modifyOrder.invoiceStatus == value}"> selected  </c:if>>${value}</option>
-                            </c:forEach>
-                        </select>    
+                         <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
+                            <select class="form-control" name="orderStatus" >
+                                <c:forEach var="value" items="${InvoiceStatus.values()}">
+                                    <option value="${value}" <c:if test="${modifyOrder.invoiceStatus == value}"> selected  </c:if>>${value}</option>
+                                </c:forEach>
+                            </select>  
+                        </c:if>
+                        <c:if test="${sessionUser.userRole !='ADMINISTRATOR'}">
+                            ${modifyOrder.invoiceStatus}
+                        </c:if>
+  
                     </td>
                 </tr>
             </tbody>

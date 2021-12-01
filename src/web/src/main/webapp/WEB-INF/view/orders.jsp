@@ -8,7 +8,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="org.solent.com504.oodd.cart.model.dto.User"%>
 <%@page import="org.solent.com504.oodd.cart.model.dto.UserRole"%>
-<c:set var = "selectedPage" value = "admin" scope="request"/>
 <jsp:include page="header.jsp" />
 <!-- start of users.jsp selectedPage=${selectedPage}-->
 
@@ -46,7 +45,11 @@
                         <td>
                             <form action="./viewModifyOrder" method="GET">
                                 <input type="hidden" name="orderid" value="${order.id}">
-                                <button class="btn" type="submit" >View/Modify Order</button>
+                                <button class="btn" type="submit" >View
+                                    <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
+                                        /Modify 
+                                    </c:if>
+                                    Order</button>
                             </form> 
                         </td>
                     </tr>

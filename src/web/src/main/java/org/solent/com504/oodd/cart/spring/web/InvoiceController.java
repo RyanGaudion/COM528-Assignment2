@@ -46,7 +46,7 @@ public class InvoiceController {
     
     @RequestMapping(value = {"/orders"}, method = RequestMethod.GET)
     @Transactional
-    public String users(Model model,
+    public String orders(Model model,
             HttpSession session) {
         String message = "";
         String errorMessage = "";
@@ -64,6 +64,24 @@ public class InvoiceController {
         model.addAttribute("ordersListSize", invoiceList.size());
         model.addAttribute("ordersList", invoiceList);
         model.addAttribute("selectedPage", "orders");
+        return "orders";
+    }
+    
+    @RequestMapping(value = {"/myOrders"}, method = RequestMethod.GET)
+    @Transactional
+    public String myOrders(Model model,
+            HttpSession session) {
+        String message = "";
+        String errorMessage = "";
+
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+
+        List<Invoice> invoiceList = invoiceRepo.findByPurchaser_Id(sessionUser.getId());
+
+        model.addAttribute("ordersListSize", invoiceList.size());
+        model.addAttribute("ordersList", invoiceList);
+        model.addAttribute("selectedPage", "myOrders");
         return "orders";
     }
     
@@ -92,7 +110,7 @@ public class InvoiceController {
         Invoice modifyOrder = orderList.get();
         LOG.info("Item purchaser: " + modifyOrder.getPurchaser().getUsername());
         LOG.info("Username: " + sessionUser.getUsername());
-        if(sessionUser == null || !modifyOrder.getPurchaser().getUsername().equals(sessionUser.getUsername())){
+        if(sessionUser == null || (!UserRole.ADMINISTRATOR.equals(sessionUser.getUserRole()) && !modifyOrder.getPurchaser().getUsername().equals(sessionUser.getUsername()))){
             LOG.error("viewModifyOrder called for wrong user: " + orderid);
             return ("redirect:/home");
         }
