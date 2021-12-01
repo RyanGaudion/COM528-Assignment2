@@ -17,6 +17,36 @@
     <div>
         <h1>Manage Orders</h1>
         <p>showing ${ordersListSize} orders </p>
+            
+            <c:if test="${selectedPage =='adminOrders'}">
+            <!--Search-->
+            <div class="row">
+                <form action="./orders" method="GET"> 
+                    <div class="col-xs-6 col-md-4">
+                        <button class="btn btn-primary" type="submit">
+                          Clear Search
+                        </button>
+                    </div>
+                </form>
+                <form action="./orders" method="GET"> 
+                    <div class="col-xs-6 col-md-4">
+                      <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search by username" name="searchQuery" id="searchQuery"/>            
+                          <input type="hidden" name="action" value="search">
+                        <div class="input-group-btn">
+                          <button class="btn btn-primary" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="height: 15px; width: 15px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                </form>
+            </div>
+            </c:if>
+        
+        
         <table class="table">
             <thead>
                 <tr>

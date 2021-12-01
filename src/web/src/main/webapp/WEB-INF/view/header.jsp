@@ -45,12 +45,15 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li <% if ("home".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="./home">Home</a></li>            
-                            <li 
-                            <c:if test="${selectedPage.equals('myOrders')}">
-                                class="active"
-                            </c:if>                              
-                            ><a href="./myOrders">My Orders</a></li>      
+                            <li <% if ("home".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="./home">Home</a></li>
+                            <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
+                                <li 
+                                <c:if test="${selectedPage.equals('myOrders')}">
+                                    class="active"
+                                </c:if>                              
+                                ><a href="./myOrders">My Orders</a></li>    
+                            </c:if>
+  
 
                                                
                           

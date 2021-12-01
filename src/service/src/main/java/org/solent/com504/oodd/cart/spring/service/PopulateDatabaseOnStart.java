@@ -5,12 +5,18 @@
  */
 package org.solent.com504.oodd.cart.spring.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.solent.com504.oodd.cart.dao.impl.InvoiceRepository;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.dao.impl.UserRepository;
+import org.solent.com504.oodd.cart.model.dto.Invoice;
+import org.solent.com504.oodd.cart.model.dto.InvoiceStatus;
+import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
@@ -35,6 +41,9 @@ public class PopulateDatabaseOnStart {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private InvoiceRepository invoiceRepo;
 
     
     @Autowired
@@ -82,20 +91,39 @@ public class PopulateDatabaseOnStart {
         addShoppingItem("cat", 10.50, 2); 
         addShoppingItem("pen", 2.50, 0); 
  
- 
+        addOrder("cat", defaultUser);        
+        addOrder("dog", defaultUser);
+        addOrder("car", adminUser);
+
         
         LOG.debug("database initialised");
     }
     
         private void addShoppingItem(String name, Double price, Integer quantity){
-        ShoppingItem item = new ShoppingItem();
-        item.setName(name);
-        item.setPrice(price);
-        item.setQuantity(quantity);
-        List<ShoppingItem> itemsFound = catalogRepo.findByName(name);
-        if(itemsFound.size() < 1){
-            catalogRepo.save(item);
-            LOG.info("Added Item :" + name);
+            ShoppingItem item = new ShoppingItem();
+            item.setName(name);
+            item.setPrice(price);
+            item.setQuantity(quantity);
+            List<ShoppingItem> itemsFound = catalogRepo.findByName(name);
+            if(itemsFound.size() < 1){
+                catalogRepo.save(item);
+                LOG.info("Added Item :" + name);
+            }
         }
-    }
+        private void addOrder(String itemName, User user){
+            List<ShoppingItem> item = catalogRepo.findByName(itemName);
+            if(item.size() > 0){
+                OrderItem orderedItem = new OrderItem(item.get(0), 1);
+                List<OrderItem> items = new ArrayList<>();
+                items.add(orderedItem);
+
+                Invoice invoice = new Invoice();
+                invoice.setPurchasedItems(items);
+                invoice.setPurchaser(user);
+                invoice.setDateOfPurchase(new Date());
+                invoice.setInvoiceStatus(InvoiceStatus.BACKLOG);
+                invoice.setAmountDue(item.get(0).getPrice());
+                invoiceRepo.save(invoice);
+            }
+        }
 }

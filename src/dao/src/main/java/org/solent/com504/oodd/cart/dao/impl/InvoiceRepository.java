@@ -12,4 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InvoiceRepository  extends JpaRepository<Invoice,Long>{
     public List<Invoice> findByPurchaser_Id(Long id);
+    
+    public List<Invoice> findByPurchaser_UsernameContainingIgnoreCase(String username);
+
 }

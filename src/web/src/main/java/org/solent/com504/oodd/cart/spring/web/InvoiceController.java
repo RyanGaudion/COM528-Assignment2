@@ -5,6 +5,7 @@
  */
 package org.solent.com504.oodd.cart.spring.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,10 @@ public class InvoiceController {
     @RequestMapping(value = {"/orders"}, method = RequestMethod.GET)
     @Transactional
     public String orders(Model model,
-            HttpSession session) {
+            HttpSession session,
+            @RequestParam(name = "action", required = false) String action,         
+            @RequestParam(name = "searchQuery", required = false) String searchQuery) {
+        
         String message = "";
         String errorMessage = "";
 
@@ -58,12 +62,19 @@ public class InvoiceController {
             errorMessage = "you must be an administrator to access users information";
             return "home";
         }
-
-        List<Invoice> invoiceList = invoiceRepo.findAll();
+        
+        List<Invoice> invoiceList;
+        if(action != null && action.equals("search")){
+            invoiceList = invoiceRepo.findByPurchaser_UsernameContainingIgnoreCase(searchQuery);
+        }
+        else{
+            invoiceList = invoiceRepo.findAll();
+        }
+        
 
         model.addAttribute("ordersListSize", invoiceList.size());
         model.addAttribute("ordersList", invoiceList);
-        model.addAttribute("selectedPage", "orders");
+        model.addAttribute("selectedPage", "adminOrders");
         return "orders";
     }
     
@@ -173,7 +184,7 @@ public class InvoiceController {
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("message", "Order " + modifyOrder.getId()+ " updated successfully");
 
-        model.addAttribute("selectedPage", "viewModifyUser");
+        model.addAttribute("selectedPage", "viewModifyOrder");
 
         return "viewModifyOrder";
     }
