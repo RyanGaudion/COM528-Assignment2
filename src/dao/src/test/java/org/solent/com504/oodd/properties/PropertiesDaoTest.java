@@ -1,16 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.solent.com504.oodd.properties;
-
-/**
- *
- * @author rgaud
- */
-/*
- * Copyright 2021 lholmes.
+ * Copyright 2021 rgaud.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +12,12 @@ package org.solent.com504.oodd.properties;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+package org.solent.com504.oodd.properties;
+
+/**
+ *
+ * @author rgaud
  */
 import java.io.File;
 import java.io.FileOutputStream;
