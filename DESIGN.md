@@ -109,7 +109,7 @@ Potential Additional Features (for future phases):
 ### Orders View
 - View all orders associated to account ✅
 - View status & price of order as well as products it contains ✅
-- Search orders to filter list down 
+- Search orders to filter list down ✅
 - As Admin - View all orders from all users ✅
 - As Admin - Edit status of order ✅
 
