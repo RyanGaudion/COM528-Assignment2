@@ -65,6 +65,11 @@ public class ShoppingCartImpl implements ShoppingCart {
         // ANSWER
         itemMap.remove(itemUuid);
     }
+    
+    @Override
+    public void clearCart() {
+        itemMap.clear();
+    }
 
     @Override
     public double getTotal() {

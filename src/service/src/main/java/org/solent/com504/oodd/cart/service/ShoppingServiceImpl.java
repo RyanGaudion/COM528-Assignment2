@@ -58,6 +58,22 @@ public class ShoppingServiceImpl implements ShoppingService {
     public List<ShoppingItem> getAvailableItems() {
         return shoppingItemRepo.findAll();
     }
+    
+    @Override 
+    public String checkStock(ShoppingCart cart){
+        for (OrderItem orderItem : cart.getShoppingCartItems()) {
+                //Fetch Item from DB first
+                ShoppingItem shoppingItem = shoppingItemRepo.findByName(orderItem.getItem().getName()).get(0);
+                if(shoppingItem != null){
+                    //Check Quantity
+                    if((shoppingItem.getQuantity() - orderItem.getQuantity()) < 0){
+                        return "Error for Item: " + shoppingItem.getName() + "   -  We only have " + shoppingItem.getQuantity() + " in stock and you're trying to order " + orderItem.getQuantity();
+                    }
+                }
+                LOG.info(shoppingItem);
+        }
+        return "";
+    }
 
     @Override
     public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser, Card purchaserCard) {
@@ -68,9 +84,7 @@ public class ShoppingServiceImpl implements ShoppingService {
             shoppingItem.setItem(shoppingItemRepo.findByName(shoppingItem.getItem().getName()).get(0));
             LOG.info(shoppingItem);
         }
-        
-        //ToDo - Start transaction
-        
+                
         //Create Invoice in DB
         Invoice newInvoice = new Invoice();
         newInvoice.setAmountDue(shoppingCart.getTotal());
@@ -85,9 +99,23 @@ public class ShoppingServiceImpl implements ShoppingService {
         if(result.getTransactionResponse().getStatus().toLowerCase().equals("success")){
             //If  success - save invoice
             invoiceRepo.save(newInvoice);
-            return true;
+            
             
             //Reduce Stock amount
+            for (OrderItem orderItem : newInvoice.getPurchasedItems()) {
+                //Fetch Item from DB first
+                ShoppingItem shoppingItem = shoppingItemRepo.findByName(orderItem.getItem().getName()).get(0);
+                if(shoppingItem != null){
+                    //Reduce Quantity
+                    shoppingItem.setQuantity(shoppingItem.getQuantity() - orderItem.getQuantity());
+                    shoppingItemRepo.save(shoppingItem);
+                }
+                LOG.info(shoppingItem);
+            } 
+            
+            //Empty Cart
+            shoppingCart.clearCart();
+            return true;
         }
         
         //If error return false

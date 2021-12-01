@@ -143,6 +143,7 @@ public class MVCController {
             errorMessage = result.getMessage();
         }
         else{
+            
             //Pay & Create Order
             Card card = new Card();
             if(!card.setCVV(cardcvv)){
@@ -161,12 +162,20 @@ public class MVCController {
                 errorMessage = "Invalid Card Name";
             }
             if(errorMessage.equals("")){
-                boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
-                if(!purchased){
-                    errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                
+                //Check stock
+                String stockMessage = shoppingService.checkStock(shoppingCart);
+                if(stockMessage.equals("")){
+                    boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
+                    if(!purchased){
+                        errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                    }
+                    else{
+                        message = "Successfully purchased items";
+                    }
                 }
                 else{
-                    message = "Successfully purchased items";
+                    errorMessage = stockMessage;
                 }
             }
         }

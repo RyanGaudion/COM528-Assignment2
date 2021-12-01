@@ -19,6 +19,7 @@
             <th>Item Name</th>
             <th>Price</th>
             <th>Quantity</th>
+
         </tr>
 
         <c:forEach var="orderItem" items="${shoppingCartItems}">

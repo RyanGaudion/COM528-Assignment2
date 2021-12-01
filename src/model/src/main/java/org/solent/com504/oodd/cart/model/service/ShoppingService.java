@@ -19,6 +19,7 @@ public interface ShoppingService {
         public List<ShoppingItem> getAvailableItems();        
         public List<ShoppingItem> searchAvailableItems(String searchQuery);
 
+        public String checkStock(ShoppingCart cart);
         
         public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser, Card purchaserCard);
         
