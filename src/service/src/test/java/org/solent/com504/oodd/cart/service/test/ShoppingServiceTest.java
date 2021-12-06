@@ -25,10 +25,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
+import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
 import org.solent.com504.oodd.cart.service.ServiceObjectFactory;
+import org.solent.com504.oodd.cart.service.ShoppingCartImpl;
 import org.solent.com504.oodd.cart.service.spring.test.ServiceTestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -40,6 +43,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ServiceTestConfiguration.class, loader = AnnotationConfigContextLoader.class)
 @Transactional
+@DependsOn({"populate-database"})
 public class ShoppingServiceTest {
     
     @Autowired
@@ -57,8 +61,50 @@ public class ShoppingServiceTest {
      * test get available items on the shopping service
      */
     @Test
-    public void testDAO(){
+    public void GetAllTest(){
         List<ShoppingItem> items = shoppingService.getAvailableItems();
-        assertTrue(items.size() > 0);
+        assertEquals(8, items.size());
+    }
+    
+    /*
+    * test the check stock method against a valid cart
+    */
+    @Test
+    public void CheckValidStockTest(){
+        ShoppingCart cart = new ShoppingCartImpl();
+        List<ShoppingItem> items = shoppingService.searchAvailableItems("cat");
+        cart.addItemToCart(items.get(0));
+        
+        assertEquals("", shoppingService.checkStock(cart));
+    }
+    
+    /*
+    * test the check stock method against a non-valid cart
+    */
+    @Test
+    public void CheckInValidStockTest(){
+        ShoppingCart cart = new ShoppingCartImpl();
+        List<ShoppingItem> items = shoppingService.searchAvailableItems("pen");
+        cart.addItemToCart(items.get(0));
+        
+        assertTrue(shoppingService.checkStock(cart).length() > 0);
+    }
+    
+    /**
+     * test search available items on the shopping service
+     */
+    @Test
+    public void SearchTest(){
+        List<ShoppingItem> items = shoppingService.searchAvailableItems("pen");
+        assertEquals(1, items.size());
+    }
+    
+    /**
+     * test get new item method
+     */
+    @Test
+    public void NewItemTest(){
+        ShoppingItem items = shoppingService.getNewItemByName("pen");
+        assertEquals((Integer)0, items.getQuantity());
     }
 }
