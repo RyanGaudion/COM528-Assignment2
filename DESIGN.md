@@ -164,3 +164,12 @@ Here is the robustness diagram for the whole system. Here we can see how each pa
 ![Use Cases](Diagrams/Robustness.drawio.png "Robustness Diagram")
 
 ## Sequence Diagram
+
+
+# Code Standards
+For this application I will use JavaDoc in order to comment all classes & methods in order to provide detailed explanation in what they do. I will also use JUnit to unit test all classes as well in order to maintain great test coverage.
+
+# Git & SDLC Strategy
+For this project I will keep track of my backlog through the use of Github Projects. I will then also setup a Continuous Integration pipeline within my Github Project in order to automatically build & test the application. By doing this I will be able to have my code tested before it is released. 
+
+In order to keep track of releases I will also be using Github Releases which natively use Git tags.
