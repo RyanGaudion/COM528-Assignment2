@@ -35,6 +35,6 @@ public interface ShoppingItemCatalogRepository  extends JpaRepository<ShoppingIt
      * @param name name of the item to find
      * @return items that match the search query
      */
-    @Query("select i from ShoppingItem i where i.name like %:name%")
+    @Query("select i from ShoppingItem i where lower(i.name) like lower(concat('%', :name,'%'))")
     public List<ShoppingItem> findByName(@Param("name")String name);
 }
