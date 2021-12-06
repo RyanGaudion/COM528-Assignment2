@@ -23,10 +23,21 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class PasswordUtils {
     
+    /**
+     * Hashes a password with BCrypt and a 12 round salt
+     * @param password string of password to hash
+     * @return string of hashed password
+     */
     public static String hashPassword(String password){
         return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
     
+    /**
+     * Checks a hashed password against a non-hashed password
+     * @param password string of unhashed password to check
+     * @param hashed hashed password to check against
+     * @return true if the passwords match
+     */
     public static boolean checkPassword(String password, String hashed){
         return BCrypt.checkpw(password, hashed);
     }

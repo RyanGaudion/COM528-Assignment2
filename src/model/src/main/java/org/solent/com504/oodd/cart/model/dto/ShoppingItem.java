@@ -39,61 +39,117 @@ public class ShoppingItem {
     private Double price=0.0;
     private String filename;
     
+    /**
+     * Empty Item constructor
+     */
     public ShoppingItem(){
         
     }
 
+    /**
+     *
+     * @param name
+     * @param price
+     */
     public ShoppingItem(String name, Double price) {
         this.name = name;
         this.price = price;
     }
 
+    /**
+     * Gets the unique ID of the Item
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets the ID of the item
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets the UUID of the item
+     * @return
+     */
     public String getUuid() {
         return uuid;
     }
 
+    /**
+     * Sets the UUID of the item
+     * @param uuuid
+     */
     public void setUuid(String uuuid) {
         this.uuid = uuuid;
     }
     
+    /**
+     * Gets the image filename of the item
+     * @return
+     */
     public String getFilename(){
         return filename;
     }
     
+    /**
+     * Sets the image filename of the item
+     * @param filename
+     */
     public void setFilename(String filename){
         this.filename = filename;
     }
 
+    /**
+     * Gets the name of the item
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the item
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the quantity in stock of the item
+     * @return
+     */
     public Integer getQuantity() {
         return quantity;
     }
 
+    /**
+     * Sets the quantity in stock of the item
+     * @param quantity
+     */
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     * Gets the price of the item
+     * @return
+     */
     public Double getPrice() {
         return price;
     }
 
+    /** 
+     * Sets the price of the item
+     * @param price
+     */
     public void setPrice(Double price) {
         this.price = price;
     }

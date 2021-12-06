@@ -29,6 +29,9 @@ public class Transaction {
     private Boolean isRefund = false;
     final static Logger logger = LogManager.getLogger(Transaction.class);
     
+    /**
+     * Empty constructor for transaction
+     */
     public Transaction(){
         
     }
@@ -69,6 +72,7 @@ public class Transaction {
     
     /**
      * Sets the transaction request if it's not null
+     * @param request
      * @return true if the request was not null
      */
     public boolean setTransactionRequest(TransactionRequest request){
@@ -82,6 +86,7 @@ public class Transaction {
     
     /**
      * Sets the transaction response if it's not null
+     * @param response
      * @return true if the response was not null
      */
     public boolean setTransactionResponse(TransactionResponse response){
@@ -95,6 +100,7 @@ public class Transaction {
     
     /**
      * Sets if this transaction is a refund or has been refunded
+     * @param refunded
      * @return true if the value has been set successfully
      */
     public Boolean setIsRefund(Boolean refunded){

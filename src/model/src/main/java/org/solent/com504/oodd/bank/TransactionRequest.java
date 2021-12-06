@@ -40,8 +40,8 @@ public class TransactionRequest {
     
     /**
      * Quick Constructor which sets or necessary properties
-     * @param from fromCard for the transaction
-     * @param to toCard for the transaction
+     * @param card1
+     * @param d
      * @param amount amount for the transaction as a double
      */
     public TransactionRequest(Card from, Card to, Double amount){

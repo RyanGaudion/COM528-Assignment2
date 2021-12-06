@@ -21,6 +21,19 @@ package org.solent.com504.oodd.cart.model.dto;
  */
 public enum InvoiceStatus {
 
-    BACKLOG, PROCESSING, COMPLETE
+    /**
+     * Order has just been received
+     */
+    BACKLOG,
+
+    /**
+     * Order is being processing
+     */
+    PROCESSING,
+
+    /**
+     * Order has been complete
+     */
+    COMPLETE
 }
 

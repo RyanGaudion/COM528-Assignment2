@@ -37,6 +37,9 @@ public class TransactionResponse {
 
     final static Logger logger = LogManager.getLogger(TransactionResponse.class);
     
+    /**
+     * Empty Constructor
+     */
     public TransactionResponse(){
         
     }

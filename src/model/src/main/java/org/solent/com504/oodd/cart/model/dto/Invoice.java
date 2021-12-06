@@ -25,6 +25,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+/**
+ *
+ * @author rgaud
+ */
 @Entity
 public class Invoice {
 
@@ -42,62 +46,118 @@ public class Invoice {
 
     private User purchaser;
 
+    /**
+     *
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
 
+    /**
+     * Unique ID of the invoice
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * get the state the invoice is in
+     * @return
+     */
     public InvoiceStatus getInvoiceStatus(){
         return invoiceStatus;
     }
     
+    /**
+     * set the state of the invoice
+     * @param status
+     */
     public void setInvoiceStatus(InvoiceStatus status){
         this.invoiceStatus = status;
     }
     
+    /**
+     * get the invoice's number
+     * @return
+     */
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
 
+    /**
+     * set the invoice's number
+     * @param invoiceNumber
+     */
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
 
+    /**
+     * gets the date of the invoice purchase 
+     * @return
+     */
     public Date getDateOfPurchase() {
         return dateOfPurchase;
     }
 
+    /**
+     * sets the date of the invoice purchase
+     * @param dateOfPurchase
+     */
     public void setDateOfPurchase(Date dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     }
 
+    /**
+     * gets the total cost of the invoice
+     * @return
+     */
     public Double getAmountDue() {
         return amountDue;
     }
 
+    /**
+     * sets the total cost of the invoice
+     * @param amountDue
+     */
     public void setAmountDue(Double amountDue) {
         this.amountDue = amountDue;
     }
 
+    /**
+     * gets a list of all purchased items 
+     * @return
+     */
     @OneToMany(cascade = CascadeType.PERSIST) 
     public List<OrderItem> getPurchasedItems() {
         return purchasedItems;
     }
 
+    /**
+     * sets the list of items purchased
+     * @param purchasedItems
+     */
     public void setPurchasedItems(List<OrderItem> purchasedItems) {
         this.purchasedItems = purchasedItems;
     }
 
+    /**
+     * gets the user that ordered the items
+     * @return
+     */
     @OneToOne
     public User getPurchaser() {
         return purchaser;
     }
 
+    /**
+     * sets the user that ordered the items 
+     * @param purchaser
+     */
     public void setPurchaser(User purchaser) {
         this.purchaser = purchaser;
     }

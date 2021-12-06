@@ -26,13 +26,40 @@ import org.solent.com504.oodd.cart.model.dto.User;
  */
 public interface ShoppingService {
     
-        public List<ShoppingItem> getAvailableItems();        
-        public List<ShoppingItem> searchAvailableItems(String searchQuery);
+    /**
+     * Gets all items available 
+     * @return list of all items
+     */
+    public List<ShoppingItem> getAvailableItems();        
 
-        public String checkStock(ShoppingCart cart);
+    /**
+     * Filters down all items by the search query
+     * @param searchQuery name of item to filter by
+     * @return a filtered list of all items 
+     */
+    public List<ShoppingItem> searchAvailableItems(String searchQuery);
+
+    /**
+     * Checks all items in a cart to make sure there is enough of each item in stock
+     * @param cart cart to check the stock of
+     * @return an error message if an item is not in stock
+     */
+    public String checkStock(ShoppingCart cart);
         
-        public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser, Card purchaserCard);
+    /**
+     * Sends the bank request, reduces stock count and adds the order to the DB
+     * @param shoppingCart cart of items to purchase 
+     * @param purchaser user to purchase the items
+     * @param purchaserCard card to pay for the items with
+     * @return true if successful
+     */
+    public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser, Card purchaserCard);
         
-        public ShoppingItem getNewItemByName(String uuid);
+    /**
+     * Get a new item by name
+     * @param name of the item to get 
+     * @return the item found 
+     */
+    public ShoppingItem getNewItemByName(String name);
 
 }

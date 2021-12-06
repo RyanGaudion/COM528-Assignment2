@@ -23,16 +23,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * An order item is a link between an order (invoice) and a SHopping item - 
+ * allowing us to set the quantity ordered seperate to 
+ * the shopping item stock count
  * @author rgaud
  */
 @Entity
 public class OrderItem {
     
+    /**
+     * Empty constructor
+     */
     public OrderItem(){
         
     }
     
+    /**
+     *
+     * @param item
+     * @param quantity
+     */
     public OrderItem(ShoppingItem item, int quantity){
         this.item = item;
         this.quantity = quantity;
@@ -44,30 +54,53 @@ public class OrderItem {
     
     private Long id;
         
-    
+    /**
+     * Gets the unique ID of the order item
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets the unique ID of the order item
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
         
+    /**
+     * Gets the item ordered
+     * @return
+     */
     @OneToOne
     public ShoppingItem getItem() {
         return item;
     }
 
+    /**
+     * Sets the item ordered
+     * @param item
+     */
     public void setItem(ShoppingItem item) {
         this.item = item;
     }
 
+    /**
+     * Gets the quantity ordered
+     * @return
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     * Sets the quantity ordered
+     * @param quantity
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }

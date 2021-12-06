@@ -25,14 +25,33 @@ import org.solent.com504.oodd.cart.model.dto.OrderItem;
  */
 public interface ShoppingCart {
 
+    /**
+     * Gets all items from the cart
+     * @return a list of all items
+     */
     public List<OrderItem> getShoppingCartItems();
     
+    /**
+     * Adds a specific item to the cart
+     * @param shoppingItem item to add 
+     */
     public void addItemToCart(ShoppingItem shoppingItem);
     
+    /**
+     * Removes a specific item from the cart
+     * @param itemUuid UUID of the item to remove
+     */
     public void removeItemFromCart(String itemUuid);
 
+    /**
+     * Empties the content of the cart
+     */
     public void clearCart();
     
+    /**
+     * Gets the total cost of the cart
+     * @return total price as double
+     */
     public double getTotal();
     
 }

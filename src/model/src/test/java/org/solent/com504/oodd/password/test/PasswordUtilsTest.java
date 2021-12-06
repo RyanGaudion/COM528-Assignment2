@@ -29,6 +29,9 @@ public class PasswordUtilsTest {
 
     final static Logger LOG = LogManager.getLogger(PasswordUtilsTest.class);
 
+    /**
+     * Tests the hashing and checking of passwords
+     */
     @Test
     public void testPasswordUtils() {
 

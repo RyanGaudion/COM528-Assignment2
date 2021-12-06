@@ -35,6 +35,9 @@ public enum CardCompany {
     JCB("^(?:2131|1800|35\\d{3})\\d{11}$"),
     CHINA_UNION_PAY("^62[0-9]{14,17}$");
 
+    /**
+     * Gets logger for card company class
+     */
     public static Logger logger = LogManager.getLogger(CardCompany.class);
     private Pattern pattern;
 

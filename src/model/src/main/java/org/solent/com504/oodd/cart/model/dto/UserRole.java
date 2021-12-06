@@ -15,7 +15,24 @@
  */
 package org.solent.com504.oodd.cart.model.dto;
 
+/**
+ *
+ * @author rgaud
+ */
 public enum UserRole {
 
-    ANONYMOUS, CUSTOMER, ADMINISTRATOR
+    /**
+     * Non-logged in user 
+     */
+    ANONYMOUS,
+
+    /**
+     * Logged in user
+     */
+    CUSTOMER,
+
+    /**
+     * Logged in user with Admin rights
+     */
+    ADMINISTRATOR
 }
