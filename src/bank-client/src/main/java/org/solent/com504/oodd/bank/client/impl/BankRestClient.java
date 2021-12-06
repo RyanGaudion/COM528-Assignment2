@@ -64,6 +64,9 @@ public class BankRestClient implements IBankRestClient {
 
     }
 
+    /**
+     * Sets up logging and grabs the url string for the client
+     */
     @PostConstruct
     public void init() {
         logger.info("Properties: " + properties);

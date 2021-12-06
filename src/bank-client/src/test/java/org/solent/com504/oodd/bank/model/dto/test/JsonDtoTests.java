@@ -36,6 +36,9 @@ public class JsonDtoTests {
 
     ObjectMapper objectMapper = null;
 
+    /**
+     * Before the tests - setup the object mapper
+     */
     @Before
     public void before() {
         objectMapper = new ObjectMapper();
@@ -44,6 +47,10 @@ public class JsonDtoTests {
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
+    /**
+     * Test the mapping of objects to JSON
+     * @throws JsonProcessingException
+     */
     @Test
     public void testJsonMessages() throws JsonProcessingException {
         TransactionRequest trequest = new TransactionRequest();
