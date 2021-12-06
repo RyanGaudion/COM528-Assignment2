@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- *
+ * Spring configuration for the service project
  * @author cgallen
  */
 @Configuration

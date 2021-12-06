@@ -59,6 +59,9 @@ public class PopulateDatabaseOnStart {
     @Autowired
     private ShoppingItemCatalogRepository catalogRepo;
     
+    /**
+     * Method that adds initial users, catalog items & orders to the system
+     */
     @PostConstruct
     public void initDatabase() {
         LOG.debug("initialising database with startup values");

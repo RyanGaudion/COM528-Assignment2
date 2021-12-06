@@ -45,11 +45,17 @@ public class ShoppingServiceTest {
     @Autowired
     ShoppingService shoppingService;
     
+    /**
+     * Test shopping service is not null
+     */
     @Test
     public void test1() {
         assertNotNull(shoppingService);
     }
     
+    /**
+     * test get available items on the shopping service
+     */
     @Test
     public void testDAO(){
         List<ShoppingItem> items = shoppingService.getAvailableItems();

@@ -31,10 +31,18 @@ public class ServiceObjectFactory {
         
     }
     
+    /**
+     * Gets shopping service from static
+     * @return shopping service
+     */
     public static ShoppingService getShoppingService(){
         return shoppingService;
     }
     
+    /**
+     * Returns a new shopping cart
+     * @return shopping cart 
+     */
     public static ShoppingCart getNewShoppingCart(){
         return new ShoppingCartImpl();
     }

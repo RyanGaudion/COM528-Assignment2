@@ -33,13 +33,18 @@ import org.solent.com504.oodd.cardchecker.CardValidationResult;
  */
 public class CardCheckerTest {
 
+
     public static Logger logger = LogManager.getLogger(CardCheckerTest.class);
     static List<Entry<CardCompany, String>> cards = new ArrayList<>();
     static String[] invalidCards;
 
+
     public CardCheckerTest() {
     }
 
+    /**
+     * Setup classes for tests
+     */
     @Before
     public void setUpClass() {
         logger.debug(CardCheckerTest.class + " Setup the test");
@@ -48,7 +53,7 @@ public class CardCheckerTest {
     }
 
     /**
-     * Test of isValid method, of class CardChecker.
+     * Test of isValid method, of class CardChecker. Checks bad card inputs
      */
     @Test
     public void testCheckValidityBadInputs() {
@@ -61,7 +66,7 @@ public class CardCheckerTest {
     }
 
     /**
-     * Test of isValid method, of class CardChecker.
+     * Test of isValid method, of class CardChecker. Checks all cards
      */
     @Test
     public void testCheckValidity() {

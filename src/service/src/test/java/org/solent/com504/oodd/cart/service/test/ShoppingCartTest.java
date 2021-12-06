@@ -36,17 +36,26 @@ public class ShoppingCartTest {
 
     ShoppingCart shoppingCart = null;
 
+    /**
+     * Setup shopping cart for test
+     */
     @Before
     public void before() {
         shoppingCart = ServiceObjectFactory.getNewShoppingCart();
         shoppingCart.getShoppingCartItems().clear();
     }
 
+    /**
+     * test cart is not null
+     */
     @Test
     public void test1() {
         assertNotNull(shoppingCart);
     }
 
+    /**
+     * test functionality of shopping cart
+     */
     @Test
     public void testshoppingcart() {
         assertNotNull(shoppingCart);
@@ -63,6 +72,4 @@ public class ShoppingCartTest {
         assertEquals(1, shoppingCart.getShoppingCartItems().size() );
 
     }
-
-    // add your own tests here
 }

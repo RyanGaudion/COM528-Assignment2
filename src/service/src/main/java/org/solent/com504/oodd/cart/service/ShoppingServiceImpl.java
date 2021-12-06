@@ -59,16 +59,27 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Autowired
     IBankingService bankingService;
 
+    /**
+     * empty constructor
+     */
     public ShoppingServiceImpl() {
 
     }
 
-    
+    /**
+     * Gets all items available from catalog in DB
+     * @return all items in list
+     */
     @Override
     public List<ShoppingItem> getAvailableItems() {
         return shoppingItemRepo.findAll();
     }
     
+    /**
+     * Validates a shopping cart against the stock count in the DB
+     * @param cart cart to check the stock of
+     * @return empty if fine or error message if item is out of stock/not got enough in stock
+     */
     @Override 
     public String checkStock(ShoppingCart cart){
         for (OrderItem orderItem : cart.getShoppingCartItems()) {
@@ -85,6 +96,13 @@ public class ShoppingServiceImpl implements ShoppingService {
         return "";
     }
 
+    /**
+     * Purchase items by sending money, reducing stock count & emptying cart
+     * @param shoppingCart cart to purchase
+     * @param purchaser user to purchase as
+     * @param purchaserCard card of the user to purchase with
+     * @return true if success
+     */
     @Override
     public boolean purchaseItems(ShoppingCart shoppingCart, User purchaser, Card purchaserCard) {
         LOG.info("purchased items:");
@@ -132,6 +150,11 @@ public class ShoppingServiceImpl implements ShoppingService {
         return false;
     }
 
+    /**
+     * Gets a new Shopping Item by name
+     * @param name name of the item to get 
+     * @return returns new shopping item
+     */
     @Override
     public ShoppingItem getNewItemByName(String name) {
         ShoppingItem templateItem = shoppingItemRepo.findByName(name).get(0);
@@ -146,6 +169,11 @@ public class ShoppingServiceImpl implements ShoppingService {
         return item;
     }
 
+    /**
+     * searches all catalog items by name
+     * @param searchQuery query to search with
+     * @return search results as a list of shopping items
+     */
     @Override
     public List<ShoppingItem> searchAvailableItems(String searchQuery) {
         if(searchQuery == null || searchQuery.length() == 0){

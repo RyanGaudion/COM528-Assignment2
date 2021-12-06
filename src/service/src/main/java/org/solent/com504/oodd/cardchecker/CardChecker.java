@@ -27,6 +27,9 @@ import org.apache.logging.log4j.LogManager;
  */
 public class CardChecker {
 
+    /**
+     * Gets the logger for the class
+     */
     public static Logger logger = LogManager.getLogger(CardChecker.class);
 
     /**

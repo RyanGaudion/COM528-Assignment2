@@ -24,7 +24,7 @@ import org.springframework.context.annotation.PropertySource;
 
 
 /**
- *
+ * Service test Config for Spring
  * @author cgallen
  */
 @Configuration

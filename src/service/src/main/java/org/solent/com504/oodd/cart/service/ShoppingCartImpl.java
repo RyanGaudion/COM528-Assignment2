@@ -34,6 +34,10 @@ public class ShoppingCartImpl implements ShoppingCart {
 
     private static final Logger LOG = LogManager.getLogger(ShoppingCartImpl.class);   
     
+    /**
+     * Get all shopping items from the cart
+     * @return list of all order items
+     */
     @Override
     public List<OrderItem> getShoppingCartItems() {
         List<OrderItem> itemlist = new ArrayList();
@@ -46,6 +50,10 @@ public class ShoppingCartImpl implements ShoppingCart {
         return itemlist;
     }
 
+    /**
+     * Adds an item to the cart 
+     * @param shoppingItem item to add to cart
+     */
     @Override
     public void addItemToCart(ShoppingItem shoppingItem) {
         // itemMap.put(shoppingItem.getUuid(), shoppingItem);
@@ -69,6 +77,10 @@ public class ShoppingCartImpl implements ShoppingCart {
         }
     }
 
+    /**
+     * Removes an item from the cart
+     * @param itemUuid UUID of the item to remove
+     */
     @Override
     public void removeItemFromCart(String itemUuid) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -76,11 +88,18 @@ public class ShoppingCartImpl implements ShoppingCart {
         itemMap.remove(itemUuid);
     }
     
+    /**
+     * Removes all items from the cart (Used after an order is successful)
+     */
     @Override
     public void clearCart() {
         itemMap.clear();
     }
 
+    /**
+     * Gets the total cost of the cart
+     * @return total cost as double
+     */
     @Override
     public double getTotal() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
