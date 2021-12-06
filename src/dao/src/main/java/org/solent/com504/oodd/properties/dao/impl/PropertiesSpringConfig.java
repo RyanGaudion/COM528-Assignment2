@@ -19,7 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- *
+ * Sets up Spring for the properties services in the DAO project
  * @author rgaud
  */
 @Configuration

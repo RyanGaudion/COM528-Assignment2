@@ -45,6 +45,10 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ *
+ * @author rgaud
+ */
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class PropertiesDao {
@@ -56,6 +60,9 @@ public class PropertiesDao {
 
     private Properties properties = new Properties();
 
+    /**
+     * Setup the properties DAO to the java tmp directory
+     */
     public PropertiesDao() {
         String tempDir = System.getProperty("java.io.tmpdir");
         File propertiesFileLocal = new File(tempDir + "/application.properties");
@@ -79,10 +86,21 @@ public class PropertiesDao {
     }
 
     // synchronized ensures changes are not made by another thread while reading
+
+    /**
+     * Gets a property value by name
+     * @param propertyName name of the property to find
+     * @return value of property
+     */
     public synchronized String getProperty(String propertyName) {
         return properties.getProperty(propertyName);
     }
 
+    /**
+     * Sets a property value
+     * @param propertyKey key/name of the property
+     * @param propertyValue value to set for the property
+     */
     public synchronized void setProperty(String propertyKey, String propertyValue) {
         properties.setProperty(propertyKey, propertyValue);
         saveProperties();

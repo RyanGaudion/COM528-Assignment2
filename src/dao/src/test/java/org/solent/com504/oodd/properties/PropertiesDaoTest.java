@@ -37,7 +37,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-
+/**
+ *
+ * @author rgaud
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 // ApplicationContext will be loaded from the OrderServiceConfig class
 @ContextConfiguration(classes = DAOTestConfiguration.class, loader = AnnotationConfigContextLoader.class)
@@ -47,23 +50,18 @@ public class PropertiesDaoTest {
     private File propertiesFile;
     private Properties properties = new Properties();
     
+    /**
+     * Properties DAO automatically wired
+     */
     @Autowired
     public PropertiesDao propertiesDao;
+
     
-    public synchronized void setProperty(String propertyKey, String propertyValue) {
-        properties.setProperty(propertyKey, propertyValue);
-        //savePropertiesTest();
-    }
-
-    public synchronized String getProperty(String propertyName) {
-        return properties.getProperty(propertyName);
-    }
-
-    @Test
     /**
      * Find and load the default properties file. Expected: Pass. Find default
      * props file and load.
      */
+    @Test
     public void loadDefaultPropertiesTest() {
         InputStream input = null;
         try {
@@ -85,12 +83,12 @@ public class PropertiesDaoTest {
             }
         }
     }
-
-    @Test
+    
     /**
      * Test saving properties to temp properties file Expected: New prop values
      * saves to temp file.
      */
+    @Test
     public void savePropertiesTest() {
         
         try (OutputStream output = new FileOutputStream("tomcat/apache-tomcat-9.0.53/temp")) {

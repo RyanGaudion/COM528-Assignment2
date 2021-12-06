@@ -23,8 +23,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repo for accessing Shopping Items in DB
+ * @author rgaud
+ */
 @Repository
 public interface ShoppingItemCatalogRepository  extends JpaRepository<ShoppingItem,Long>{
+
+    /**
+     * Find shopping items by name
+     * @param name name of the item to find
+     * @return items that match the search query
+     */
     @Query("select i from ShoppingItem i where i.name like %:name%")
     public List<ShoppingItem> findByName(@Param("name")String name);
 }

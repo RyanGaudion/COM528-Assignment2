@@ -51,6 +51,10 @@ public class BankingService implements IBankingService{
     final static Logger logger = LogManager.getLogger(BankingService.class);    
     final static Logger TransactionLogger = LogManager.getLogger("Transaction_Logger");
     
+    /**
+     *
+     * @param properties
+     */
     public BankingService(PropertiesDao properties){
         apiUsername = properties.getProperty("org.solent.oodd.pos.service.apiUsername");
         apiPassword = properties.getProperty("org.solent.oodd.pos.service.apiPassword");

@@ -59,6 +59,9 @@ public class InvoiceRepositoryTest {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
+    /**
+     * Tests adding of invoices to the DB and the retrieval too
+     */
     @Test
     public void testInvoice() {
         LOG.debug("****************** starting test");

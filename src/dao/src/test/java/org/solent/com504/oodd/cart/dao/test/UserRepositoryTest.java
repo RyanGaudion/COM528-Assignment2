@@ -53,6 +53,9 @@ public class UserRepositoryTest {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
+    /**
+     * tests the adding and retrieval of a user from the DB 
+     */
     @Test
     public void testUser() {
         LOG.debug("****************** starting test");

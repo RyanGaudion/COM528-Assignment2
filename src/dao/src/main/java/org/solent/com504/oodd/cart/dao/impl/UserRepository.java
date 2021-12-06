@@ -23,15 +23,26 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * User repo for accessing user objects from DB
  * @author cgallen
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    /**
+     * Find a user by username
+     * @param username username string to search by
+     * @return matching user
+     */
     @Query("select u from User u where u.username = :username")
     public List<User> findByUsername(@Param("username")String username);
 
+    /** 
+     * Find a user by names (First & last)
+     * @param firstName first name of the user 
+     * @param secondName last name of the user
+     * @return list of matching users
+     */
     @Query("select u from User u where u.firstName = :firstName and u.secondName = :secondName")
     public List<User> findByNames(@Param("firstName") String firstName, @Param("secondName") String secondName);
 

@@ -24,10 +24,25 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Invoice/Orders repo for DB
+ * @author rgaud
+ */
 @Repository
 public interface InvoiceRepository  extends JpaRepository<Invoice,Long>{
+
+    /**
+     * Finds all invoice by a specific User's ID
+     * @param id ID of the user to search by
+     * @return a list of invoices
+     */
     public List<Invoice> findByPurchaser_Id(Long id);
     
+    /**
+     * Finds all invoices by a search string that searches against username
+     * @param username username search string
+     * @return all invoice that user's username matches the search string
+     */
     public List<Invoice> findByPurchaser_UsernameContainingIgnoreCase(String username);
 
 }

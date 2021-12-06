@@ -54,6 +54,9 @@ public class ShoppingItemCatalogRepositoryTest {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
+    /**
+     * Tests the adding & finding of catalog items to & from the DB
+     */
     @Test
     public void testCatalog() {
         LOG.debug("****************** starting test");

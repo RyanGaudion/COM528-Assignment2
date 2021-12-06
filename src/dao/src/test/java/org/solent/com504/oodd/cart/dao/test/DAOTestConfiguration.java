@@ -23,7 +23,7 @@ import org.springframework.context.annotation.PropertySource;
 
 
 /**
- *
+ * Sets up test config for DAO project
  * @author cgallen
  */
 @Configuration
