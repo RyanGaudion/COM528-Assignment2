@@ -54,10 +54,10 @@ public class ShoppingCartTest {
     }
 
     /**
-     * test functionality of shopping cart
+     * tests GetItems functionality
      */
     @Test
-    public void testshoppingcart() {
+    public void GetItemsTest() {
         assertNotNull(shoppingCart);
         
         List<OrderItem> items = shoppingCart.getShoppingCartItems();
@@ -66,10 +66,104 @@ public class ShoppingCartTest {
         
         ShoppingItem shoppingItem = new ShoppingItem();
         shoppingItem.setName("fred");
+        shoppingItem.setUuid("a1");
         
         shoppingCart.addItemToCart(shoppingItem);
         
         assertEquals(1, shoppingCart.getShoppingCartItems().size() );
+    }
+    
+     /**
+     * tests Add items functionality
+     */
+    @Test
+    public void AddItemsTest() {
+        
+        ShoppingItem shoppingItem = new ShoppingItem();
+        shoppingItem.setName("fred");
+        shoppingItem.setUuid("b1");
+        ShoppingItem shoppingItem2 = new ShoppingItem();
+        shoppingItem2.setName("fred2");
+        shoppingItem2.setUuid("b2");
+        
+        shoppingCart.addItemToCart(shoppingItem);        
+        shoppingCart.addItemToCart(shoppingItem2);
 
+        assertEquals(2, shoppingCart.getShoppingCartItems().size() );
+    }
+    
+    /**
+     * tests Remove Items
+     */
+    @Test
+    public void RemoveItemsTest() {
+        
+        ShoppingItem shoppingItem = new ShoppingItem();
+        shoppingItem.setName("fred");
+        shoppingItem.setUuid("c1");
+        ShoppingItem shoppingItem2 = new ShoppingItem();
+        shoppingItem2.setName("fred3");
+        shoppingItem2.setUuid("c2");
+        
+        shoppingCart.addItemToCart(shoppingItem);        
+        shoppingCart.addItemToCart(shoppingItem2);
+
+        assertEquals(2, shoppingCart.getShoppingCartItems().size() );
+        
+        shoppingCart.removeItemFromCart("c2");
+        
+        assertEquals(1, shoppingCart.getShoppingCartItems().size() );
+    }
+    
+    /**
+     * tests Clear Cart
+     */
+    @Test
+    public void ClearItemsTest() {
+        
+        ShoppingItem shoppingItem = new ShoppingItem();
+        shoppingItem.setName("fred");
+        shoppingItem.setUuid("d1");
+        ShoppingItem shoppingItem2 = new ShoppingItem();
+        shoppingItem2.setName("fred2");
+        shoppingItem2.setUuid("d2");
+        
+        shoppingCart.addItemToCart(shoppingItem);        
+        shoppingCart.addItemToCart(shoppingItem2);
+
+        assertEquals(2, shoppingCart.getShoppingCartItems().size() );
+        
+        shoppingCart.clearCart();
+        
+        assertEquals(0, shoppingCart.getShoppingCartItems().size() );
+    }
+    
+    /**
+     * tests Get total
+     */
+    @Test
+    public void GetTotalTest() {
+        
+        ShoppingItem shoppingItem = new ShoppingItem();
+        shoppingItem.setName("fred");
+        shoppingItem.setUuid("e1");
+        shoppingItem.setPrice(4.00);
+        ShoppingItem shoppingItem2 = new ShoppingItem();
+        shoppingItem2.setName("fred2");
+        shoppingItem2.setPrice(6.00);
+        shoppingItem2.setUuid("e2");
+        
+        shoppingCart.addItemToCart(shoppingItem);        
+        shoppingCart.addItemToCart(shoppingItem2);        
+        shoppingCart.addItemToCart(shoppingItem2);
+
+
+        assertEquals(2, shoppingCart.getShoppingCartItems().size() );        
+        assertEquals(1, shoppingCart.getShoppingCartItems().get(0).getQuantity() );        
+        assertEquals(2, shoppingCart.getShoppingCartItems().get(1).getQuantity() );
+
+
+        
+        assertEquals(16.00, shoppingCart.getTotal(), 0);
     }
 }

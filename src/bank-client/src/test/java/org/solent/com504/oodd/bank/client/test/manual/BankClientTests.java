@@ -57,11 +57,6 @@ public class BankClientTests {
      * Before the Tests are performed a default fromCard, toCard
      * as well as Username and password are setup
      */
-
-    /**
-     *
-     */
-
     @Before
     public void before() {
         fromCard = new Card();
