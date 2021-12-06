@@ -29,6 +29,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ *
+ * @author rgaud
+ */
 @Configuration
 @Import({ServiceConfiguration.class, PropertiesSpringConfig.class})
 
@@ -36,6 +40,11 @@ import org.springframework.web.context.WebApplicationContext;
 public class SpringBootJspConfiguration {
 
     // see https://www.baeldung.com/spring-mvc-session-attributes
+
+    /**
+     * Wires up the Shopping Cart to the Service Object Factory
+     * @return a singleton of the shopping cart scoped to the session
+     */
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_SESSION,
             proxyMode = ScopedProxyMode.TARGET_CLASS)

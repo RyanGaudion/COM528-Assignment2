@@ -55,6 +55,14 @@ public class InvoiceController {
         return sessionUser;
     }
     
+    /**
+     * Gets all orders for the orders page
+     * @param model
+     * @param session
+     * @param action either no action or search
+     * @param searchQuery query to search/filter the orders by
+     * @return the order page with either all or searched orders
+     */
     @RequestMapping(value = {"/orders"}, method = RequestMethod.GET)
     @Transactional
     public String orders(Model model,
@@ -88,6 +96,12 @@ public class InvoiceController {
         return "orders";
     }
     
+    /**
+     * Gets the orders page of only the user's orders
+     * @param model
+     * @param session
+     * @return orders page
+     */
     @RequestMapping(value = {"/myOrders"}, method = RequestMethod.GET)
     @Transactional
     public String myOrders(Model model,
@@ -106,6 +120,13 @@ public class InvoiceController {
         return "orders";
     }
     
+    /**
+     * Gets the viewmodifyorder page
+     * @param orderid the id of the order to edit
+     * @param model
+     * @param session
+     * @return the viewmodifyorder page
+     */
     @RequestMapping(value = {"/viewModifyOrder"}, method = RequestMethod.GET)
     public String viewOrder(
             @RequestParam(value = "orderid", required = true) Long orderid,
@@ -144,7 +165,14 @@ public class InvoiceController {
         return "viewModifyOrder";
     }
     
-    
+    /**
+     * POST request for modifying an order
+     * @param id ID of the order to modify
+     * @param orderStatus new order status for the order
+     * @param model
+     * @param session
+     * @return the viewmodifyorder page
+     */
     @RequestMapping(value = {"/viewModifyOrder"}, method = RequestMethod.POST)
     public String modifyOrder(
             @RequestParam(value = "id", required = true) Long id,            

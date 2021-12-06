@@ -19,19 +19,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import org.apache.commons.io.FilenameUtils;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
-import org.solent.com504.oodd.cart.model.dto.Address;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
@@ -68,7 +61,12 @@ public class CatalogController {
         return sessionUser;
     }
     
-    
+    /**
+     * Get the list of all users from the DB
+     * @param model
+     * @param session
+     * @return catalog page
+     */
     @RequestMapping(value = {"/catalog"}, method = RequestMethod.GET)
     @Transactional
     public String users(Model model, HttpSession session) {
@@ -91,6 +89,13 @@ public class CatalogController {
         return "catalog";
     }
     
+    /**
+     * Gets the modify Item page
+     * @param itemID ID of the item to edit
+     * @param model
+     * @param session
+     * @return the view modify item page
+     */
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.GET)
     public String modifyItem(
             @RequestParam(value = "itemID", required = true) Long itemID,
@@ -122,6 +127,12 @@ public class CatalogController {
         return "viewModifyItem";
     }
     
+    /**
+     * Gets an empty viewmodifyItem page - to be able to create a new item
+     * @param model
+     * @param session
+     * @return the viewmModifyItem page
+     */
     @RequestMapping(value = {"/createItem"}, method = RequestMethod.GET)
     public String createItem(
             Model model,
@@ -142,6 +153,17 @@ public class CatalogController {
         return "viewModifyItem";
     }
 
+    /**
+     * POST request to update or create a catalog item
+     * @param newName name from the page form
+     * @param itemId ID of the Item if editing
+     * @param newPrice price from the page form
+     * @param newQuantity quantity from the page form
+     * @param file image file if uploaded
+     * @param model
+     * @param session
+     * @return the viewmodifyitem pag
+     */
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.POST)
     public String updateItem(
             @RequestParam(value = "name", required = true) String newName,            

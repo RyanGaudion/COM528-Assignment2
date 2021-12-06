@@ -51,6 +51,17 @@ public class PropertiesController {
         return sessionUser;
     }
     
+    /**
+     * Get & Post method for the properties page
+     * @param action either empty or update properties
+     * @param url new value for the url property
+     * @param username new value for the username property
+     * @param password new value for the password property
+     * @param shopKeeperCard new value for the shop keeper's card property
+     * @param model
+     * @param session
+     * @return the properties page
+     */
     @RequestMapping(value = "/properties", method = {RequestMethod.GET, RequestMethod.POST})
     public String propertiesPage(
             @RequestParam(name = "action", required = false) String action,            

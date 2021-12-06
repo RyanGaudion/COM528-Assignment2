@@ -35,6 +35,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ *
+ * @author rgaud
+ */
 @Controller
 @RequestMapping("/")
 public class UserAndLoginController {
@@ -55,6 +59,12 @@ public class UserAndLoginController {
         return sessionUser;
     }
 
+    /**
+     * Logout GET and POST method
+     * @param model
+     * @param session
+     * @return redirects to the home page
+     */
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(Model model,
             HttpSession session) {
@@ -66,6 +76,12 @@ public class UserAndLoginController {
         return "redirect:/home";
     }
 
+    /**
+     * Login Get method
+     * @param model
+     * @param session
+     * @return login page
+     */
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
     @Transactional
     public String login(
@@ -93,6 +109,16 @@ public class UserAndLoginController {
 
     }
 
+    /**
+     * Login POST method - for either
+     * @param action login action
+     * @param username username of user to login as
+     * @param password password of user to login as
+     * @param password2 unused variable
+     * @param model
+     * @param session
+     * @return home page
+     */
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
     @Transactional
     public String login(@RequestParam(value = "action", required = false) String action,
@@ -173,6 +199,16 @@ public class UserAndLoginController {
         }
     }
 
+    /**
+     * Register get method
+     * @param action not used
+     * @param username not used 
+     * @param password not used 
+     * @param password2 not used
+     * @param model
+     * @param session
+     * @return register page
+     */
     @RequestMapping(value = "/register", method = {RequestMethod.GET})
     @Transactional
     public String registerGET(@RequestParam(value = "action", required = false) String action,
@@ -194,6 +230,16 @@ public class UserAndLoginController {
         return "register";
     }
 
+    /**
+     * POST method for the register page
+     * @param action to be set to "createNewAccount"
+     * @param username new username to create account for
+     * @param password new password for the new account
+     * @param password2 second confirmation of password
+     * @param model
+     * @param session
+     * @return home page
+     */
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
     @Transactional
     public String register(@RequestParam(value = "action", required = false) String action,
@@ -260,6 +306,12 @@ public class UserAndLoginController {
         }
     }
 
+    /**
+     * User page GET method - shows all users if admin
+     * @param model
+     * @param session
+     * @return users page
+     */
     @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
     @Transactional
     public String users(Model model,
@@ -283,6 +335,14 @@ public class UserAndLoginController {
         return "users";
     }
 
+    /**
+     * GET method for view/modify user page - shows any user for admin or 
+     * just current user for non-admin
+     * @param username
+     * @param model
+     * @param session
+     * @return View modify user page
+     */
     @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.GET)
     public String modifyuser(
             @RequestParam(value = "username", required = true) String username,
@@ -330,6 +390,31 @@ public class UserAndLoginController {
         return "viewModifyUser";
     }
 
+    /**
+     * POST method for modifying a user
+     * @param username new value for the user
+     * @param firstName new value for the user
+     * @param secondName new value for the user
+     * @param userRole new value for the user
+     * @param userEnabled new value for the user
+     * @param houseNumber new value for the user's address
+     * @param addressLine1 new value for the user's address
+     * @param addressLine2 new value for the user's address
+     * @param city new value for the user's address
+     * @param county new value for the user's address
+     * @param country new value for the user's address
+     * @param postcode new value for the user's address
+     * @param latitude new value for the user's address
+     * @param longitude new value for the user's address
+     * @param telephone new value for the user's address
+     * @param mobile new value for the user
+     * @param password new value for the user
+     * @param password2 new value for the user
+     * @param action empty or update password
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.POST)
     public String updateuser(
             @RequestParam(value = "username", required = true) String username,
@@ -462,6 +547,15 @@ public class UserAndLoginController {
      * Default exception handler, catches all exceptions, redirects to friendly
      * error page. Does not catch request mapping errors
      */
+
+    /**
+     * Returns error page
+     * @param e exception
+     * @param model
+     * @param request
+     * @return error page
+     */
+
     @ExceptionHandler(Exception.class)
     public String myExceptionHandler(final Exception e, Model model,
             HttpServletRequest request

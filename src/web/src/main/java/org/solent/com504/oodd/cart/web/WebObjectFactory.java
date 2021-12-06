@@ -34,10 +34,18 @@ public class WebObjectFactory {
         
     }
     
+    /**
+     * Gets Shopping Service from the service object factory
+     * @return a Shopping Service
+     */
     public static ShoppingService getShoppingService(){
         return shoppingService;
     }
     
+    /**
+     * Gets shopping cart from the service object factory
+     * @return a SHopping Cart
+     */
     public static ShoppingCart getNewShoppingCart(){
         return ServiceObjectFactory.getNewShoppingCart();
     }

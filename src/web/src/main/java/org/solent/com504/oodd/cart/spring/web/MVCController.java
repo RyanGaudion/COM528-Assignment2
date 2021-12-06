@@ -40,6 +40,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ *
+ * @author rgaud
+ */
 @Controller
 @RequestMapping("/")
 public class MVCController {
@@ -68,11 +72,23 @@ public class MVCController {
     }
 
     // this redirects calls to the root of our application to index.html
+
+    /**
+     * Root page
+     * @param model
+     * @return index.html redirect
+     */
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model) {
         return "redirect:/index.html";
     }
     
+    /**
+     * View Cart Get method
+     * @param model
+     * @param session
+     * @return Cart page with shopping cart items
+     */
     @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewCart(
             Model model,
@@ -102,6 +118,12 @@ public class MVCController {
         return "cart";
     }
     
+    /**
+     * Route for checkout page
+     * @param model
+     * @param session
+     * @return Checkout page with all items and a form to insert card info
+     */
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
     public String viewCheckout(
             Model model,
@@ -131,6 +153,17 @@ public class MVCController {
         return "checkout";
     }
     
+    /**
+     * Checkout POST request
+     * @param cardnumber card number from the page's form
+     * @param cardname card name from the page's form
+     * @param cardenddate card end date from the page's form
+     * @param cardissuenumber card issue number from the page's form
+     * @param cardcvv card cvv number from the page's form
+     * @param model
+     * @param session
+     * @return the checkout page with a success or error message
+     */
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public String completeCheckout(
             @RequestParam(name = "cardnumber", required = false) String cardnumber,            
@@ -207,6 +240,16 @@ public class MVCController {
         return "checkout";
     }
 
+    /**
+     * Home page route which shows all catalog items
+     * @param action can be add/remove item to cart or search
+     * @param itemName name of item to add
+     * @param itemUuid UUID of item to remove from cart
+     * @param searchQuery query to search through all the catalog items 
+     * @param model
+     * @param session
+     * @return home page with catalog items
+     */
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewHome(@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
@@ -283,6 +326,15 @@ public class MVCController {
      * Default exception handler, catches all exceptions, redirects to friendly
      * error page. Does not catch request mapping errors
      */
+
+    /**
+     * Exception handler page 
+     * @param e exception to show
+     * @param model
+     * @param request
+     * @return error page
+     */
+
     @ExceptionHandler(Exception.class)
     public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
         final StringWriter sw = new StringWriter();
