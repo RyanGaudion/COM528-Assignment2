@@ -76,6 +76,27 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
     
     /**
+     * Gets all items matching this category
+     *      * @param category category to search by
+     * @return all items in a list
+     */
+    @Override
+    public List<ShoppingItem> getAvailableByCategory(String category) {
+        return shoppingItemRepo.findByCategory(category);
+    }
+    
+    
+    /**
+     * Gets all categories of available items
+     * @return all categories in a list
+     */
+    @Override
+    public List<String> getAvailableCategories() {
+        return shoppingItemRepo.findAvailableCategories();
+    }
+    
+    
+    /**
      * Validates a shopping cart against the stock count in the DB
      * @param cart cart to check the stock of
      * @return empty if fine or error message if item is out of stock/not got enough in stock
@@ -164,7 +185,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         ShoppingItem item = new ShoppingItem();
         item.setName(name);
         item.setPrice(templateItem.getPrice());
-        item.setQuantity(0);
+        item.setQuantity(templateItem.getQuantity());
         item.setUuid(UUID.randomUUID().toString());
         return item;
     }

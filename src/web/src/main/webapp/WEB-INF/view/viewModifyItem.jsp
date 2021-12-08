@@ -33,6 +33,10 @@
                         <td><input type="text" name="name" value="${modifyItem.name}" /></td>
                     </tr>
                     <tr>
+                        <td>Category</td>
+                        <td><input type="text" name="category" value="${modifyItem.category}" /></td>
+                    </tr>
+                    <tr>
                         <td>Price</td>
                         <td><input type="text" name="price" value="${modifyItem.price}" /></td>
                     </tr>

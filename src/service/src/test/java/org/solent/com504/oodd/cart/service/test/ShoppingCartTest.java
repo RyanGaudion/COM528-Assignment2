@@ -73,6 +73,26 @@ public class ShoppingCartTest {
         assertEquals(1, shoppingCart.getShoppingCartItems().size() );
     }
     
+    /**
+     * tests get specific item functionality
+     */
+    @Test
+    public void GetSpecificItemTest() {
+        assertNotNull(shoppingCart);
+        
+        ShoppingItem shoppingItem = new ShoppingItem();
+        shoppingItem.setName("fred");
+        shoppingItem.setUuid("a1");
+        
+        shoppingCart.addItemToCart(shoppingItem);        
+        shoppingCart.addItemToCart(shoppingItem);
+
+        
+        OrderItem item = shoppingCart.getItemFromCart(shoppingItem);
+        assertNotNull(item);
+        assertEquals(2, item.getQuantity());
+    }
+    
      /**
      * tests Add items functionality
      */

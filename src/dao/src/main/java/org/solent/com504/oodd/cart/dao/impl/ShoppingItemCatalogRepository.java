@@ -38,10 +38,25 @@ public interface ShoppingItemCatalogRepository  extends JpaRepository<ShoppingIt
     @Query("select i from ShoppingItem i where lower(i.name) like lower(concat('%', :name,'%')) and i.deactivated = false")
     public List<ShoppingItem> findByName(@Param("name")String name);
     
+        /**
+     * Find shopping items by category
+     * @param category name of the category to search by
+     * @return items that match the category
+     */
+    @Query("select i from ShoppingItem i where i.category = :category and i.deactivated = false ")
+    public List<ShoppingItem> findByCategory(@Param("category")String category);
+    
     /**
      * Find shopping items that aren't deactivated
      * @return items that are active
      */
     @Query("select i from ShoppingItem i where i.deactivated = false")
     public List<ShoppingItem> findActive();
+    
+    /**
+     * Returns all categories from the DB where item is not deactivated
+     * @return all categories
+     */
+    @Query("SELECT DISTINCT i.category FROM ShoppingItem i where i.category IS NOT NULL and i.category != '' and i.deactivated = false")
+    public List<String> findAvailableCategories();
 }

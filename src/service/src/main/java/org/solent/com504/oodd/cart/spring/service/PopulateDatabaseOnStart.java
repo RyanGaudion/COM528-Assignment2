@@ -95,14 +95,16 @@ public class PopulateDatabaseOnStart {
             LOG.info("defaultuser already exists. Not creating new :" + defaultUser);
         }
 
-        addShoppingItem("house", 20000.00, 3);        
-        addShoppingItem("hen", 5.00, 1);        
-        addShoppingItem("car", 5000.00, 0);        
-        addShoppingItem("pet alligator", 65.00, 3);        
-        addShoppingItem("elephant", 100.00, 2);        
-        addShoppingItem("dog", 65.00, 2); 
-        addShoppingItem("cat", 10.50, 2); 
-        addShoppingItem("pen", 2.50, 0); 
+        addShoppingItem("house", 20000.00, 3, null);        
+        addShoppingItem("hen", 5.00, 1, "animal");        
+        addShoppingItem("car", 5000.00, 0, null);        
+        addShoppingItem("pet alligator", 65.00, 3, "animal");        
+        addShoppingItem("elephant", 100.00, 2, "animal");        
+        addShoppingItem("dog", 65.00, 2, "animal"); 
+        addShoppingItem("cat", 10.50, 2, "animal"); 
+        addShoppingItem("pen", 2.50, 0, "stationary");         
+        addShoppingItem("ruler", 3.50, 1, "stationary"); 
+
  
         addOrder("cat", defaultUser);        
         addOrder("dog", defaultUser);
@@ -112,11 +114,14 @@ public class PopulateDatabaseOnStart {
         LOG.debug("database initialised");
     }
     
-        private void addShoppingItem(String name, Double price, Integer quantity){
+        private void addShoppingItem(String name, Double price, Integer quantity, String category){
             ShoppingItem item = new ShoppingItem();
             item.setName(name);
             item.setPrice(price);
             item.setQuantity(quantity);
+            if(category != null){
+                item.setCategory(category);     
+            }
             List<ShoppingItem> itemsFound = catalogRepo.findByName(name);
             if(itemsFound.size() < 1){
                 catalogRepo.save(item);

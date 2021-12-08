@@ -39,6 +39,7 @@ public class ShoppingItem {
     private Double price=0.0;
     private String filename;
     private Boolean deactivated = false;
+    private String category=null;
     
     /**
      * Empty Item constructor
@@ -121,6 +122,22 @@ public class ShoppingItem {
      */
     public void setDeactivated(Boolean deactivated){
         this.deactivated = deactivated;
+    }
+    
+    /**
+     * Gets the category of the item
+     * @return 
+     */
+    public String getCategory(){
+        return category;
+    }
+    
+    /**
+     * Sets the category of the item
+     * @param category 
+     */
+    public void setCategory(String category){
+        this.category = category;
     }
 
     /**
