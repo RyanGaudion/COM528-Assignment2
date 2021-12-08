@@ -285,9 +285,14 @@ public class MVCController {
             // do nothing but show page
         } else if ("addItemToCart".equals(action)) {
             ShoppingItem shoppingItem = shoppingService.getNewItemByName(itemName);
+            OrderItem item = shoppingCart.getItemFromCart(shoppingItem);
             if (shoppingItem == null) {
                 message = "cannot add unknown " + itemName + " to cart";
-            } else {
+            } 
+            else if(item != null && shoppingItem.getQuantity() <= item.getQuantity()){
+                message = "cannot add item " + itemName + "as you've got the max quantity in your cart";
+            }
+            else {
                 message = "adding " + itemName + " to cart price= " + shoppingItem.getPrice();
                 shoppingCart.addItemToCart(shoppingItem);
             }

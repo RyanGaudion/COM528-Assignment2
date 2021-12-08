@@ -57,6 +57,6 @@ public interface ShoppingItemCatalogRepository  extends JpaRepository<ShoppingIt
      * Returns all categories from the DB where item is not deactivated
      * @return all categories
      */
-    @Query("SELECT DISTINCT i.category FROM ShoppingItem i where i.category IS NOT NULL and  i.deactivated = false")
+    @Query("SELECT DISTINCT i.category FROM ShoppingItem i where i.category IS NOT NULL and i.category != '' and i.deactivated = false")
     public List<String> findAvailableCategories();
 }

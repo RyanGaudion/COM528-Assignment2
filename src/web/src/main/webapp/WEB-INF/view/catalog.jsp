@@ -24,8 +24,9 @@
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>                    
-                    <th scope="col">Deactivated</th>
+                    <th scope="col">Quantity</th>    
+                    <th scope="col">Category</th>
+                    <th scope="col">Deactivated</th>                    
 
                     <th></th>
                 </tr>
@@ -36,7 +37,8 @@
                         <td>${item.id}</td>
                         <td>${item.name}</td>
                         <td>${item.price}</td>
-                        <td>${item.quantity}</td>
+                        <td>${item.quantity}</td>                        
+                        <td>${item.category}</td>
                         <td>${item.deactivated}</td>
                         <td>
                             <form action="./viewModifyItem" method="GET">

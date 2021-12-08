@@ -159,6 +159,7 @@ public class CatalogController {
      * @param itemId ID of the Item if editing
      * @param newPrice price from the page form
      * @param newQuantity quantity from the page form
+     * @param newCategory category from the view modify item page
      * @param deactivated whether the item is deactivated or not 
      * @param file image file if uploaded
      * @param model
@@ -170,7 +171,8 @@ public class CatalogController {
             @RequestParam(value = "name", required = true) String newName,            
             @RequestParam(value = "id", required = false) Long itemId,
             @RequestParam(value = "price", required = false) Double newPrice,
-            @RequestParam(value = "quantity", required = false) Integer newQuantity,            
+            @RequestParam(value = "quantity", required = false) Integer newQuantity,             
+            @RequestParam(value = "category", required = false) String newCategory,
             @RequestParam(value = "deactivated", required = false) Boolean deactivated,
             @RequestParam(value = "file", required = false) MultipartFile file,
             Model model,
@@ -218,6 +220,9 @@ public class CatalogController {
             }
             if(deactivated != null){
                 modifyItem.setDeactivated(deactivated);
+            }
+            if(newCategory != null){
+                modifyItem.setCategory(newCategory);
             }
             if (file.isEmpty()) {
                 LOG.warn("file is empty");

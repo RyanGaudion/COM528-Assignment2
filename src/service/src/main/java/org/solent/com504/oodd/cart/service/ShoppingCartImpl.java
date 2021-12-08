@@ -76,6 +76,27 @@ public class ShoppingCartImpl implements ShoppingCart {
             itemMap.put(shoppingItem.getUuid(), newShoppingCartItem);
         }
     }
+    
+     /**
+     * Gets an item from the cart
+     * @param shoppingItem item to get from cart
+     * @return OrderItem
+     */
+    @Override
+    public OrderItem getItemFromCart(ShoppingItem shoppingItem) {
+        // itemMap.put(shoppingItem.getUuid(), shoppingItem);
+        
+        boolean itemExists = false;
+        for (String itemUUID : itemMap.keySet()) {
+            
+            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+            
+            if (shoppingCartItem.getItem().getName().equals(shoppingItem.getName())){
+                return shoppingCartItem;
+            }
+        }
+        return null;
+    }
 
     /**
      * Removes an item from the cart
