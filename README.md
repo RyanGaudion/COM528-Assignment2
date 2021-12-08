@@ -13,6 +13,12 @@ This application is built using Java with [Spring MVC](https://docs.spring.io/sp
 # Using the app
 When using Netbeans the web app is deployed by default to `http://localhost:8080/shoppingCartApplication/home`
 
+## Requirements
+This application has been tested with the following. Other variations may work but have have not been tested and hence are not supported:
+ - Java 11
+ - Tomcat 9
+ - Browser - Microsoft Edge
+
 ## Defaults
 By default when the app runs it will create the following 2 accounts (where password is equal to username):
  - `globaladmin`
