@@ -159,6 +159,7 @@ public class CatalogController {
      * @param itemId ID of the Item if editing
      * @param newPrice price from the page form
      * @param newQuantity quantity from the page form
+     * @param deactivated whether the item is deactivated or not 
      * @param file image file if uploaded
      * @param model
      * @param session
@@ -169,7 +170,8 @@ public class CatalogController {
             @RequestParam(value = "name", required = true) String newName,            
             @RequestParam(value = "id", required = false) Long itemId,
             @RequestParam(value = "price", required = false) Double newPrice,
-            @RequestParam(value = "quantity", required = false) Integer newQuantity,
+            @RequestParam(value = "quantity", required = false) Integer newQuantity,            
+            @RequestParam(value = "deactivated", required = false) Boolean deactivated,
             @RequestParam(value = "file", required = false) MultipartFile file,
             Model model,
             HttpSession session) {
@@ -213,6 +215,9 @@ public class CatalogController {
             }
             if(newQuantity != null){
                 modifyItem.setQuantity(newQuantity);
+            }
+            if(deactivated != null){
+                modifyItem.setDeactivated(deactivated);
             }
             if (file.isEmpty()) {
                 LOG.warn("file is empty");

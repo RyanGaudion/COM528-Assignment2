@@ -35,6 +35,13 @@ public interface ShoppingItemCatalogRepository  extends JpaRepository<ShoppingIt
      * @param name name of the item to find
      * @return items that match the search query
      */
-    @Query("select i from ShoppingItem i where lower(i.name) like lower(concat('%', :name,'%'))")
+    @Query("select i from ShoppingItem i where lower(i.name) like lower(concat('%', :name,'%')) and i.deactivated = false")
     public List<ShoppingItem> findByName(@Param("name")String name);
+    
+    /**
+     * Find shopping items that aren't deactivated
+     * @return items that are active
+     */
+    @Query("select i from ShoppingItem i where i.deactivated = false")
+    public List<ShoppingItem> findActive();
 }
