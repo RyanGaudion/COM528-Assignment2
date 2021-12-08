@@ -67,6 +67,7 @@ public class ShoppingItemCatalogRepositoryTest {
         shoppingItem1.setName("item 1");
         shoppingItem1.setPrice(100.1);
         shoppingItem1.setQuantity(1);
+        shoppingItem1.setCategory("Category2");
         shoppingItem1.setUuid(UUID.randomUUID().toString());
 
         shoppingItem1 = shoppingItemCatalogRepository.save(shoppingItem1);
@@ -75,6 +76,7 @@ public class ShoppingItemCatalogRepositoryTest {
         shoppingItem2.setName("item 2");
         shoppingItem2.setPrice(100.1);
         shoppingItem2.setQuantity(1);
+        shoppingItem2.setCategory("Category1");
         shoppingItem2.setUuid(UUID.randomUUID().toString());
         
         ShoppingItem shoppingItem3 = new ShoppingItem();
@@ -82,17 +84,32 @@ public class ShoppingItemCatalogRepositoryTest {
         shoppingItem3.setDeactivated(true);
         shoppingItem3.setPrice(100.1);
         shoppingItem3.setQuantity(1);
+        shoppingItem3.setCategory("Category1");
         shoppingItem3.setUuid(UUID.randomUUID().toString());
+        
+        ShoppingItem shoppingItem4 = new ShoppingItem();
+        shoppingItem4.setName("item 2");
+        shoppingItem4.setDeactivated(false);
+        shoppingItem4.setPrice(100.1);
+        shoppingItem4.setQuantity(1);
+        shoppingItem4.setUuid(UUID.randomUUID().toString());
 
         shoppingItem2 = shoppingItemCatalogRepository.save(shoppingItem2);        
-        shoppingItem3 = shoppingItemCatalogRepository.save(shoppingItem3);
+        shoppingItem3 = shoppingItemCatalogRepository.save(shoppingItem3);        
+        shoppingItem4 = shoppingItemCatalogRepository.save(shoppingItem4);
 
 
-        assertEquals(3, shoppingItemCatalogRepository.count());
+
+        assertEquals(4, shoppingItemCatalogRepository.count());
         
-        assertEquals(2, shoppingItemCatalogRepository.findActive().size());        
+        assertEquals(3, shoppingItemCatalogRepository.findActive().size());          
         
-        assertEquals(1, shoppingItemCatalogRepository.findByName("item 2").size());
+        assertEquals(2, shoppingItemCatalogRepository.findAvailableCategories().size());        
+        
+        assertEquals(1, shoppingItemCatalogRepository.findByCategory("Category1").size());
+
+        
+        assertEquals(2, shoppingItemCatalogRepository.findByName("item 2").size());
 
 
         Optional<ShoppingItem> optional = shoppingItemCatalogRepository.findById(shoppingItem2.getId());

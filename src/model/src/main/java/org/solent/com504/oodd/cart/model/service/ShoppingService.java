@@ -32,6 +32,20 @@ public interface ShoppingService {
      */
     public List<ShoppingItem> getAvailableItems();        
 
+    
+    /**
+     * Gets all categories of available items
+     * @return all categories in a list
+     */
+    public List<String> getAvailableCategories();
+    
+    /**
+     * Gets all items matching this category
+     * @param category category to search by
+     * @return all items in a list
+     */
+    public List<ShoppingItem> getAvailableByCategory(String category);
+    
     /**
      * Filters down all items by the search query
      * @param searchQuery name of item to filter by

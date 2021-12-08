@@ -63,7 +63,7 @@ public class ShoppingServiceTest {
     @Test
     public void GetAllTest(){
         List<ShoppingItem> items = shoppingService.getAvailableItems();
-        assertEquals(8, items.size());
+        assertEquals(9, items.size());
     }
     
     /*

@@ -246,6 +246,7 @@ public class MVCController {
      * @param itemName name of item to add
      * @param itemUuid UUID of item to remove from cart
      * @param searchQuery query to search through all the catalog items 
+     * @param category the category of items to look in
      * @param model
      * @param session
      * @return home page with catalog items
@@ -254,7 +255,9 @@ public class MVCController {
     public String viewHome(@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
             @RequestParam(name = "itemUUID", required = false) String itemUuid,            
-            @RequestParam(name = "searchQuery", required = false) String searchQuery,
+            @RequestParam(name = "searchQuery", required = false) String searchQuery,            
+            @RequestParam(name = "category", required = false) String category,
+
 
             Model model,
             HttpSession session) {
@@ -300,20 +303,25 @@ public class MVCController {
         
         
         List<ShoppingItem> availableItems = null;
-        if ("search".equals(action) && searchQuery != null){
+        if (category == null && "search".equals(action) && searchQuery != null){
             availableItems = shoppingService.searchAvailableItems(searchQuery);  
+        }
+        else if(category != null){
+            availableItems = shoppingService.getAvailableByCategory(category);
         }
         else{
             availableItems = shoppingService.getAvailableItems();
         }
-        
 
+        
+        List<String> categories = shoppingService.getAvailableCategories();
         List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
         Double shoppingcartTotal = shoppingCart.getTotal();
 
         // populate model with values
-        model.addAttribute("availableItems", availableItems);
+        model.addAttribute("availableItems", availableItems);        
+        model.addAttribute("categories", categories);
         model.addAttribute("shoppingCartItems", shoppingCartItems);
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);
         model.addAttribute("message", message);
