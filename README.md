@@ -21,7 +21,7 @@ By default when the app runs it will create the following 2 accounts (where pass
  By default the catalog already has items in it and each user already has orders/invoices too.
 
 # Building & Testing the App
-Running the following command in the project root folder will build the project with Maven and will also run all the tests for the Project Solution:
+Running the following command in the project root folder (src) will build the project with Maven and will also run all the tests for the Project Solution:
 
 mvn clean install
 
