@@ -72,7 +72,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      */
     @Override
     public List<ShoppingItem> getAvailableItems() {
-        return shoppingItemRepo.findAll();
+        return shoppingItemRepo.findActive();
     }
     
     /**

@@ -50,7 +50,15 @@
                            <td><input type="file" name="file" size="50" /></td>
                         </tr>
                     </c:if>
-
+                    <tr>
+                        <td>Item Deactivated</td>
+                        <td>
+                            <select class="form-control" name="deactivated" >
+                                <option value="true" <c:if test="${modifyItem.deactivated}"> selected  </c:if> >true</option>
+                                <option value="false" <c:if test="${!modifyItem.deactivated}"> selected  </c:if> >false</option>
+                            </select>
+                        </td>
+                    </tr>
 
                 </tbody>
 

@@ -38,6 +38,7 @@ public class ShoppingItem {
     private Integer quantity=0;
     private Double price=0.0;
     private String filename;
+    private Boolean deactivated = false;
     
     /**
      * Empty Item constructor
@@ -104,6 +105,22 @@ public class ShoppingItem {
      */
     public void setFilename(String filename){
         this.filename = filename;
+    }
+    
+    /**
+     * Gets whether the item is deactivated or not
+     * @return 
+     */
+    public Boolean getDeactivated(){
+        return deactivated;
+    }
+    
+    /**
+     * Sets whether the item is deactivated or not
+     * @param deactivated 
+     */
+    public void setDeactivated(Boolean deactivated){
+        this.deactivated = deactivated;
     }
 
     /**
