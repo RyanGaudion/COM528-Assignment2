@@ -85,12 +85,18 @@ public class MVCController {
     
     /**
      * View Cart Get method
+     * @param action remove item from cart or just view
      * @param model
+     * @param itemName name of the item to remove from cart
      * @param session
+     * @param itemUuid uuid of the item to remove from cart
      * @return Cart page with shopping cart items
      */
     @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewCart(
+            @RequestParam(name = "action", required = false) String action,
+            @RequestParam(name = "itemName", required = false) String itemName,
+            @RequestParam(name = "itemUUID", required = false) String itemUuid,
             Model model,
             HttpSession session) {
 
@@ -103,6 +109,11 @@ public class MVCController {
 
         String message = "";
         String errorMessage = "";
+        
+        if ("removeItemFromCart".equals(action)) {
+            message = "removed " + itemName + " from cart";
+            shoppingCart.removeItemFromCart(itemUuid);
+        } 
 
 
         List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
@@ -303,9 +314,6 @@ public class MVCController {
                 message = "adding " + itemName + " to cart price= " + shoppingItem.getPrice();
                 shoppingCart.addItemToCart(shoppingItem);
             }
-        } else if ("removeItemFromCart".equals(action)) {
-            message = "removed " + itemName + " from cart";
-            shoppingCart.removeItemFromCart(itemUuid);
         } else if ("search".equals(action) && searchQuery != null){
             message = "searched for: " +searchQuery; 
         }
