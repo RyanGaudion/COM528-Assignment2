@@ -1,4 +1,4 @@
-# Ehopping Application program template
+# Shopping Application program template
 
 This is based upon the Shopping Cart Using Spring with Bootstrap in session 6
 
