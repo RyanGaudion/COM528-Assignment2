@@ -89,14 +89,14 @@ public class MVCController {
      * @param model
      * @param itemName name of the item to remove from cart
      * @param session
-     * @param itemUuid uuid of the item to remove from cart
+     * @param itemId itemId of the item to remove from cart
      * @return Cart page with shopping cart items
      */
     @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewCart(
             @RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
-            @RequestParam(name = "itemUUID", required = false) String itemUuid,
+            @RequestParam(name = "itemId", required = false) String itemId,
             Model model,
             HttpSession session) {
 
@@ -112,7 +112,7 @@ public class MVCController {
         
         if ("removeItemFromCart".equals(action)) {
             message = "removed " + itemName + " from cart";
-            shoppingCart.removeItemFromCart(itemUuid);
+            shoppingCart.removeItemFromCart(itemId);
         } 
 
 
@@ -262,7 +262,7 @@ public class MVCController {
      * Home page route which shows all catalog items
      * @param action can be add/remove item to cart or search
      * @param itemName name of item to add
-     * @param itemUuid UUID of item to remove from cart
+     * @param itemId id of item to remove from cart
      * @param searchQuery query to search through all the catalog items 
      * @param category the category of items to look in
      * @param model
@@ -272,7 +272,7 @@ public class MVCController {
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewHome(@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
-            @RequestParam(name = "itemUUID", required = false) String itemUuid,            
+            @RequestParam(name = "itemId", required = false) String itemId,            
             @RequestParam(name = "searchQuery", required = false) String searchQuery,            
             @RequestParam(name = "category", required = false) String category,
 

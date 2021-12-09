@@ -33,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class ShoppingItem {
     
     private Long id;
-    private String uuid=null;
     private String name=null;
     private Integer quantity=0;
     private Double price=0.0;
@@ -76,22 +75,6 @@ public class ShoppingItem {
         this.id = id;
     }
 
-    /**
-     * Gets the UUID of the item
-     * @return
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of the item
-     * @param uuuid
-     */
-    public void setUuid(String uuuid) {
-        this.uuid = uuuid;
-    }
-    
     /**
      * Gets the image filename of the item
      * @return
@@ -190,7 +173,7 @@ public class ShoppingItem {
 
     @Override
     public String toString() {
-        return "ShoppingItem{" + "uuuid=" + uuid + ", name=" + name + ", quantity=" + quantity + ", price=" + price + '}';
+        return "ShoppingItem{" + ", name=" + name + ", quantity=" + quantity + ", price=" + price + '}';
     }
     
             

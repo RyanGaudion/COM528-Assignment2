@@ -31,7 +31,7 @@
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form action="./cart" method="post">
-                        <input type="hidden" name="itemUUID" value="${orderItem.item.uuid}">
+                        <input type="hidden" name="itemId" value="${orderItem.item.id}">
                         <input type="hidden" name="itemName" value="${orderItem.item.name}">
                         <input type="hidden" name="action" value="removeItemFromCart">
                         <button type="submit" >Remove Item</button>

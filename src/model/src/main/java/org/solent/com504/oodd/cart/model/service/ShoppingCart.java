@@ -45,9 +45,9 @@ public interface ShoppingCart {
     public OrderItem getItemFromCart(ShoppingItem shoppingItem);
     /**
      * Removes a specific item from the cart
-     * @param itemUuid UUID of the item to remove
+     * @param itemId id of the item to remove
      */
-    public void removeItemFromCart(String itemUuid);
+    public void removeItemFromCart(String itemId);
 
     /**
      * Empties the content of the cart

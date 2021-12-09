@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
@@ -182,12 +181,12 @@ public class ShoppingServiceImpl implements ShoppingService {
         
         if(templateItem==null) return null;
         
-        ShoppingItem item = new ShoppingItem();
+        /*ShoppingItem item = new ShoppingItem();
         item.setName(name);
         item.setPrice(templateItem.getPrice());
         item.setQuantity(templateItem.getQuantity());
-        item.setUuid(UUID.randomUUID().toString());
-        return item;
+        item.setId(UUID.randomUUID().toString());*/
+        return templateItem;
     }
 
     /**
