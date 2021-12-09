@@ -34,7 +34,7 @@ Logging is handled by Log4j2 and the log config can be found at `web\src\main\re
 | Name      | Level | Location | Description |
 | ----------- | ----------- |----------- | ----------- |
 | app-shoppingcart      | `DEBUG` | ${sys:catalina.base}/logs/app/app-shoppingcart.log       | This contains all logs from level Debug and above from all namespaces of the application | 
-| app-shoppingcart-transactions  | `INFO` | ${sys:catalina.base}/logs/app/app-shoppingcart-transactions.log        | This contains only transaction logs from the application to the Bank API |
+| app-shoppingcart-transactions  | `INFO` | ${sys:catalina.base}/logs/app/app-shoppingcart-transactions.log        | This file contains all bank transactions between the shopping cart and the Bank API |
 
 
 # Building & Testing the App
