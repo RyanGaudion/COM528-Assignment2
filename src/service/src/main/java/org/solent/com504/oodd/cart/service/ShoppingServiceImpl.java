@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
@@ -72,8 +71,29 @@ public class ShoppingServiceImpl implements ShoppingService {
      */
     @Override
     public List<ShoppingItem> getAvailableItems() {
-        return shoppingItemRepo.findAll();
+        return shoppingItemRepo.findActive();
     }
+    
+    /**
+     * Gets all items matching this category
+     *      * @param category category to search by
+     * @return all items in a list
+     */
+    @Override
+    public List<ShoppingItem> getAvailableByCategory(String category) {
+        return shoppingItemRepo.findByCategory(category);
+    }
+    
+    
+    /**
+     * Gets all categories of available items
+     * @return all categories in a list
+     */
+    @Override
+    public List<String> getAvailableCategories() {
+        return shoppingItemRepo.findAvailableCategories();
+    }
+    
     
     /**
      * Validates a shopping cart against the stock count in the DB
@@ -161,12 +181,12 @@ public class ShoppingServiceImpl implements ShoppingService {
         
         if(templateItem==null) return null;
         
-        ShoppingItem item = new ShoppingItem();
+        /*ShoppingItem item = new ShoppingItem();
         item.setName(name);
         item.setPrice(templateItem.getPrice());
-        item.setQuantity(0);
-        item.setUuid(UUID.randomUUID().toString());
-        return item;
+        item.setQuantity(templateItem.getQuantity());
+        item.setId(UUID.randomUUID().toString());*/
+        return templateItem;
     }
 
     /**

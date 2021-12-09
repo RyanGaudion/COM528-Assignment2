@@ -44,8 +44,18 @@
               </div>
             </div>
         </form>
-    </div>
+        <div class="col-xs-6 col-md-4" style="text-align: end; list-style-position: inside;">
+            <h1>Item Categories</h1>
+            <ul>
+                <c:forEach var="category" items="${categories}">
+                    <li><a href="./home?category=${category}">${category}</a></li>      
+                </c:forEach>
 
+            </ul>
+        </div>
+
+    </div>
+        
     <H1>Available Items</H1>
     <table class="table">
         <c:forEach var="item" items="${availableItems}">

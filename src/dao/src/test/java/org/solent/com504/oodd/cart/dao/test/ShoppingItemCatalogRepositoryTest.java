@@ -16,7 +16,6 @@
 package org.solent.com504.oodd.cart.dao.test;
 
 import java.util.Optional;
-import java.util.UUID;
 import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -67,19 +66,52 @@ public class ShoppingItemCatalogRepositoryTest {
         shoppingItem1.setName("item 1");
         shoppingItem1.setPrice(100.1);
         shoppingItem1.setQuantity(1);
-        shoppingItem1.setUuid(UUID.randomUUID().toString());
+        shoppingItem1.setCategory("Category2");
+        //shoppingItem1.setUuid(UUID.randomUUID().toString());
 
         shoppingItem1 = shoppingItemCatalogRepository.save(shoppingItem1);
 
         ShoppingItem shoppingItem2 = new ShoppingItem();
-        shoppingItem2.setName("item 1");
+        shoppingItem2.setName("item 2");
         shoppingItem2.setPrice(100.1);
         shoppingItem2.setQuantity(1);
-        shoppingItem2.setUuid(UUID.randomUUID().toString());
+        shoppingItem2.setCategory("Category1");
+        //shoppingItem2.setUuid(UUID.randomUUID().toString());
+        
+        ShoppingItem shoppingItem3 = new ShoppingItem();
+        shoppingItem3.setName("item 2");
+        shoppingItem3.setDeactivated(true);
+        shoppingItem3.setPrice(100.1);
+        shoppingItem3.setQuantity(1);
+        shoppingItem3.setCategory("Category1");
+        //shoppingItem3.setUuid(UUID.randomUUID().toString());
+        
+        ShoppingItem shoppingItem4 = new ShoppingItem();
+        shoppingItem4.setName("item 2");
+        shoppingItem4.setDeactivated(false);
+        shoppingItem4.setPrice(100.1);
+        shoppingItem4.setQuantity(1);
+        //shoppingItem4.setUuid(UUID.randomUUID().toString());
 
-        shoppingItem2 = shoppingItemCatalogRepository.save(shoppingItem2);
+        shoppingItem2 = shoppingItemCatalogRepository.save(shoppingItem2);        
+        shoppingItem3 = shoppingItemCatalogRepository.save(shoppingItem3);        
+        shoppingItem4 = shoppingItemCatalogRepository.save(shoppingItem4);
 
-        assertEquals(2, shoppingItemCatalogRepository.count());
+
+
+        assertEquals(4, shoppingItemCatalogRepository.count());
+        
+        assertEquals(3, shoppingItemCatalogRepository.findActive().size());          
+        
+        assertEquals(2, shoppingItemCatalogRepository.findAvailableCategories().size());        
+        
+        assertEquals(1, shoppingItemCatalogRepository.findByCategory("Category1").size());
+
+        
+        assertEquals(2, shoppingItemCatalogRepository.findByName("item 2").size());        
+        assertEquals(3, shoppingItemCatalogRepository.findByNameIgnoreCase("item 2").size());
+
+
 
         Optional<ShoppingItem> optional = shoppingItemCatalogRepository.findById(shoppingItem2.getId());
         ShoppingItem foundItem = optional.get();

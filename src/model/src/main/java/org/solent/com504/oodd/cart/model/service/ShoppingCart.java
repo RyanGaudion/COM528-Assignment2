@@ -38,10 +38,16 @@ public interface ShoppingCart {
     public void addItemToCart(ShoppingItem shoppingItem);
     
     /**
-     * Removes a specific item from the cart
-     * @param itemUuid UUID of the item to remove
+     * Gets an item from the cart
+     * @param shoppingItem item to get from cart
+     * @return OrderItem
      */
-    public void removeItemFromCart(String itemUuid);
+    public OrderItem getItemFromCart(ShoppingItem shoppingItem);
+    /**
+     * Removes a specific item from the cart
+     * @param itemId id of the item to remove
+     */
+    public void removeItemFromCart(String itemId);
 
     /**
      * Empties the content of the cart

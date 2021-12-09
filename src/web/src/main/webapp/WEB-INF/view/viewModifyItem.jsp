@@ -33,6 +33,10 @@
                         <td><input type="text" name="name" value="${modifyItem.name}" /></td>
                     </tr>
                     <tr>
+                        <td>Category</td>
+                        <td><input type="text" name="category" value="${modifyItem.category}" /></td>
+                    </tr>
+                    <tr>
                         <td>Price</td>
                         <td><input type="text" name="price" value="${modifyItem.price}" /></td>
                     </tr>
@@ -50,7 +54,15 @@
                            <td><input type="file" name="file" size="50" /></td>
                         </tr>
                     </c:if>
-
+                    <tr>
+                        <td>Item Deactivated</td>
+                        <td>
+                            <select class="form-control" name="deactivated" >
+                                <option value="true" <c:if test="${modifyItem.deactivated}"> selected  </c:if> >true</option>
+                                <option value="false" <c:if test="${!modifyItem.deactivated}"> selected  </c:if> >false</option>
+                            </select>
+                        </td>
+                    </tr>
 
                 </tbody>
 

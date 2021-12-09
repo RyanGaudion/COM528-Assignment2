@@ -85,12 +85,18 @@ public class MVCController {
     
     /**
      * View Cart Get method
+     * @param action remove item from cart or just view
      * @param model
+     * @param itemName name of the item to remove from cart
      * @param session
+     * @param itemId itemId of the item to remove from cart
      * @return Cart page with shopping cart items
      */
     @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewCart(
+            @RequestParam(name = "action", required = false) String action,
+            @RequestParam(name = "itemName", required = false) String itemName,
+            @RequestParam(name = "itemId", required = false) String itemId,
             Model model,
             HttpSession session) {
 
@@ -103,6 +109,11 @@ public class MVCController {
 
         String message = "";
         String errorMessage = "";
+        
+        if ("removeItemFromCart".equals(action)) {
+            message = "removed " + itemName + " from cart";
+            shoppingCart.removeItemFromCart(itemId);
+        } 
 
 
         List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
@@ -214,13 +225,20 @@ public class MVCController {
                 //Check stock
                 String stockMessage = shoppingService.checkStock(shoppingCart);
                 if(stockMessage.equals("")){
-                    boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
-                    if(!purchased){
-                        errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                    try{
+                        boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
+                        if(!purchased){
+                            errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                        }
+                        else{
+                            message = "Successfully purchased items";
+                        }
                     }
-                    else{
-                        message = "Successfully purchased items";
+                    catch(Exception ex){
+                        LOG.debug(ex);
+                        errorMessage = "Unable to connect to the bank API. Please get your admin to check the URL, username, password and shopkeeper card are all correct";
                     }
+
                 }
                 else{
                     errorMessage = stockMessage;
@@ -244,8 +262,9 @@ public class MVCController {
      * Home page route which shows all catalog items
      * @param action can be add/remove item to cart or search
      * @param itemName name of item to add
-     * @param itemUuid UUID of item to remove from cart
+     * @param itemId id of item to remove from cart
      * @param searchQuery query to search through all the catalog items 
+     * @param category the category of items to look in
      * @param model
      * @param session
      * @return home page with catalog items
@@ -253,8 +272,10 @@ public class MVCController {
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewHome(@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
-            @RequestParam(name = "itemUUID", required = false) String itemUuid,            
-            @RequestParam(name = "searchQuery", required = false) String searchQuery,
+            @RequestParam(name = "itemId", required = false) String itemId,            
+            @RequestParam(name = "searchQuery", required = false) String searchQuery,            
+            @RequestParam(name = "category", required = false) String category,
+
 
             Model model,
             HttpSession session) {
@@ -282,15 +303,17 @@ public class MVCController {
             // do nothing but show page
         } else if ("addItemToCart".equals(action)) {
             ShoppingItem shoppingItem = shoppingService.getNewItemByName(itemName);
+            OrderItem item = shoppingCart.getItemFromCart(shoppingItem);
             if (shoppingItem == null) {
                 message = "cannot add unknown " + itemName + " to cart";
-            } else {
+            } 
+            else if(item != null && shoppingItem.getQuantity() <= item.getQuantity()){
+                message = "cannot add item " + itemName + "as you've got the max quantity in your cart";
+            }
+            else {
                 message = "adding " + itemName + " to cart price= " + shoppingItem.getPrice();
                 shoppingCart.addItemToCart(shoppingItem);
             }
-        } else if ("removeItemFromCart".equals(action)) {
-            message = "removed " + itemName + " from cart";
-            shoppingCart.removeItemFromCart(itemUuid);
         } else if ("search".equals(action) && searchQuery != null){
             message = "searched for: " +searchQuery; 
         }
@@ -300,20 +323,25 @@ public class MVCController {
         
         
         List<ShoppingItem> availableItems = null;
-        if ("search".equals(action) && searchQuery != null){
+        if (category == null && "search".equals(action) && searchQuery != null){
             availableItems = shoppingService.searchAvailableItems(searchQuery);  
+        }
+        else if(category != null){
+            availableItems = shoppingService.getAvailableByCategory(category);
         }
         else{
             availableItems = shoppingService.getAvailableItems();
         }
-        
 
+        
+        List<String> categories = shoppingService.getAvailableCategories();
         List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
         Double shoppingcartTotal = shoppingCart.getTotal();
 
         // populate model with values
-        model.addAttribute("availableItems", availableItems);
+        model.addAttribute("availableItems", availableItems);        
+        model.addAttribute("categories", categories);
         model.addAttribute("shoppingCartItems", shoppingCartItems);
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);
         model.addAttribute("message", message);

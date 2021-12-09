@@ -33,11 +33,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class ShoppingItem {
     
     private Long id;
-    private String uuid=null;
     private String name=null;
     private Integer quantity=0;
     private Double price=0.0;
     private String filename;
+    private Boolean deactivated = false;
+    private String category=null;
     
     /**
      * Empty Item constructor
@@ -75,22 +76,6 @@ public class ShoppingItem {
     }
 
     /**
-     * Gets the UUID of the item
-     * @return
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of the item
-     * @param uuuid
-     */
-    public void setUuid(String uuuid) {
-        this.uuid = uuuid;
-    }
-    
-    /**
      * Gets the image filename of the item
      * @return
      */
@@ -104,6 +89,38 @@ public class ShoppingItem {
      */
     public void setFilename(String filename){
         this.filename = filename;
+    }
+    
+    /**
+     * Gets whether the item is deactivated or not
+     * @return 
+     */
+    public Boolean getDeactivated(){
+        return deactivated;
+    }
+    
+    /**
+     * Sets whether the item is deactivated or not
+     * @param deactivated 
+     */
+    public void setDeactivated(Boolean deactivated){
+        this.deactivated = deactivated;
+    }
+    
+    /**
+     * Gets the category of the item
+     * @return 
+     */
+    public String getCategory(){
+        return category;
+    }
+    
+    /**
+     * Sets the category of the item
+     * @param category 
+     */
+    public void setCategory(String category){
+        this.category = category;
     }
 
     /**
@@ -156,7 +173,7 @@ public class ShoppingItem {
 
     @Override
     public String toString() {
-        return "ShoppingItem{" + "uuuid=" + uuid + ", name=" + name + ", quantity=" + quantity + ", price=" + price + '}';
+        return "ShoppingItem{" + ", name=" + name + ", quantity=" + quantity + ", price=" + price + '}';
     }
     
             

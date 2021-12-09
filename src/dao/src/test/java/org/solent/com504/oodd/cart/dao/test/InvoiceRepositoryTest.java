@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -71,6 +70,7 @@ public class InvoiceRepositoryTest {
         User user1 = new User();
         user1.setFirstName("craig");
         user1.setSecondName("gallen");
+        user1.setUsername("craigUser1");
         user1 = userRepository.save(user1);
         assertEquals(1, userRepository.count());
 
@@ -87,13 +87,20 @@ public class InvoiceRepositoryTest {
         shoppingItem1.setName("item 1");
         shoppingItem1.setPrice(100.1);
         shoppingItem1.setQuantity(1);
-        shoppingItem1.setUuid(UUID.randomUUID().toString());
+        //shoppingItem1(UUID.randomUUID().toString());
         shoppingItem1 = shoppingItemCatalogRepository.save(shoppingItem1);
 
         List<OrderItem> purchasedItems = new ArrayList<OrderItem>();
 
         invoice1.setPurchasedItems(purchasedItems);
         invoice1 = invoiceRepository.save(invoice1);
+        
+        assertEquals(1, invoiceRepository.findByPurchaser_Id(user1.getId()).size());        
+        assertEquals(0, invoiceRepository.findByPurchaser_Id(14L).size());
+        assertEquals(1, invoiceRepository.findByPurchaser_UsernameContainingIgnoreCase("user1").size());        
+        assertEquals(0, invoiceRepository.findByPurchaser_UsernameContainingIgnoreCase("user2").size());
+
+
 
         Optional<Invoice> optional = invoiceRepository.findById(invoice1.getId());
         Invoice foundInvoice = optional.get();
