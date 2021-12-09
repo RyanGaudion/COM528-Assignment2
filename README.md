@@ -27,8 +27,6 @@ By default when the app runs it will create the following 2 accounts (where pass
  By default the catalog already has items in it and each user already has orders/invoices too.
 
 ## Logging
-Location of normal Logs & Transaction Logs
-
 Logging is handled by Log4j2 and the log config can be found at `web\src\main\resources\log4j2.xml`
 
 2 Log files are created as part of this application - the standard log file containing all logs and a transaction specific log file - more information can be seen in the table below. The `${sys:catalina.base}` variable in the table below relates to your Apache Tomcat installation folder.
