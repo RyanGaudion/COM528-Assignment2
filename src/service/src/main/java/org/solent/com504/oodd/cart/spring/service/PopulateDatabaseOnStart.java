@@ -95,6 +95,7 @@ public class PopulateDatabaseOnStart {
             LOG.info("defaultuser already exists. Not creating new :" + defaultUser);
         }
 
+        
         addShoppingItem("house", 20000.00, 3, null);        
         addShoppingItem("hen", 5.00, 1, "animal");        
         addShoppingItem("car", 5000.00, 0, null);        

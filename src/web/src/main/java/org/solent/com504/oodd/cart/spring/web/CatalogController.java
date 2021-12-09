@@ -170,8 +170,8 @@ public class CatalogController {
     public String updateItem(
             @RequestParam(value = "name", required = true) String newName,            
             @RequestParam(value = "id", required = false) Long itemId,
-            @RequestParam(value = "price", required = false) Double newPrice,
-            @RequestParam(value = "quantity", required = false) Integer newQuantity,             
+            @RequestParam(value = "price", required = false) String inputPrice,
+            @RequestParam(value = "quantity", required = false) String inputQuantity,             
             @RequestParam(value = "category", required = false) String newCategory,
             @RequestParam(value = "deactivated", required = false) Boolean deactivated,
             @RequestParam(value = "file", required = false) MultipartFile file,
@@ -209,14 +209,41 @@ public class CatalogController {
         // else update all other properties
         // only admin can update modifyUser role aand enabled
         if (UserRole.ADMINISTRATOR.equals(sessionUser.getUserRole())) {
-            if(newName != null){
+            Boolean invalid = false;
+            if(newName != null && !(newName.equals(""))){
                 modifyItem.setName(newName);
             }
-            if(newPrice != null){
-                modifyItem.setPrice(newPrice);
+            else{
+                invalid = true;
+                errorMessage = "A name must be set for the item";
             }
-            if(newQuantity != null){
-                modifyItem.setQuantity(newQuantity);
+            if(inputPrice != null){
+                try{
+                    double newPrice = Double.parseDouble(inputPrice);
+                    modifyItem.setPrice(newPrice);
+                }
+                catch(NumberFormatException ex){
+                    invalid = true;
+                    errorMessage = "A price must in the format of a number";
+                }
+            }
+            else{
+                invalid = true;
+                errorMessage = "A price must be set for the item";
+            }
+            if(inputQuantity != null){
+                try{
+                    Integer newQuantity = Integer.parseInt(inputQuantity);
+                    modifyItem.setQuantity(newQuantity);
+                }
+                catch(NumberFormatException ex){
+                    invalid = true;
+                    errorMessage = "A quantity must in the format of a whole number";
+                }
+            }
+            else{
+                invalid = true;
+                errorMessage = "A quantity must be set for the item";
             }
             if(deactivated != null){
                 modifyItem.setDeactivated(deactivated);
@@ -249,15 +276,18 @@ public class CatalogController {
                     LOG.error("failed to upload image");
                 }
             }
-
-            modifyItem = catalogRepo.save(modifyItem);
+            if(!invalid){
+                modifyItem = catalogRepo.save(modifyItem);
+            }
         }
 
         model.addAttribute("modifyItem", modifyItem);
 
         // add message if there are any 
         model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("message", "Item " + modifyItem.getName()+ " updated successfully");
+        if(errorMessage.equals("")){
+            model.addAttribute("message", "Item " + modifyItem.getName()+ " updated successfully");
+        }
 
         model.addAttribute("selectedPage", "viewModifyItem");
 
