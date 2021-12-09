@@ -214,13 +214,20 @@ public class MVCController {
                 //Check stock
                 String stockMessage = shoppingService.checkStock(shoppingCart);
                 if(stockMessage.equals("")){
-                    boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
-                    if(!purchased){
-                        errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                    try{
+                        boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
+                        if(!purchased){
+                            errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                        }
+                        else{
+                            message = "Successfully purchased items";
+                        }
                     }
-                    else{
-                        message = "Successfully purchased items";
+                    catch(Exception ex){
+                        LOG.debug(ex);
+                        errorMessage = "Unable to connect to the bank API. Please get your admin to check the URL, username, password and shopkeeper card are all correct";
                     }
+
                 }
                 else{
                     errorMessage = stockMessage;
