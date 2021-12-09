@@ -70,6 +70,7 @@ public class InvoiceRepositoryTest {
         User user1 = new User();
         user1.setFirstName("craig");
         user1.setSecondName("gallen");
+        user1.setUsername("craigUser1");
         user1 = userRepository.save(user1);
         assertEquals(1, userRepository.count());
 
@@ -93,6 +94,13 @@ public class InvoiceRepositoryTest {
 
         invoice1.setPurchasedItems(purchasedItems);
         invoice1 = invoiceRepository.save(invoice1);
+        
+        assertEquals(1, invoiceRepository.findByPurchaser_Id(user1.getId()).size());        
+        assertEquals(0, invoiceRepository.findByPurchaser_Id(14L).size());
+        assertEquals(1, invoiceRepository.findByPurchaser_UsernameContainingIgnoreCase("user1").size());        
+        assertEquals(0, invoiceRepository.findByPurchaser_UsernameContainingIgnoreCase("user2").size());
+
+
 
         Optional<Invoice> optional = invoiceRepository.findById(invoice1.getId());
         Invoice foundInvoice = optional.get();
