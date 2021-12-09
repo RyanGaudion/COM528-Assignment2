@@ -157,8 +157,8 @@ public class CatalogController {
      * POST request to update or create a catalog item
      * @param newName name from the page form
      * @param itemId ID of the Item if editing
-     * @param newPrice price from the page form
-     * @param newQuantity quantity from the page form
+     * @param inputPrice price from the page form
+     * @param inputQuantity quantity from the page form
      * @param newCategory category from the view modify item page
      * @param deactivated whether the item is deactivated or not 
      * @param file image file if uploaded
@@ -170,8 +170,8 @@ public class CatalogController {
     public String updateItem(
             @RequestParam(value = "name", required = true) String newName,            
             @RequestParam(value = "id", required = false) Long itemId,
-            @RequestParam(value = "price", required = false) Double newPrice,
-            @RequestParam(value = "quantity", required = false) Integer newQuantity,             
+            @RequestParam(value = "price", required = false) String inputPrice,
+            @RequestParam(value = "quantity", required = false) String inputQuantity,             
             @RequestParam(value = "category", required = false) String newCategory,
             @RequestParam(value = "deactivated", required = false) Boolean deactivated,
             @RequestParam(value = "file", required = false) MultipartFile file,
@@ -205,18 +205,62 @@ public class CatalogController {
         else{
             modifyItem = shoppingItem.get();
         }        
-
+        
+        List<ShoppingItem> existingItems = catalogRepo.findByNameIgnoreCase(newName);
+        //If adding new item - check name doesn't already exist
+        Boolean invalid = false;
+        if(modifyItem.getId() == null && existingItems.size() > 0){
+            invalid = true;
+            errorMessage = "Item with that name already exists";
+        }
+        //If editing then check name doesn't exist and match isn't with current item
+        else{
+            for (ShoppingItem item : existingItems){
+                if(!(item.getId().equals(modifyItem.getId()))){
+                    invalid = true;
+                    errorMessage = "Item with that name already exists";
+                }
+            }
+        }
+        
         // else update all other properties
         // only admin can update modifyUser role aand enabled
-        if (UserRole.ADMINISTRATOR.equals(sessionUser.getUserRole())) {
-            if(newName != null){
+        if (UserRole.ADMINISTRATOR.equals(sessionUser.getUserRole()) && !invalid) {
+            
+            if(newName != null && !(newName.equals(""))){
                 modifyItem.setName(newName);
             }
-            if(newPrice != null){
-                modifyItem.setPrice(newPrice);
+            else{
+                invalid = true;
+                errorMessage = "A name must be set for the item";
             }
-            if(newQuantity != null){
-                modifyItem.setQuantity(newQuantity);
+            if(inputPrice != null){
+                try{
+                    double newPrice = Double.parseDouble(inputPrice);
+                    modifyItem.setPrice(newPrice);
+                }
+                catch(NumberFormatException ex){
+                    invalid = true;
+                    errorMessage = "A price must in the format of a number";
+                }
+            }
+            else{
+                invalid = true;
+                errorMessage = "A price must be set for the item";
+            }
+            if(inputQuantity != null){
+                try{
+                    Integer newQuantity = Integer.parseInt(inputQuantity);
+                    modifyItem.setQuantity(newQuantity);
+                }
+                catch(NumberFormatException ex){
+                    invalid = true;
+                    errorMessage = "A quantity must in the format of a whole number";
+                }
+            }
+            else{
+                invalid = true;
+                errorMessage = "A quantity must be set for the item";
             }
             if(deactivated != null){
                 modifyItem.setDeactivated(deactivated);
@@ -249,15 +293,18 @@ public class CatalogController {
                     LOG.error("failed to upload image");
                 }
             }
-
-            modifyItem = catalogRepo.save(modifyItem);
+            if(!invalid){
+                modifyItem = catalogRepo.save(modifyItem);
+            }
         }
 
         model.addAttribute("modifyItem", modifyItem);
 
         // add message if there are any 
         model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("message", "Item " + modifyItem.getName()+ " updated successfully");
+        if(errorMessage.equals("")){
+            model.addAttribute("message", "Item " + modifyItem.getName()+ " updated successfully");
+        }
 
         model.addAttribute("selectedPage", "viewModifyItem");
 

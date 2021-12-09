@@ -478,6 +478,7 @@ public class UserAndLoginController {
             if (password == null || !password.equals(password2) || password.length() < 8) {
                 errorMessage = "you must enter two identical passwords with atleast 8 characters";
                 LOG.warn(errorMessage);
+                model.addAttribute("modifyUser", modifyUser);
                 model.addAttribute("errorMessage", errorMessage);
                 return "viewModifyUser";
             } else {

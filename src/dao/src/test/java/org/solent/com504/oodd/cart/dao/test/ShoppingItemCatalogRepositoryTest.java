@@ -16,7 +16,6 @@
 package org.solent.com504.oodd.cart.dao.test;
 
 import java.util.Optional;
-import java.util.UUID;
 import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,7 +67,7 @@ public class ShoppingItemCatalogRepositoryTest {
         shoppingItem1.setPrice(100.1);
         shoppingItem1.setQuantity(1);
         shoppingItem1.setCategory("Category2");
-        shoppingItem1.setUuid(UUID.randomUUID().toString());
+        //shoppingItem1.setUuid(UUID.randomUUID().toString());
 
         shoppingItem1 = shoppingItemCatalogRepository.save(shoppingItem1);
 
@@ -77,7 +76,7 @@ public class ShoppingItemCatalogRepositoryTest {
         shoppingItem2.setPrice(100.1);
         shoppingItem2.setQuantity(1);
         shoppingItem2.setCategory("Category1");
-        shoppingItem2.setUuid(UUID.randomUUID().toString());
+        //shoppingItem2.setUuid(UUID.randomUUID().toString());
         
         ShoppingItem shoppingItem3 = new ShoppingItem();
         shoppingItem3.setName("item 2");
@@ -85,14 +84,14 @@ public class ShoppingItemCatalogRepositoryTest {
         shoppingItem3.setPrice(100.1);
         shoppingItem3.setQuantity(1);
         shoppingItem3.setCategory("Category1");
-        shoppingItem3.setUuid(UUID.randomUUID().toString());
+        //shoppingItem3.setUuid(UUID.randomUUID().toString());
         
         ShoppingItem shoppingItem4 = new ShoppingItem();
         shoppingItem4.setName("item 2");
         shoppingItem4.setDeactivated(false);
         shoppingItem4.setPrice(100.1);
         shoppingItem4.setQuantity(1);
-        shoppingItem4.setUuid(UUID.randomUUID().toString());
+        //shoppingItem4.setUuid(UUID.randomUUID().toString());
 
         shoppingItem2 = shoppingItemCatalogRepository.save(shoppingItem2);        
         shoppingItem3 = shoppingItemCatalogRepository.save(shoppingItem3);        
@@ -109,7 +108,9 @@ public class ShoppingItemCatalogRepositoryTest {
         assertEquals(1, shoppingItemCatalogRepository.findByCategory("Category1").size());
 
         
-        assertEquals(2, shoppingItemCatalogRepository.findByName("item 2").size());
+        assertEquals(2, shoppingItemCatalogRepository.findByName("item 2").size());        
+        assertEquals(3, shoppingItemCatalogRepository.findByNameIgnoreCase("item 2").size());
+
 
 
         Optional<ShoppingItem> optional = shoppingItemCatalogRepository.findById(shoppingItem2.getId());

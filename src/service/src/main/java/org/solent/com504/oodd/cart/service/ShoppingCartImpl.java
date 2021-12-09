@@ -41,8 +41,8 @@ public class ShoppingCartImpl implements ShoppingCart {
     @Override
     public List<OrderItem> getShoppingCartItems() {
         List<OrderItem> itemlist = new ArrayList();
-        for (String itemUUID : itemMap.keySet()) {
-            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+        for (String itemId : itemMap.keySet()) {
+            OrderItem shoppingCartItem = itemMap.get(itemId);
             LOG.info(shoppingCartItem);            
             LOG.info(shoppingCartItem.getItem());
             itemlist.add(shoppingCartItem);
@@ -60,9 +60,9 @@ public class ShoppingCartImpl implements ShoppingCart {
         
         // ANSWER
         boolean itemExists = false;
-        for (String itemUUID : itemMap.keySet()) {
+        for (String itemId : itemMap.keySet()) {
             
-            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+            OrderItem shoppingCartItem = itemMap.get(itemId);
             
             if (shoppingCartItem.getItem().getName().equals(shoppingItem.getName())){
                 Integer q = shoppingCartItem.getQuantity();
@@ -73,7 +73,7 @@ public class ShoppingCartImpl implements ShoppingCart {
         }
         if (!itemExists){
             OrderItem newShoppingCartItem = new OrderItem(shoppingItem, 1);
-            itemMap.put(shoppingItem.getUuid(), newShoppingCartItem);
+            itemMap.put(shoppingItem.getId().toString(), newShoppingCartItem);
         }
     }
     
@@ -87,9 +87,9 @@ public class ShoppingCartImpl implements ShoppingCart {
         // itemMap.put(shoppingItem.getUuid(), shoppingItem);
         
         boolean itemExists = false;
-        for (String itemUUID : itemMap.keySet()) {
+        for (String itemId : itemMap.keySet()) {
             
-            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+            OrderItem shoppingCartItem = itemMap.get(itemId);
             
             if (shoppingCartItem.getItem().getName().equals(shoppingItem.getName())){
                 return shoppingCartItem;
@@ -100,13 +100,13 @@ public class ShoppingCartImpl implements ShoppingCart {
 
     /**
      * Removes an item from the cart
-     * @param itemUuid UUID of the item to remove
+     * @param itemId id of the item to remove
      */
     @Override
-    public void removeItemFromCart(String itemUuid) {
+    public void removeItemFromCart(String itemId) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         // ANSWER
-        itemMap.remove(itemUuid);
+        itemMap.remove(itemId);
     }
     
     /**
@@ -127,8 +127,8 @@ public class ShoppingCartImpl implements ShoppingCart {
         // ANSWER
         double total = 0;
 
-        for (String itemUUID : itemMap.keySet()) {
-            OrderItem shoppingCartItem = itemMap.get(itemUUID);
+        for (String itemId : itemMap.keySet()) {
+            OrderItem shoppingCartItem = itemMap.get(itemId);
             total = total + shoppingCartItem.getItem().getPrice() * shoppingCartItem.getQuantity();
         }
 
