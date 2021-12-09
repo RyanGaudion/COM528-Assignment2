@@ -205,11 +205,28 @@ public class CatalogController {
         else{
             modifyItem = shoppingItem.get();
         }        
-
+        
+        List<ShoppingItem> existingItems = catalogRepo.findByNameIgnoreCase(newName);
+        //If adding new item - check name doesn't already exist
+        Boolean invalid = false;
+        if(modifyItem.getId() == null && existingItems.size() > 0){
+            invalid = true;
+            errorMessage = "Item with that name already exists";
+        }
+        //If editing then check name doesn't exist and match isn't with current item
+        else{
+            for (ShoppingItem item : existingItems){
+                if(!(item.getId().equals(modifyItem.getId()))){
+                    invalid = true;
+                    errorMessage = "Item with that name already exists";
+                }
+            }
+        }
+        
         // else update all other properties
         // only admin can update modifyUser role aand enabled
-        if (UserRole.ADMINISTRATOR.equals(sessionUser.getUserRole())) {
-            Boolean invalid = false;
+        if (UserRole.ADMINISTRATOR.equals(sessionUser.getUserRole()) && !invalid) {
+            
             if(newName != null && !(newName.equals(""))){
                 modifyItem.setName(newName);
             }

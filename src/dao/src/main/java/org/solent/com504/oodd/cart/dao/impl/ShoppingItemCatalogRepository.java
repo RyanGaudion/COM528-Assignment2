@@ -16,6 +16,7 @@
 package org.solent.com504.oodd.cart.dao.impl;
 
 import java.util.List;
+import org.solent.com504.oodd.cart.model.dto.Invoice;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,6 +38,13 @@ public interface ShoppingItemCatalogRepository  extends JpaRepository<ShoppingIt
      */
     @Query("select i from ShoppingItem i where lower(i.name) like lower(concat('%', :name,'%')) and i.deactivated = false")
     public List<ShoppingItem> findByName(@Param("name")String name);
+    
+    /**
+     * Finds all Shopping Items with a specific name
+     * @param name name of the item to find
+     * @return all items that have exactly the same name (ignoring case)
+     */
+    public List<ShoppingItem> findByNameIgnoreCase(String name);
     
         /**
      * Find shopping items by category

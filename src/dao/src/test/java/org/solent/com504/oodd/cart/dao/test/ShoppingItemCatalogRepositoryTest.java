@@ -109,7 +109,9 @@ public class ShoppingItemCatalogRepositoryTest {
         assertEquals(1, shoppingItemCatalogRepository.findByCategory("Category1").size());
 
         
-        assertEquals(2, shoppingItemCatalogRepository.findByName("item 2").size());
+        assertEquals(2, shoppingItemCatalogRepository.findByName("item 2").size());        
+        assertEquals(3, shoppingItemCatalogRepository.findByNameIgnoreCase("item 2").size());
+
 
 
         Optional<ShoppingItem> optional = shoppingItemCatalogRepository.findById(shoppingItem2.getId());
