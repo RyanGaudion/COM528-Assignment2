@@ -157,8 +157,8 @@ public class CatalogController {
      * POST request to update or create a catalog item
      * @param newName name from the page form
      * @param itemId ID of the Item if editing
-     * @param newPrice price from the page form
-     * @param newQuantity quantity from the page form
+     * @param inputPrice price from the page form
+     * @param inputQuantity quantity from the page form
      * @param newCategory category from the view modify item page
      * @param deactivated whether the item is deactivated or not 
      * @param file image file if uploaded
