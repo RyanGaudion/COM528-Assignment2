@@ -44,6 +44,14 @@ public interface IBankingService {
     public Transaction refundTransaction(Transaction transaction);
     
     /**
+     * Send a transaction from the shopkeepers Card
+     * @param toCard card to send the amount to
+     * @param amount how much money to send to the card
+     * @return Transaction showing the completed refund
+     */
+    public Transaction refundSimpleTransaction(Card toCard, Double amount);
+            
+    /**
      * Gets the last recent transactions
      * @return A list of recent transactions
      */

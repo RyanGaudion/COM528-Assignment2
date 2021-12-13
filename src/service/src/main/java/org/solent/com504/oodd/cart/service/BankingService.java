@@ -92,6 +92,30 @@ public class BankingService implements IBankingService{
         }
 
     }
+    
+    @Override
+    public Transaction refundSimpleTransaction(Card toCard, Double amount){
+        try
+        {
+            logger.debug("Send Transaction to: " + toCard.getCardnumber() + " from: " + shopKeeperCard.getCardnumber() + " for: " + amount);
+
+            TransactionRequest request = new TransactionRequest(shopKeeperCard, toCard, amount);
+
+            TransactionResponse response = client.transferMoney(request);
+
+            logger.debug("Transaction Response Status: " + response.getStatus());
+
+            TransactionLogger.info("Sent Transaction: " + request.toString() + response.toString());
+
+            Transaction transaction = new Transaction(request, response);
+            transactions.add(transaction);
+            return transaction;
+        }
+        catch(Exception ex){
+            TransactionLogger.info("Transaction Failed: " + "From Card: " + shopKeeperCard.toString() + "To Card: " + toCard.toString() +", amount:" + amount.toString());
+            throw ex;
+        }
+    }
 
     /**
      * Refund Transaction takes in a full Transaction object and then fetches the 
