@@ -190,7 +190,9 @@ Here is the robustness diagram for the whole system. Here we can see how each pa
 ![Robustness Diagram](Diagrams/Robustness.drawio.png "Robustness Diagram")
 
 ## Sequence Diagram
+Here is the sequence diagram for the home page of the application. Here you can see the different request to the page including GET requests and how these requests interact with other layers of the application including the session, service layer and data access layer.
 
+![Sequence Diagram](Diagrams/SequenceDiagram.drawio.png "Sequence Diagram")
 
 # Development
 
