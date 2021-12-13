@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="dao">
+  <ClassDiagramComponents>
+    <Class name="PersistenceJPAConfig" package="org.solent.com504.oodd.cart.dao.impl" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="env" type="Environment" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="entityManagerFactory" returnType="LocalContainerEntityManagerFactoryBean" visibility="public"/>
+        <Method name="dataSource" returnType="DataSource" visibility="public"/>
+        <Method name="transactionManager" returnType="PlatformTransactionManager" visibility="public"/>
+        <Method name="exceptionTranslation" returnType="PersistenceExceptionTranslationPostProcessor" visibility="public"/>
+        <Method name="additionalProperties" returnType="Properties" visibility="package" isFinal="true"/>
+      </Methods>
+    </Class>
+    <Class name="PropertiesDao" package="org.solent.com504.oodd.properties.dao.impl" visibility="public" xPosition="1126.0" yPosition="412.0">
+      <Fields>
+        <Field name="logger" type="Logger" visibility="package" isStatic="true" isFinal="true"/>
+        <Field name="propertiesFile" type="File" visibility="private"/>
+        <Field name="properties" type="Properties" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getProperty" returnType="String" visibility="public" isSynchronized="true">
+          <Argument type="String" name="propertyName"/>
+        </Method>
+        <Method name="setProperty" returnType="void" visibility="public" isSynchronized="true">
+          <Argument type="String" name="propertyKey"/>
+          <Argument type="String" name="propertyValue"/>
+        </Method>
+        <Method name="saveProperties" returnType="void" visibility="private"/>
+        <Method name="loadProperties" returnType="void" visibility="private"/>
+        <Method name="loadDefaultProperties" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="PropertiesSpringConfig" package="org.solent.com504.oodd.properties.dao.impl" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Interface name="InvoiceRepository" package="org.solent.com504.oodd.cart.dao.impl" visibility="public" xPosition="83.0" yPosition="509.0">
+      <Methods>
+        <Method name="findByPurchaser_Id" returnType="List&lt;Invoice&gt;" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findByPurchaser_UsernameContainingIgnoreCase" returnType="List&lt;Invoice&gt;" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="ShoppingItemCatalogRepository" package="org.solent.com504.oodd.cart.dao.impl" visibility="public" xPosition="691.0" yPosition="470.0">
+      <Methods>
+        <Method name="findByName" returnType="List&lt;ShoppingItem&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="findByNameIgnoreCase" returnType="List&lt;ShoppingItem&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="findByCategory" returnType="List&lt;ShoppingItem&gt;" visibility="public">
+          <Argument type="String" name="category"/>
+        </Method>
+        <Method name="findActive" returnType="List&lt;ShoppingItem&gt;" visibility="public"/>
+        <Method name="findAvailableCategories" returnType="List&lt;String&gt;" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="UserRepository" package="org.solent.com504.oodd.cart.dao.impl" visibility="public" xPosition="867.0" yPosition="176.0">
+      <Methods>
+        <Method name="findByUsername" returnType="List&lt;User&gt;" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="findByNames" returnType="List&lt;User&gt;" visibility="public">
+          <Argument type="String" name="firstName"/>
+          <Argument type="String" name="secondName"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>

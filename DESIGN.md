@@ -172,20 +172,22 @@ Potential Additional Features (for future phases):
 
 # UML Diagram
 ## Use Case Diagram
-Below you can see the Use Case Diagram for the application. From the diagram you can see the 2 main actors, the User and the Admin, as well as a 3rd Party Actor - the bank.
+Below you can see the Use Case Diagram for the application. From the diagram you can see the 2 main actors, the User and the Admin, as well as a 3rd Party Actor - the bank. The diagram shows the possible actions of each actor and how each role extends actions from the other role.
 
 ![Use Cases](Diagrams/UseCaseDiagram.drawio.png "Use Case Diagram")
 
 ## Class Diagram
-types & interfaces
+Below is the full class diagram for the application. As you can see there are 3 key layers - the Services (Shopping Cart, Shopping Service & Banking Service), the Data Access Repositories (ShoppingItemCatalogRepository, InvoiceRepository, UserRepository) as well as teh data transfer object layer which includes all the models used for the shopping repositories as well as the banking API.
 
-## Data Model (For DB)
-??
+1 key thing to notice from the diagram is the use of an Order Item as well as a Shopping Item. From the diagram you can see that the invoice has a direct relationship to the Order Item but not the Shopping Item. This is due to the fact that the Shopping Item contains a single quantity property used for holding the quantity of items available to purchase however there is no property to hold the amount of items contained in a single order. Due to the fact that the model properties relate directly to columns in our DB we need a new table for joining the relationship between a shopping Item and an invoice. My solution to this is the OrderItem. This item simply holds a reference to a shopping item and an Int showing how many of that Item was purchased. By doing this we create a new Database table successfully joining shopping items to invoices with unique quantities per order.  
+
+![Class Diagram](Diagrams/FullClassDiagram.png "Class Diagram")
+
 
 ## Robustness Diagram
 Here is the robustness diagram for the whole system. Here we can see how each page is setup and how different objects interact with each other.
 
-![Use Cases](Diagrams/Robustness.drawio.png "Robustness Diagram")
+![Robustness Diagram](Diagrams/Robustness.drawio.png "Robustness Diagram")
 
 ## Sequence Diagram
 
