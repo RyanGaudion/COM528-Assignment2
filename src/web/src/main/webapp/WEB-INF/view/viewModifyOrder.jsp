@@ -62,6 +62,11 @@
                     </td>
                 </tr>
                 
+                <tr>
+                    <td>Is Refunded</td>
+                    <td>${modifyOrder.refunded}</td>
+                </tr>
+                
             </tbody>
         </table>
              
@@ -91,11 +96,21 @@
 
 
         <c:if test="${sessionUser.userRole =='ADMINISTRATOR' && modifyOrder.id != null}">
-            <input type="hidden" name="id" value="${modifyOrder.id}"/>
+            <input type="hidden" name="id" value="${modifyOrder.id}"/>            
+            <input type="hidden" name="action" value="update"/>
             <button class="btn" type="submit" >Update Order</button>
         </c:if>
-            
         </form>
+                
+        <c:if test="${sessionUser.userRole =='ADMINISTRATOR' && modifyOrder.id != null && modifyOrder.refunded == false}">
+            <BR>
+            <form action="./viewModifyOrder" method="POST">
+                <input type="hidden" name="id" value="${modifyOrder.id}"/>            
+                <input type="hidden" name="action" value="refund"/>
+                <button class="btn" type="submit" >Refund Order</button>
+            </form>
+        </c:if>
+
         <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
             <BR>
             <form action="./orders">

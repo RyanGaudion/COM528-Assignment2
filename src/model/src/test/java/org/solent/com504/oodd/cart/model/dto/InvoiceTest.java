@@ -58,6 +58,22 @@ public class InvoiceTest {
         String result = instance.getInvoiceNumber();
         assertEquals(expResult, result);
     }
+    
+    /**
+     * Test of getRefunded method, of class Invoice.
+     */
+    @Test
+    public void testGetRefunded() {
+        System.out.println("getRefunded");
+        Invoice instance = new Invoice();
+        Boolean preExpResult = false;
+        Boolean preResult = instance.getRefunded();
+        assertEquals(preExpResult, preResult);
+        instance.setRefunded(true);
+        Boolean expResult = true;
+        Boolean result = instance.getRefunded();
+        assertEquals(expResult, result);
+    }
 
     /**
      * Test of getDateOfPurchase method, of class Invoice.
@@ -113,6 +129,17 @@ public class InvoiceTest {
         Invoice instance = new Invoice();
         instance.setPurchaser(user);
         assertEquals("Bob", instance.getPurchaser().getFirstName());
+    }
+    
+    /**
+     * Test of getPurchaserCard method, of class Invoice.
+     */
+    @Test
+    public void testGetPurchaserCard() {
+        System.out.println("getPurchaserCard");
+        Invoice instance = new Invoice();
+        instance.setPurchaserCard("4000400040004000");
+        assertEquals("4000400040004000", instance.getPurchaserCard());
     }
 
     

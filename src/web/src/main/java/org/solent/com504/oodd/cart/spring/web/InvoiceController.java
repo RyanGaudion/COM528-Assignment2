@@ -20,11 +20,14 @@ import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.bank.Transaction;
 import org.solent.com504.oodd.cart.dao.impl.InvoiceRepository;
 import org.solent.com504.oodd.cart.model.dto.Invoice;
 import org.solent.com504.oodd.cart.model.dto.InvoiceStatus;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
+import org.solent.com504.oodd.cart.model.service.IBankingService;
 import static org.solent.com504.oodd.cart.spring.web.UserAndLoginController.LOG;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +46,9 @@ public class InvoiceController {
     
     @Autowired
     InvoiceRepository invoiceRepo;
+    
+    @Autowired
+    IBankingService bankingService;
     
     private User getSessionUser(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -168,6 +174,7 @@ public class InvoiceController {
     /**
      * POST request for modifying an order
      * @param id ID of the order to modify
+     * @param action either refund or update
      * @param orderStatus new order status for the order
      * @param model
      * @param session
@@ -175,15 +182,18 @@ public class InvoiceController {
      */
     @RequestMapping(value = {"/viewModifyOrder"}, method = RequestMethod.POST)
     public String modifyOrder(
-            @RequestParam(value = "id", required = true) Long id,            
-            @RequestParam(value = "orderStatus", required = true) String orderStatus,
+            @RequestParam(value = "id", required = true) Long id,              
+            @RequestParam(value = "action", required = false) String action,            
+            @RequestParam(value = "orderStatus", required = false) String orderStatus,
 
             Model model,
             HttpSession session) {
         String message = "";
         String errorMessage = "";
         
-        // security check if party is allowed to access or modify this party
+        LOG.debug(action);
+        
+        // security check if party is allowed to access or modify this invoice
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
@@ -203,24 +213,47 @@ public class InvoiceController {
 
         Invoice modifyOrder = orderList.get();
 
-
-        // update status
-        try {
-            InvoiceStatus status = InvoiceStatus.valueOf(orderStatus);
-            modifyOrder.setInvoiceStatus(status);
-        } catch (Exception ex) {
-            LOG.warn("cannot parse order status" + orderStatus);
-            model.addAttribute("errorMessage", errorMessage);
-            return ("viewModifyOrder");
+        if(action != null && action.equals("refund")){
+            try{
+                Card refundTo = new Card();
+                refundTo.setCardnumber(modifyOrder.getPurchaserCard());
+                Transaction transaction = bankingService.refundSimpleTransaction(refundTo, modifyOrder.getAmountDue());
+                if(transaction.getTransactionResponse().getStatus().equals("SUCCESS")){
+                    modifyOrder.setRefunded(true);
+                    modifyOrder = invoiceRepo.save(modifyOrder);
+                    message = "Successfully refunded order";
+                }
+                else{
+                    errorMessage = "Unable to refund order: " + transaction.getTransactionResponse().getMessage();
+                }
+                
+            }
+            catch(Exception ex){
+                errorMessage = "Unable to refund item - please try again later";
+            }
+        }
+        else{
+            // update status
+            try {
+                InvoiceStatus status = InvoiceStatus.valueOf(orderStatus);
+                modifyOrder.setInvoiceStatus(status);
+                modifyOrder = invoiceRepo.save(modifyOrder);
+                message = "Order " + modifyOrder.getId()+ " updated successfully";
+            } catch (Exception ex) {
+                LOG.warn("cannot parse order status" + orderStatus);
+                model.addAttribute("errorMessage", errorMessage);
+                return ("viewModifyOrder");
+            }
         }
 
-        modifyOrder = invoiceRepo.save(modifyOrder);
+
+        
 
         model.addAttribute("modifyOrder", modifyOrder);
 
         // add message if there are any 
         model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("message", "Order " + modifyOrder.getId()+ " updated successfully");
+        model.addAttribute("message", message);
 
         model.addAttribute("selectedPage", "viewModifyOrder");
 

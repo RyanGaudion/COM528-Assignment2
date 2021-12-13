@@ -38,13 +38,17 @@ public class Invoice {
 
     private Date dateOfPurchase;
 
-    private Double amountDue;
+    private Double amountDue;    
+    
+    private Boolean refunded = false;
     
     private InvoiceStatus invoiceStatus;
 
     private List<OrderItem> purchasedItems;
 
     private User purchaser;
+    
+    private String purchaserCard;
 
     /**
      *
@@ -88,6 +92,22 @@ public class Invoice {
         return invoiceNumber;
     }
 
+    /**
+     * set the refund state of the invoice
+     * @param refunded
+     */
+    public void setRefunded(Boolean refunded){
+        this.refunded = refunded;
+    }
+    
+    /**
+     * get the refund state of the invoice
+     * @return
+     */
+    public Boolean getRefunded() {
+        return refunded;
+    }
+    
     /**
      * set the invoice's number
      * @param invoiceNumber
@@ -160,6 +180,22 @@ public class Invoice {
      */
     public void setPurchaser(User purchaser) {
         this.purchaser = purchaser;
+    }
+    
+    /**
+     * gets the card number used to pay for the items
+     * @return
+     */
+    public String getPurchaserCard() {
+        return purchaserCard;
+    }
+
+    /**
+     * sets the card number used to purchase the items
+     * @param card 
+     */
+    public void setPurchaserCard(String card) {
+        this.purchaserCard = card;
     }
 
 }

@@ -140,6 +140,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         newInvoice.setPurchaser(purchaser);
         newInvoice.setDateOfPurchase(new Date());
         newInvoice.setInvoiceStatus(InvoiceStatus.BACKLOG);
+        newInvoice.setPurchaserCard(purchaserCard.getCardnumber());
 
         
         //Send money with api

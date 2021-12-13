@@ -142,6 +142,7 @@ public class PopulateDatabaseOnStart {
                 invoice.setDateOfPurchase(new Date());
                 invoice.setInvoiceStatus(InvoiceStatus.BACKLOG);
                 invoice.setAmountDue(item.get(0).getPrice());
+                invoice.setPurchaserCard("5133880000000012");
                 invoiceRepo.save(invoice);
             }
         }
