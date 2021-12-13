@@ -43,7 +43,7 @@ Note - these use cases have been added after development of all the original use
 | UC23		    | Admin  | Admin clicks on an order and clicks refund | Money is transferred from the shopkeeper's bank account into the customers account |
 
 # Test Plan
-For this application I will provide Unit Tests to cover every low level element including Models & Services. This will, by itself, provide a large test coverage of the system. Unit tests alone however will only provide testing of individual components on their own. In order to provide integration testing - testing of components working together - I will perform manual User Interface tests. These tests not only make sure the UI is functional but also test the system as a whole - integrating multiple components of the system into single tests.  
+For this application I will provide Unit Tests to cover every low level element including Models, Services and Repositories. This will, by itself, provide a large test coverage of the system. Unit tests alone however will only provide testing of individual components on their own. In order to provide integration testing, testing of components working together, I will perform manual User Interface tests. These tests not only make sure the UI is functional but also test the system as a whole - integrating multiple components of the system into single tests.  
 
 For this application I have decided to write manual tests from the point of view of each of the Roles in the system
 
@@ -76,7 +76,6 @@ The following tests must be performed by a logged in user. These tests must be c
 | TC10.3		| UC6.4 & UC6.5 | User enters invalid card details  | Error message is shown and user is redirected back to shopping cart |  |
 | TC11		    | UC7 | User clicks on the orders page  | All the user's orders as well as their status are displayed |  |
 
-//Check stock after order
 ### Admin Tests
 | Test case ID 	| Use case ID | Action  	 | Expected Result | Date Passed |
 | ----------- 	| ---------- | ---------- | ----------- | ----------- |
@@ -209,7 +208,7 @@ In order to keep track of releases I will also be using Github Releases which na
 # System Overview
 This application is built with Java technologies and uses Maven as its build system. Using a build system like maven means that project dependencies are automatically added to the project simply by reading the pom file. Maven also allows multi-module projects meaning I can compile my Business Logic Projects to Jar files while compiling my web project to a single WAR file to be run in Tomcat.
 
-This system will be built using the MVC architecture which is based on 3 main elements - Model, View & Controller. The use of MVC enables better organisation of the project which in turn leads to cleaner code and easier expansion with additional features. The MVC framework I will be using for this application is Spring MVC.
+This system will be built using the MVC architecture which is based on 3 main elements - Model, View & Controller. The use of MVC enables better organization of the project which in turn leads to cleaner code and easier expansion with additional features. The MVC framework I will be using for this application is Spring MVC.
 
 ## Model Layer 
 For the model layer of the application I will use basic DTO (data transfer objects) which will be persisted in a database through the use of Spring Data JPA. These data repositories provide a simple data access layer to the application that allows data queries to be created either manually or through convention.
