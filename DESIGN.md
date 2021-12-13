@@ -103,6 +103,20 @@ The following tests must be performed by a logged in user. These tests must be c
 | ----------- 	| ---------- | ----------- | ----------- |
 | TC30			| De-activated user tries to login  | Message is shown to let the user know their account might be locked |  |
 
+## Additional Features Tests
+Note - the following tests have been added to match the additional feature use cases above. These tests, along with the use cases, were added after all development of core features was complete.
+
+| Test case ID 	| Action  	 | Expected Result | Date Passed |
+| ----------- 	| ---------- | ----------- | ----------- |
+| TC40.1			| Admin clicks Choose File on modify item page, then chooses an image file locally and then clicks save | Popup appears allowing user to select image file, selecting file populates chosen file name & clicking save shows success message |  |
+| TC40.2			| User searches for the above item | Item details are shown along side the image being displayed |  |
+| TC41			| Admin enters category on modify item page, then clicks save | Successfully updated message is displayed and category is saved |  |
+| TC42.1			| User loads up homepage after category is added  | Added category is added to the list of categories |  |
+| TC42.2			| User clicks on a category of their choice  | Home page items are filtered down based upon the category selected |  |
+| TC43.1			| Admin clicks "View/modify Order" on modify order page  | Order details are loaded alongside a "Refund" and "Update" button |  |
+| TC43.2			| Admin clicks "Refund"  | IsRefunded status changes to true and success message is displayed to user |  |
+| TC43.3			| Admin checks bank balance from bank api | Balance is updated to move money from shop holder card to user's card |  |
+
 # Features
 Below you can see the feature list for the application, this list is split into sections - grouped by either the pages the feature will be on or the group of pages they relate to:
 
