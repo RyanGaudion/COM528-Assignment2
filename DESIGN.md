@@ -35,6 +35,8 @@ Below are the use cases for the application from the point of view of 4 differen
 ## Additional Features Use Cases
 Note - these use cases have been added after development of all the original use case was completed. The Use Cases below are additional use cases on top of the original requirements in order to expand the functionality of the application.
 
+| Use case ID 	| Role  	 | Action | Software Reaction |
+| ----------- 	| ---------- | ----------- | ----------- |
 | UC20			| Admin  | Admin uploads an image to an item in the catalog | Returning to the home page shows the images above each item |
 | UC21		| Admin  | Admin adds a category to an item and clicks save | Returning to view that item shows the new category |
 | UC22.1		| Customer  | Loading up the home page after admin has added a category | Home page loads with all items as well as a list of all categories |
