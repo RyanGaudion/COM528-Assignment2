@@ -32,9 +32,17 @@ Below are the use cases for the application from the point of view of 4 differen
 | UC16			| Customer/Admin  | User logs out  | The application removes the current user from session and turns role back to anonymous |
 | UC17			| De-activated  | User attempts to login  | The application blocks the user from logging in |
 
+## Additional Features Use Cases
+Note - these use cases have been added after development of all the original use case was completed. The Use Cases below are additional use cases on top of the original requirements in order to expand the functionality of the application.
+
+| UC20			| Admin  | Admin uploads an image to an item in the catalog | Returning to the home page shows the images above each item |
+| UC21		| Admin  | Admin adds a category to an item and clicks save | Returning to view that item shows the new category |
+| UC22.1		| Customer  | Loading up the home page after admin has added a category | Home page loads with all items as well as a list of all categories |
+| UC22.2		| Customer  | Customer clicks on a specific category | Home page limits the item list to products that are in the selected category |
+| UC23		    | Admin  | Admin clicks on an order and clicks refund | Money is transferred from the shopkeeper's bank account into the customers account |
 
 # Test Plan
-For this application I will provide Unit Tests to cover every low level element including Models & Services. This will, by itself, provide a large test coverage of the system. Unit tests alone however will only provide testing of individual compenents on thier own. In order to provide integration testing - testing of components working together - I will perform manual User Interface tests. These tests not only make sure the UI is funcitonal but also test the system as a whole - integrating multiple components of the system into single tests.  
+For this application I will provide Unit Tests to cover every low level element including Models & Services. This will, by itself, provide a large test coverage of the system. Unit tests alone however will only provide testing of individual components on their own. In order to provide integration testing - testing of components working together - I will perform manual User Interface tests. These tests not only make sure the UI is functional but also test the system as a whole - integrating multiple components of the system into single tests.  
 
 For this application I have decided to write manual tests from the point of view of each of the Roles in the system
 
@@ -50,7 +58,7 @@ For this application I have decided to write manual tests from the point of view
 | TC5.0   		| New user clicks sign up  | Page loads containing all required inputs for a new account to be created |  |
 | TC5.1   		| User enters account details and submits  | Account is created and user is logged in automatically |  |
 | TC5.2 		| User clicks on cart  | Items are still stored in the cart and are not lost |  |
-| TC6   		| User clicks logout  | Account is no longer assocaited with the session |  |
+| TC6   		| User clicks logout  | Account is no longer associated with the session |  |
 | TC7.0   		| User clicks login  | Page loads with all required inputs for sign in |  |
 | TC7.1   		| User enters account details  | User is automatically logged in to their account |  |
 
@@ -114,7 +122,7 @@ Potential Additional Features (for future phases):
 - As Admin - Edit status of order ✅
 
 Potential Additional Features (for future phases):
-- As Admin - Refund an Order
+- As Admin - Refund an Order ✅
 
 ### Catalog View
 - As Admin - View all items in the catalog ✅
