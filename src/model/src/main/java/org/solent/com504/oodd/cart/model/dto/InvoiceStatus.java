@@ -34,6 +34,6 @@ public enum InvoiceStatus {
     /**
      * Order has been complete
      */
-    COMPLETE
+    FULFILLED  
 }
 
