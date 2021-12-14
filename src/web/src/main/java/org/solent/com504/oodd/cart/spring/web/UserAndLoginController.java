@@ -550,8 +550,7 @@ public class UserAndLoginController {
                 errorMessage = "Validating Card Failed: " + result.getMessage();
             }
             else{
-                //Pay & Create Order
-            
+                //Setup card            
                 if(!card.setCardnumber(cardnumber)){
                     errorMessage = "Invalid Card Number";
                 }
