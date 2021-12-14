@@ -104,9 +104,13 @@ public class ShoppingCartImpl implements ShoppingCart {
      */
     @Override
     public void removeItemFromCart(String itemId) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        // ANSWER
-        itemMap.remove(itemId);
+        OrderItem item = itemMap.get(itemId);
+        if(item.getQuantity() > 1){
+            item.setQuantity(item.getQuantity() - 1);
+        }
+        else{
+            itemMap.remove(itemId);
+        }
     }
     
     /**
