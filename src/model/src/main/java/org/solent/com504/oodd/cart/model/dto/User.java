@@ -21,6 +21,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.persistence.Embedded;
+import org.solent.com504.oodd.bank.Card;
 import org.solent.com504.oodd.password.PasswordUtils;
 
 /**
@@ -43,6 +44,8 @@ public class User {
     private String hashedPassword = "";
 
     private Address address;
+    
+    private Card savedCard;
 
     private UserRole userRole;
 
@@ -113,6 +116,27 @@ public class User {
      */
     public void setAddress(Address address) {
         this.address = address;
+    }
+    
+    /**
+     * Get the user's saved card
+     * @return
+     */
+    @Embedded
+    public Card getSavedCard() {
+        return savedCard;
+    }
+
+    /**
+     * Sets the user's saved card
+     * @param card
+     */
+    public void setSavedCard(Card card) {
+        try{
+            card.clearCVV();
+        }
+        catch(Exception ex){}
+        this.savedCard = card;
     }
 
     /**
@@ -216,7 +240,7 @@ public class User {
     // no password or hashed password
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", username=" + username + ", password=NOT SHOWN, address=" + address + ", userRole=" + userRole + '}';
+        return "User{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", username=" + username + ", password=NOT SHOWN, address=" + address + ", userRole=" + userRole + ", savedCard= " + savedCard + '}';
     }
 
 }

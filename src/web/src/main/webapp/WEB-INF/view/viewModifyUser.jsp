@@ -77,6 +77,18 @@
                         <td>mobile</td>
                         <td><input type="text" name="mobile" value="${modifyUser.address.mobile}" /></td>
                     </tr>
+                    <tr>
+                        <td>card number</td>
+                        <td><input type="text" name="cardnumber" value="${modifyUser.savedCard.cardnumber}" /></td>
+                    </tr>
+                    <tr>
+                        <td>card end date (in format MM/yy)</td>
+                        <td><input type="text" name="enddate" value="${modifyUser.savedCard.endDate}" /></td>
+                    </tr>
+                    <tr>
+                        <td>card issue number</td>
+                        <td><input type="text" name="issuenumber" value="${modifyUser.savedCard.issueNumber}" /></td>
+                    </tr>
 
                 </tbody>
 
