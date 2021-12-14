@@ -68,7 +68,6 @@
 
             </table>
 
-
             <c:if test="${sessionUser.userRole =='ADMINISTRATOR' && modifyItem.id != null}">
                 <input type="hidden" name="id" value="${modifyItem.id}"/>
                 <button class="btn" type="submit" >Update Item: ${modifyItem.name}</button>
@@ -78,6 +77,16 @@
             </c:if>
 
         </form>
+        <c:if test="${sessionUser.userRole =='ADMINISTRATOR' && modifyItem.id != null}">
+            <form action="./viewModifyItem" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="${modifyItem.id}"/>                
+                <input type="hidden" name="action" value="delete"/>
+                <input type="hidden" name="name" value="${modifyItem.name}"/>
+                <button class="btn btn-warning" type="submit" >Delete Item: ${modifyItem.name}</button>     
+            </form>
+        </c:if>             
+                            
+                            
         <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
             <BR>
             <form action="./catalog">
