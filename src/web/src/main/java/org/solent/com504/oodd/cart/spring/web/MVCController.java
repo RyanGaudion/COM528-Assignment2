@@ -197,6 +197,9 @@ public class MVCController {
         
         //Validate
         CardValidationResult result = CardChecker.checkValidity(cardnumber);
+        LOG.info("Validating: " + cardnumber + " is valid: " + result.getIsValid() + " message: " + result.getMessage());
+
+        
         
         if(!result.getIsValid()){
             errorMessage = result.getMessage();

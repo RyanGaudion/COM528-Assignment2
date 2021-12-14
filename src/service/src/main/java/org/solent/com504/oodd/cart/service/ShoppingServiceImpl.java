@@ -145,6 +145,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         
         //Send money with api
         Transaction result = bankingService.sendTransaction(purchaserCard, newInvoice.getAmountDue());
+        LOG.info(result.getTransactionRequest().toString() + result.getTransactionResponse().toString());
         if(result.getTransactionResponse().getStatus().toLowerCase().equals("success")){
             //If  success - save invoice
             invoiceRepo.save(newInvoice);
@@ -166,6 +167,7 @@ public class ShoppingServiceImpl implements ShoppingService {
             shoppingCart.clearCart();
             return true;
         }
+        
         
         //If error return false
         return false;
