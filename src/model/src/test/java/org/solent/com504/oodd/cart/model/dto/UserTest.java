@@ -17,6 +17,7 @@ package org.solent.com504.oodd.cart.model.dto;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.solent.com504.oodd.bank.Card;
 
 /**
  *
@@ -53,6 +54,29 @@ public class UserTest {
         assertEquals("Smith", user.getSecondName());
         assertEquals("ADMINISTRATOR", user.getUserRole().toString());
         assertEquals("bobsmith1", user.getUsername());
+    }
+    
+    /**
+     * Tests all card related gets and setters
+     */
+    @Test
+    public void testCard(){
+        Card userCard = new Card();
+        userCard.setCVV("123");
+        userCard.setCardnumber("0000000000000000");
+        userCard.setEndDate("01/24");
+        userCard.setIssueNumber("01");
+        userCard.setName("Ryan");
+        
+        User user = new User();
+        user.setSavedCard(userCard);
+        
+        assertEquals("", user.getSavedCard().getCVV());        
+        assertEquals("0000000000000000", user.getSavedCard().getCardnumber());        
+        assertEquals("01/24", user.getSavedCard().getEndDate());
+        assertEquals("01", user.getSavedCard().getIssueNumber());        
+        assertEquals("Ryan", user.getSavedCard().getName());
+
     }
     
 }

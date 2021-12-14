@@ -22,6 +22,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;  
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,6 +54,7 @@ public class Card {
      * Gets the card CVV
      * @return cvv
      */
+    @Transient
     public String getCVV(){
         return cvv;
     }
@@ -61,6 +63,7 @@ public class Card {
      * Gets the card name/ card user's name
      * @return name
      */
+    @Transient
     public String getName(){
         return name;
     }
@@ -117,6 +120,13 @@ public class Card {
         }
         logger.debug("Set CVV Validation - Failed: " + Cvv);
         return false;
+    }
+    
+    /**
+     * Empties the CVV from the Card
+     */
+    public void clearCVV(){
+        this.cvv = "";
     }
     
     //MM/yy

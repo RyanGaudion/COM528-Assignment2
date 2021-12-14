@@ -71,6 +71,20 @@ public class CardTest {
     }
     
     /**
+     * Tests the clearing of the Card CVV number
+     */
+    @Test
+    public void clearCVVTest()
+    {
+        Card card = new Card();
+        assertEquals(true, card.setCVV("846"));
+        assertEquals("846", card.getCVV());   
+        card.clearCVV();
+        assertEquals("", card.getCVV());
+
+    }
+    
+    /**
      * Tests the setting and getting of a Card Issue Number
      */
     @Test

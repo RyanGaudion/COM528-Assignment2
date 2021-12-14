@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
+import org.solent.com504.oodd.bank.Card;
 import org.solent.com504.oodd.cart.dao.impl.InvoiceRepository;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.dto.User;
@@ -83,6 +84,32 @@ public class UserRepositoryTest {
         
 
         LOG.debug("****************** test complete");
+    }
+    
+    /**
+     * tests the adding and retrieval of embedded saved card
+     */
+    @Test
+    public void testUserCard(){
+        Card userCard = new Card();
+        userCard.setCVV("123");
+        userCard.setCardnumber("0000000000000000");
+        userCard.setEndDate("01/24");
+        userCard.setIssueNumber("01");
+        userCard.setName("Ryan");
+        
+        User user = new User();
+        user.setSavedCard(userCard);
+        
+        User user1 = userRepository.save(user);
+        userRepository.deleteAll();
+        
+        
+        assertEquals("", user1.getSavedCard().getCVV());        
+        assertEquals("0000000000000000", user1.getSavedCard().getCardnumber());        
+        assertEquals("01/24", user1.getSavedCard().getEndDate());
+        assertEquals("01", user1.getSavedCard().getIssueNumber());        
+        assertEquals("Ryan", user1.getSavedCard().getName());
     }
 
 }
