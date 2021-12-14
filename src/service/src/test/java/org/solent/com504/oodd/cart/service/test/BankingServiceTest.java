@@ -42,6 +42,9 @@ public class BankingServiceTest {
     @Autowired
     BankingService bankingService;
     
+    /**
+     * Tests sending a transaction using the banking service
+     */
     @Test
     public void testTransaction() {        
         
@@ -57,6 +60,9 @@ public class BankingServiceTest {
         assertEquals("SUCCESS", transaction.getTransactionResponse().getStatus());
     }
     
+    /**
+     * Tests getting latest transactions from banking service
+     */
     @Test
     public void testGetTransactions(){
         testTransaction();
@@ -66,6 +72,9 @@ public class BankingServiceTest {
         assertTrue(transactions.size() > 0);
     }
     
+    /**
+     * Tests refunding with the banking service
+     */
     @Test
     public void testRefund(){
         testGetTransactions();
@@ -76,6 +85,9 @@ public class BankingServiceTest {
 
     }
     
+    /**
+     * Tests clearing the banking service
+     */
     @Test
     public void testClear(){
         testTransaction();

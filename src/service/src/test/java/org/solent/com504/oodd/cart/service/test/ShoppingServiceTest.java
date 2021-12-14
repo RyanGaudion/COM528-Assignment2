@@ -66,7 +66,7 @@ public class ShoppingServiceTest {
         assertEquals(9, items.size());
     }
     
-    /*
+    /**
     * test the check stock method against a valid cart
     */
     @Test
@@ -78,7 +78,7 @@ public class ShoppingServiceTest {
         assertEquals("", shoppingService.checkStock(cart));
     }
     
-    /*
+    /**
     * test the check stock method against a non-valid cart
     */
     @Test

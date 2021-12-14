@@ -23,10 +23,6 @@ import static org.junit.Assert.*;
  * @author rgaud
  */
 public class AddressTest {
-    
-    public AddressTest() {
-    }
-
     /**
      * Test of getHouseNumber method, of class Address.
      */

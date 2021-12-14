@@ -27,10 +27,10 @@ import org.junit.Test;
  * @author rgaudion
  */
 public class CardCompanyTest {
+    /**
+     * Logger used for test
+     */
     public static Logger logger = LogManager.getLogger(CardCompanyTest.class);
-    
-    public CardCompanyTest() {
-    }
     
     /**
      * Test of detect method, of class CardCompany with valid inputs..

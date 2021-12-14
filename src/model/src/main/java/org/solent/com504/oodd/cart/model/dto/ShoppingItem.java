@@ -49,8 +49,8 @@ public class ShoppingItem {
 
     /**
      *
-     * @param name
-     * @param price
+     * @param name name of the shopping item
+     * @param price price of the shopping item
      */
     public ShoppingItem(String name, Double price) {
         this.name = name;
