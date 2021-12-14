@@ -63,8 +63,8 @@ public class InvoiceController {
     
     /**
      * Gets all orders for the orders page
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @param action either no action or search
      * @param searchQuery query to search/filter the orders by
      * @return the order page with either all or searched orders
@@ -104,8 +104,8 @@ public class InvoiceController {
     
     /**
      * Gets the orders page of only the user's orders
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return orders page
      */
     @RequestMapping(value = {"/myOrders"}, method = RequestMethod.GET)
@@ -129,8 +129,8 @@ public class InvoiceController {
     /**
      * Gets the viewmodifyorder page
      * @param orderid the id of the order to edit
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the viewmodifyorder page
      */
     @RequestMapping(value = {"/viewModifyOrder"}, method = RequestMethod.GET)
@@ -176,8 +176,8 @@ public class InvoiceController {
      * @param id ID of the order to modify
      * @param action either refund or update
      * @param orderStatus new order status for the order
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the viewmodifyorder page
      */
     @RequestMapping(value = {"/viewModifyOrder"}, method = RequestMethod.POST)

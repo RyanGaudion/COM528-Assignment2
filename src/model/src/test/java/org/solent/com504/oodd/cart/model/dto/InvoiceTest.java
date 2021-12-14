@@ -27,8 +27,6 @@ import static org.junit.Assert.*;
  */
 public class InvoiceTest {
     
-    public InvoiceTest() {
-    }
 
     /**
      * Test of getId method, of class Invoice.

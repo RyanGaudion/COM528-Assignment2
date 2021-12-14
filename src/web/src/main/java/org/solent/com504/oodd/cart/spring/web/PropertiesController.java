@@ -52,14 +52,14 @@ public class PropertiesController {
     }
     
     /**
-     * Get & Post method for the properties page
+     * Get and Post method for the properties page
      * @param action either empty or update properties
      * @param url new value for the url property
      * @param username new value for the username property
      * @param password new value for the password property
      * @param shopKeeperCard new value for the shop keeper's card property
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the properties page
      */
     @RequestMapping(value = "/properties", method = {RequestMethod.GET, RequestMethod.POST})

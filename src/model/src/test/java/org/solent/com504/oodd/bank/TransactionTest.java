@@ -30,7 +30,7 @@ import org.solent.com504.oodd.bank.TransactionResponse;
  */
 public class TransactionTest {
     
-    /*
+    /**
     * Tests the setting & Getting of transaction request
     */
     @Test
@@ -43,7 +43,7 @@ public class TransactionTest {
         assertEquals(4.00, transaction.getTransactionRequest().getAmount(), 0);
     }
     
-    /*
+    /**
     * Tests the setting & Getting of transaction response
     */
     @Test
@@ -56,7 +56,7 @@ public class TransactionTest {
         assertEquals("Success", transaction.getTransactionResponse().getStatus());
     }
     
-    /*
+    /**
     * Tests the setting & Getting of transaction is refund
     */
     @Test

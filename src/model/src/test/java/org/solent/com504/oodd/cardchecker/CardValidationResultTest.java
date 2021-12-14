@@ -25,11 +25,11 @@ import org.junit.Test;
  * @author Steven Hawkins 5hawks48@solent.ac.uk
  */
 public class CardValidationResultTest {
+    /**
+     * Logger used for test
+     */
     public static Logger logger = LogManager.getLogger(CardValidationResult.class);
     
-    public CardValidationResultTest() {
-    }
-
     /**
      * Test of getMessage method, of class CardValidationResult.
      */

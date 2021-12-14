@@ -117,7 +117,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     /**
-     * Purchase items by sending money, reducing stock count & emptying cart
+     * Purchase items by sending money, reducing stock count and emptying cart
      * @param shoppingCart cart to purchase
      * @param purchaser user to purchase as
      * @param purchaserCard card of the user to purchase with

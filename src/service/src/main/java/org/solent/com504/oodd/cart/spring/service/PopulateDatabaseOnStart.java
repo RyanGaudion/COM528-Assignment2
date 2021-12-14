@@ -60,7 +60,7 @@ public class PopulateDatabaseOnStart {
     private ShoppingItemCatalogRepository catalogRepo;
     
     /**
-     * Method that adds initial users, catalog items & orders to the system
+     * Method that adds initial users, catalog items and orders to the system
      */
     @PostConstruct
     public void initDatabase() {

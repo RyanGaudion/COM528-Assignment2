@@ -33,14 +33,12 @@ import org.solent.com504.oodd.cardchecker.CardValidationResult;
  */
 public class CardCheckerTest {
 
-
+    /**
+     * Logger used for the tesst
+     */
     public static Logger logger = LogManager.getLogger(CardCheckerTest.class);
     static List<Entry<CardCompany, String>> cards = new ArrayList<>();
     static String[] invalidCards;
-
-
-    public CardCheckerTest() {
-    }
 
     /**
      * Setup classes for tests

@@ -63,8 +63,8 @@ public class CatalogController {
     
     /**
      * Get the list of all users from the DB
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return catalog page
      */
     @RequestMapping(value = {"/catalog"}, method = RequestMethod.GET)
@@ -92,8 +92,8 @@ public class CatalogController {
     /**
      * Gets the modify Item page
      * @param itemID ID of the item to edit
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the view modify item page
      */
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.GET)
@@ -129,8 +129,8 @@ public class CatalogController {
     
     /**
      * Gets an empty viewmodifyItem page - to be able to create a new item
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the viewmModifyItem page
      */
     @RequestMapping(value = {"/createItem"}, method = RequestMethod.GET)
@@ -163,8 +163,8 @@ public class CatalogController {
      * @param newCategory category from the view modify item page
      * @param deactivated whether the item is deactivated or not 
      * @param file image file if uploaded
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the viewmodifyitem pag
      */
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.POST)

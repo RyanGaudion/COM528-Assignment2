@@ -79,7 +79,7 @@ public class MVCController {
 
     /**
      * Root page
-     * @param model
+     * @param model mvc model
      * @return index.html redirect
      */
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
@@ -90,10 +90,10 @@ public class MVCController {
     /**
      * View Cart Get method
      * @param action remove item from cart or just view
-     * @param model
      * @param itemName name of the item to remove from cart
-     * @param session
      * @param itemId itemId of the item to remove from cart
+     * @param model mvc model
+     * @param session web session
      * @return Cart page with shopping cart items
      */
     @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
@@ -138,8 +138,8 @@ public class MVCController {
     
     /**
      * Route for checkout page
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return Checkout page with all items and a form to insert card info
      */
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
@@ -184,8 +184,8 @@ public class MVCController {
      * @param cardenddate card end date from the page's form
      * @param cardissuenumber card issue number from the page's form
      * @param cardcvv card cvv number from the page's form
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the checkout page with a success or error message
      */
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
@@ -216,6 +216,7 @@ public class MVCController {
         
         if(!result.getIsValid()){
             errorMessage = result.getMessage();
+            LOG.error("Checkout Failed: " + errorMessage);
         }
         else{
             
@@ -245,6 +246,7 @@ public class MVCController {
                         boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
                         if(!purchased){
                             errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                            LOG.error("Checkout Failed: " + errorMessage);
                         }
                         else{
                             message = "Successfully purchased items";
@@ -260,10 +262,14 @@ public class MVCController {
                     errorMessage = stockMessage;
                 }
             }
+            else{
+                LOG.error("Checkout Failed: " + errorMessage);
+            }
         }
         
         List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
         Double shoppingcartTotal = shoppingCart.getTotal();
+        
 
         // populate model with values
         model.addAttribute("shoppingCartItems", shoppingCartItems);
@@ -281,8 +287,8 @@ public class MVCController {
      * @param itemId id of item to remove from cart
      * @param searchQuery query to search through all the catalog items 
      * @param category the category of items to look in
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return home page with catalog items
      */
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
@@ -374,8 +380,8 @@ public class MVCController {
     /**
      * Exception handler page 
      * @param e exception to show
-     * @param model
-     * @param request
+     * @param model mvc model
+     * @param request web request
      * @return error page
      */
 
