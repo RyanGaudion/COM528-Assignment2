@@ -183,6 +183,13 @@ Below is the full class diagram for the application. As you can see there are 3 
 
 1 key thing to notice from the diagram is the use of an Order Item as well as a Shopping Item. From the diagram you can see that the invoice has a direct relationship to the Order Item but not the Shopping Item. This is due to the fact that the Shopping Item contains a single quantity property used for holding the quantity of items available to purchase however there is no property to hold the quantity of an item contained in a single order. Due to the fact that the model properties relate directly to columns in our DB we need a new table for joining the relationship between a shopping Item and an invoice. My solution to this is the OrderItem. This item simply holds a reference to a shopping item and an Int showing the quantity of that Item that was purchased. By doing this we create a new Database table successfully joining shopping items to invoices with unique quantities per order.  
 
+From the diagram we can also see that the interfaces I need to implement are:
+- Shopping Cart
+- Shopping Service
+- Banking Service
+
+You may see that there are 3 more interfaces in the diagram however (ShoppingItemCatalogRepository, InvoiceRepository & UserRepository). The reason I won't need to implement these is due to the fact I will set them up using Spring Data. This means that all the methods for these repository classes will be generated automatically. I can however add additional methods in the interfaces using either method conventions (naming the method a certain way so Spring Data knows how to generate it) or by using Query attributes to manually write the query to generate code for.
+
 ![Class Diagram](Diagrams/FullClassDiagram.png "Class Diagram")
 
 
