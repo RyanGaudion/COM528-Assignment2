@@ -65,8 +65,8 @@ public class UserAndLoginController {
 
     /**
      * Logout GET and POST method
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return redirects to the home page
      */
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
@@ -82,8 +82,8 @@ public class UserAndLoginController {
 
     /**
      * Login Get method
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return login page
      */
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
@@ -119,8 +119,8 @@ public class UserAndLoginController {
      * @param username username of user to login as
      * @param password password of user to login as
      * @param password2 unused variable
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return home page
      */
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
@@ -209,8 +209,8 @@ public class UserAndLoginController {
      * @param username not used 
      * @param password not used 
      * @param password2 not used
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return register page
      */
     @RequestMapping(value = "/register", method = {RequestMethod.GET})
@@ -240,8 +240,8 @@ public class UserAndLoginController {
      * @param username new username to create account for
      * @param password new password for the new account
      * @param password2 second confirmation of password
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return home page
      */
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
@@ -312,8 +312,8 @@ public class UserAndLoginController {
 
     /**
      * User page GET method - shows all users if admin
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return users page
      */
     @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
@@ -342,9 +342,9 @@ public class UserAndLoginController {
     /**
      * GET method for view/modify user page - shows any user for admin or 
      * just current user for non-admin
-     * @param username
-     * @param model
-     * @param session
+     * @param username username of the user to load the page for
+     * @param model mvc model
+     * @param session web session
      * @return View modify user page
      */
     @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.GET)
@@ -418,8 +418,8 @@ public class UserAndLoginController {
      * @param enddate new value for the user's saved card
      * @param issuenumber new value for the user's saved card
      * @param action empty or update password
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return
      */
     @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.POST)
@@ -445,7 +445,6 @@ public class UserAndLoginController {
             @RequestParam(value = "cardnumber", required = false) String cardnumber,
             @RequestParam(value = "enddate", required = false) String enddate,
             @RequestParam(value = "issuenumber", required = false) String issuenumber,
-
             @RequestParam(value = "action", required = false) String action,
             Model model,
             HttpSession session) {
@@ -599,8 +598,8 @@ public class UserAndLoginController {
     /**
      * Returns error page
      * @param e exception
-     * @param model
-     * @param request
+     * @param model mvc model
+     * @param request web request
      * @return error page
      */
 

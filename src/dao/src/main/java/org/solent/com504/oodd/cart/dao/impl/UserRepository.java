@@ -38,7 +38,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public List<User> findByUsername(@Param("username")String username);
 
     /** 
-     * Find a user by names (First & last)
+     * Find a user by names (First and last)
      * @param firstName first name of the user 
      * @param secondName last name of the user
      * @return list of matching users

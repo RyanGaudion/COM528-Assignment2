@@ -79,7 +79,7 @@ public class MVCController {
 
     /**
      * Root page
-     * @param model
+     * @param model mvc model
      * @return index.html redirect
      */
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
@@ -90,10 +90,10 @@ public class MVCController {
     /**
      * View Cart Get method
      * @param action remove item from cart or just view
-     * @param model
      * @param itemName name of the item to remove from cart
-     * @param session
      * @param itemId itemId of the item to remove from cart
+     * @param model mvc model
+     * @param session web session
      * @return Cart page with shopping cart items
      */
     @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
@@ -138,8 +138,8 @@ public class MVCController {
     
     /**
      * Route for checkout page
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return Checkout page with all items and a form to insert card info
      */
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
@@ -184,8 +184,8 @@ public class MVCController {
      * @param cardenddate card end date from the page's form
      * @param cardissuenumber card issue number from the page's form
      * @param cardcvv card cvv number from the page's form
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return the checkout page with a success or error message
      */
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
@@ -287,8 +287,8 @@ public class MVCController {
      * @param itemId id of item to remove from cart
      * @param searchQuery query to search through all the catalog items 
      * @param category the category of items to look in
-     * @param model
-     * @param session
+     * @param model mvc model
+     * @param session web session
      * @return home page with catalog items
      */
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
@@ -380,8 +380,8 @@ public class MVCController {
     /**
      * Exception handler page 
      * @param e exception to show
-     * @param model
-     * @param request
+     * @param model mvc model
+     * @param request web request
      * @return error page
      */
 

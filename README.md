@@ -49,7 +49,7 @@ In order to run the application it is recommended to use Netbeans with Tomcat se
 Once this is built - simply right click "Run" on the web project to run the application.
 
 ## JavaDoc Creation
-To view JavaDocs, navigate to the project folder within a command prompt and run:
+To view JavaDocs, navigate to the project's source (src) folder within a command prompt and run:
 
 `mvn javadoc:javadoc`
 
