@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="model">
+  <ClassDiagramComponents>
+    <Class name="Card" package="org.solent.com504.oodd.bank" visibility="public" xPosition="2419.0" yPosition="450.0">
+      <Fields>
+        <Field name="cardnumber" type="String" visibility="private"/>
+        <Field name="cvv" type="String" visibility="private"/>
+        <Field name="endDate" type="String" visibility="private"/>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="issueNumber" type="String" visibility="private"/>
+        <Field name="logger" type="Logger" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getCardnumber" returnType="String" visibility="public"/>
+        <Method name="getCVV" returnType="String" visibility="public"/>
+        <Method name="getName" returnType="String" visibility="public"/>
+        <Method name="getEndDate" returnType="String" visibility="public"/>
+        <Method name="setCardnumber" returnType="String" visibility="public">
+          <Argument type="String" name="CardNumber"/>
+        </Method>
+        <Method name="setName" returnType="String" visibility="public">
+          <Argument type="String" name="Name"/>
+        </Method>
+        <Method name="setCVV" returnType="String" visibility="public">
+          <Argument type="String" name="Cvv"/>
+        </Method>
+        <Method name="setEndDate" returnType="String" visibility="public">
+          <Argument type="String" name="endDate"/>
+        </Method>
+        <Method name="getIssueNumber" returnType="String" visibility="public"/>
+        <Method name="setIssueNumber" returnType="String" visibility="public">
+          <Argument type="String" name="issueNumber"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Transaction" package="org.solent.com504.oodd.bank" visibility="public" xPosition="1800.0" yPosition="44.0">
+      <Fields>
+        <Field name="transactionRequest" type="TransactionRequest" visibility="private"/>
+        <Field name="transactionResponse" type="TransactionResponse" visibility="private"/>
+        <Field name="isRefund" type="Boolean" visibility="private"/>
+        <Field name="logger" type="Logger" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="TransactionRequest" name="req"/>
+          <Argument type="TransactionResponse" name="response"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTransactionRequest" returnType="TransactionRequest" visibility="public"/>
+        <Method name="getTransactionResponse" returnType="TransactionResponse" visibility="public"/>
+        <Method name="getIsRefund" returnType="Boolean" visibility="public"/>
+        <Method name="setTransactionRequest" returnType="TransactionRequest" visibility="public">
+          <Argument type="TransactionRequest" name="request"/>
+        </Method>
+        <Method name="setTransactionResponse" returnType="TransactionResponse" visibility="public">
+          <Argument type="TransactionResponse" name="response"/>
+        </Method>
+        <Method name="setIsRefund" returnType="Boolean" visibility="public">
+          <Argument type="Boolean" name="refunded"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TransactionRequest" package="org.solent.com504.oodd.bank" visibility="public" xPosition="2383.0" yPosition="34.0">
+      <Fields>
+        <Field name="fromCard" type="Card" visibility="private"/>
+        <Field name="toCard" type="Card" visibility="private"/>
+        <Field name="amount" type="Double" visibility="private"/>
+        <Field name="logger" type="Logger" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="Card" name="from"/>
+          <Argument type="Card" name="to"/>
+          <Argument type="Double" name="amount"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setFromCard" returnType="Card" visibility="public">
+          <Argument type="Card" name="card"/>
+        </Method>
+        <Method name="setToCard" returnType="Card" visibility="public">
+          <Argument type="Card" name="card"/>
+        </Method>
+        <Method name="setAmount" returnType="double" visibility="public">
+          <Argument type="double" name="amount"/>
+        </Method>
+        <Method name="getFromCard" returnType="Card" visibility="public"/>
+        <Method name="getToCard" returnType="Card" visibility="public"/>
+        <Method name="getAmount" returnType="Double" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="TransactionResponse" package="org.solent.com504.oodd.bank" visibility="public" xPosition="2003.0" yPosition="422.0">
+      <Fields>
+        <Field name="code" type="int" visibility="private"/>
+        <Field name="message" type="String" visibility="private"/>
+        <Field name="status" type="String" visibility="private"/>
+        <Field name="fromCardNo" type="String" visibility="private"/>
+        <Field name="toCardNo" type="String" visibility="private"/>
+        <Field name="transactionId" type="String" visibility="private"/>
+        <Field name="transactionDate" type="Date" visibility="private"/>
+        <Field name="logger" type="Logger" visibility="package" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getCode" returnType="int" visibility="public"/>
+        <Method name="getMessage" returnType="String" visibility="public"/>
+        <Method name="getStatus" returnType="String" visibility="public"/>
+        <Method name="getFromCardNo" returnType="String" visibility="public"/>
+        <Method name="getToCardNo" returnType="String" visibility="public"/>
+        <Method name="getTransactionId" returnType="String" visibility="public"/>
+        <Method name="getTransactionDate" returnType="Date" visibility="public"/>
+        <Method name="setCode" returnType="int" visibility="public">
+          <Argument type="int" name="code"/>
+        </Method>
+        <Method name="setMessage" returnType="String" visibility="public">
+          <Argument type="String" name="message"/>
+        </Method>
+        <Method name="setStatus" returnType="String" visibility="public">
+          <Argument type="String" name="status"/>
+        </Method>
+        <Method name="setFromCardNo" returnType="String" visibility="public">
+          <Argument type="String" name="fromCardNo"/>
+        </Method>
+        <Method name="setToCardNo" returnType="String" visibility="public">
+          <Argument type="String" name="toCardNo"/>
+        </Method>
+        <Method name="setTransactionId" returnType="String" visibility="public">
+          <Argument type="String" name="transactionId"/>
+        </Method>
+        <Method name="setTransactionDate" returnType="Date" visibility="public">
+          <Argument type="Date" name="date"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Address" package="org.solent.com504.oodd.cart.model.dto" visibility="public" xPosition="1996.0" yPosition="997.0">
+      <Fields>
+        <Field name="houseNumber" type="String" visibility="private"/>
+        <Field name="addressLine1" type="String" visibility="private"/>
+        <Field name="addressLine2" type="String" visibility="private"/>
+        <Field name="county" type="String" visibility="private"/>
+        <Field name="city" type="String" visibility="private"/>
+        <Field name="postcode" type="String" visibility="private"/>
+        <Field name="mobile" type="String" visibility="private"/>
+        <Field name="telephone" type="String" visibility="private"/>
+        <Field name="country" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getHouseNumber" returnType="String" visibility="public"/>
+        <Method name="setHouseNumber" returnType="String" visibility="public">
+          <Argument type="String" name="houseNumber"/>
+        </Method>
+        <Method name="getAddressLine1" returnType="String" visibility="public"/>
+        <Method name="setAddressLine1" returnType="String" visibility="public">
+          <Argument type="String" name="addressLine1"/>
+        </Method>
+        <Method name="getAddressLine2" returnType="String" visibility="public"/>
+        <Method name="setAddressLine2" returnType="String" visibility="public">
+          <Argument type="String" name="addressLine2"/>
+        </Method>
+        <Method name="getPostcode" returnType="String" visibility="public"/>
+        <Method name="setPostcode" returnType="String" visibility="public">
+          <Argument type="String" name="postcode"/>
+        </Method>
+        <Method name="getMobile" returnType="String" visibility="public"/>
+        <Method name="setMobile" returnType="String" visibility="public">
+          <Argument type="String" name="mobile"/>
+        </Method>
+        <Method name="getTelephone" returnType="String" visibility="public"/>
+        <Method name="setTelephone" returnType="String" visibility="public">
+          <Argument type="String" name="telephone"/>
+        </Method>
+        <Method name="getCountry" returnType="String" visibility="public"/>
+        <Method name="setCountry" returnType="String" visibility="public">
+          <Argument type="String" name="country"/>
+        </Method>
+        <Method name="getCounty" returnType="String" visibility="public"/>
+        <Method name="setCounty" returnType="String" visibility="public">
+          <Argument type="String" name="county"/>
+        </Method>
+        <Method name="getCity" returnType="String" visibility="public"/>
+        <Method name="setCity" returnType="String" visibility="public">
+          <Argument type="String" name="city"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Invoice" package="org.solent.com504.oodd.cart.model.dto" visibility="public" xPosition="994.0" yPosition="633.0">
+      <Fields>
+        <Field name="id" type="Long" visibility="private"/>
+        <Field name="invoiceNumber" type="String" visibility="private"/>
+        <Field name="dateOfPurchase" type="Date" visibility="private"/>
+        <Field name="amountDue" type="Double" visibility="private"/>
+        <Field name="refunded" type="Boolean" visibility="private"/>
+        <Field name="invoiceStatus" type="InvoiceStatus" visibility="private"/>
+        <Field name="purchasedItems" type="List&lt;OrderItem&gt;" visibility="private"/>
+        <Field name="purchaser" type="User" visibility="private"/>
+        <Field name="purchaserCard" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getId" returnType="Long" visibility="public"/>
+        <Method name="setId" returnType="Long" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="getInvoiceStatus" returnType="InvoiceStatus" visibility="public"/>
+        <Method name="setInvoiceStatus" returnType="InvoiceStatus" visibility="public">
+          <Argument type="InvoiceStatus" name="status"/>
+        </Method>
+        <Method name="getInvoiceNumber" returnType="String" visibility="public"/>
+        <Method name="setRefunded" returnType="Boolean" visibility="public">
+          <Argument type="Boolean" name="refunded"/>
+        </Method>
+        <Method name="getRefunded" returnType="Boolean" visibility="public"/>
+        <Method name="setInvoiceNumber" returnType="String" visibility="public">
+          <Argument type="String" name="invoiceNumber"/>
+        </Method>
+        <Method name="getDateOfPurchase" returnType="Date" visibility="public"/>
+        <Method name="setDateOfPurchase" returnType="Date" visibility="public">
+          <Argument type="Date" name="dateOfPurchase"/>
+        </Method>
+        <Method name="getAmountDue" returnType="Double" visibility="public"/>
+        <Method name="setAmountDue" returnType="Double" visibility="public">
+          <Argument type="Double" name="amountDue"/>
+        </Method>
+        <Method name="getPurchasedItems" returnType="List&lt;OrderItem&gt;" visibility="public"/>
+        <Method name="setPurchasedItems" returnType="List&lt;OrderItem&gt;" visibility="public">
+          <Argument type="List&lt;OrderItem&gt;" name="purchasedItems"/>
+        </Method>
+        <Method name="getPurchaser" returnType="User" visibility="public"/>
+        <Method name="setPurchaser" returnType="User" visibility="public">
+          <Argument type="User" name="purchaser"/>
+        </Method>
+        <Method name="getPurchaserCard" returnType="String" visibility="public"/>
+        <Method name="setPurchaserCard" returnType="String" visibility="public">
+          <Argument type="String" name="card"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="OrderItem" package="org.solent.com504.oodd.cart.model.dto" visibility="public" xPosition="678.0" yPosition="832.0">
+      <Fields>
+        <Field name="item" type="ShoppingItem" visibility="private"/>
+        <Field name="quantity" type="int" visibility="private"/>
+        <Field name="id" type="Long" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="ShoppingItem" name="item"/>
+          <Argument type="int" name="quantity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="Long" visibility="public"/>
+        <Method name="setId" returnType="Long" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="getItem" returnType="ShoppingItem" visibility="public"/>
+        <Method name="setItem" returnType="ShoppingItem" visibility="public">
+          <Argument type="ShoppingItem" name="item"/>
+        </Method>
+        <Method name="getQuantity" returnType="int" visibility="public"/>
+        <Method name="setQuantity" returnType="int" visibility="public">
+          <Argument type="int" name="quantity"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ShoppingItem" package="org.solent.com504.oodd.cart.model.dto" visibility="public" xPosition="322.0" yPosition="662.0">
+      <Fields>
+        <Field name="id" type="Long" visibility="private"/>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="quantity" type="Integer" visibility="private"/>
+        <Field name="price" type="Double" visibility="private"/>
+        <Field name="filename" type="String" visibility="private"/>
+        <Field name="deactivated" type="Boolean" visibility="private"/>
+        <Field name="category" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="Double" name="price"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="Long" visibility="public"/>
+        <Method name="setId" returnType="Long" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="getFilename" returnType="String" visibility="public"/>
+        <Method name="setFilename" returnType="String" visibility="public">
+          <Argument type="String" name="filename"/>
+        </Method>
+        <Method name="getDeactivated" returnType="Boolean" visibility="public"/>
+        <Method name="setDeactivated" returnType="Boolean" visibility="public">
+          <Argument type="Boolean" name="deactivated"/>
+        </Method>
+        <Method name="getCategory" returnType="String" visibility="public"/>
+        <Method name="setCategory" returnType="String" visibility="public">
+          <Argument type="String" name="category"/>
+        </Method>
+        <Method name="getName" returnType="String" visibility="public"/>
+        <Method name="setName" returnType="String" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="getQuantity" returnType="Integer" visibility="public"/>
+        <Method name="setQuantity" returnType="Integer" visibility="public">
+          <Argument type="Integer" name="quantity"/>
+        </Method>
+        <Method name="getPrice" returnType="Double" visibility="public"/>
+        <Method name="setPrice" returnType="Double" visibility="public">
+          <Argument type="Double" name="price"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="User" package="org.solent.com504.oodd.cart.model.dto" visibility="public" xPosition="1565.0" yPosition="662.0">
+      <Fields>
+        <Field name="id" type="Long" visibility="private"/>
+        <Field name="firstName" type="String" visibility="private"/>
+        <Field name="secondName" type="String" visibility="private"/>
+        <Field name="username" type="String" visibility="private"/>
+        <Field name="password" type="String" visibility="private"/>
+        <Field name="hashedPassword" type="String" visibility="private"/>
+        <Field name="address" type="Address" visibility="private"/>
+        <Field name="userRole" type="UserRole" visibility="private"/>
+        <Field name="enabled" type="Boolean" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getId" returnType="Long" visibility="public"/>
+        <Method name="setId" returnType="Long" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="getUserRole" returnType="UserRole" visibility="public"/>
+        <Method name="setUserRole" returnType="UserRole" visibility="public">
+          <Argument type="UserRole" name="userRole"/>
+        </Method>
+        <Method name="getUsername" returnType="String" visibility="public"/>
+        <Method name="setUsername" returnType="String" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="getAddress" returnType="Address" visibility="public"/>
+        <Method name="setAddress" returnType="Address" visibility="public">
+          <Argument type="Address" name="address"/>
+        </Method>
+        <Method name="getFirstName" returnType="String" visibility="public"/>
+        <Method name="setFirstName" returnType="String" visibility="public">
+          <Argument type="String" name="firstName"/>
+        </Method>
+        <Method name="getSecondName" returnType="String" visibility="public"/>
+        <Method name="setSecondName" returnType="String" visibility="public">
+          <Argument type="String" name="secondName"/>
+        </Method>
+        <Method name="getEnabled" returnType="Boolean" visibility="public"/>
+        <Method name="setEnabled" returnType="Boolean" visibility="public">
+          <Argument type="Boolean" name="enabled"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="String" visibility="public">
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="isValidPassword" returnType="String" visibility="public">
+          <Argument type="String" name="checkPassword"/>
+        </Method>
+        <Method name="getHashedPassword" returnType="String" visibility="public"/>
+        <Method name="setHashedPassword" returnType="String" visibility="public">
+          <Argument type="String" name="hashedPassword"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="IBankingService" package="org.solent.com504.oodd.cart.model.service" visibility="public" xPosition="1315.0" yPosition="112.0">
+      <Methods>
+        <Method name="sendTransaction" returnType="Double" visibility="public">
+          <Argument type="Card" name="fromCard"/>
+          <Argument type="Double" name="amount"/>
+        </Method>
+        <Method name="refundTransaction" returnType="Transaction" visibility="public">
+          <Argument type="Transaction" name="transaction"/>
+        </Method>
+        <Method name="refundSimpleTransaction" returnType="Double" visibility="public">
+          <Argument type="Card" name="toCard"/>
+          <Argument type="Double" name="amount"/>
+        </Method>
+        <Method name="getLatestSuccessfulTransactions" returnType="List&lt;Transaction&gt;" visibility="package"/>
+        <Method name="clearTransactions" returnType="Boolean" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="ShoppingCart" package="org.solent.com504.oodd.cart.model.service" visibility="public" xPosition="159.0" yPosition="116.0">
+      <Methods>
+        <Method name="getShoppingCartItems" returnType="List&lt;OrderItem&gt;" visibility="public"/>
+        <Method name="addItemToCart" returnType="ShoppingItem" visibility="public">
+          <Argument type="ShoppingItem" name="shoppingItem"/>
+        </Method>
+        <Method name="getItemFromCart" returnType="ShoppingItem" visibility="public">
+          <Argument type="ShoppingItem" name="shoppingItem"/>
+        </Method>
+        <Method name="removeItemFromCart" returnType="String" visibility="public">
+          <Argument type="String" name="itemId"/>
+        </Method>
+        <Method name="clearCart" returnType="void" visibility="public"/>
+        <Method name="getTotal" returnType="double" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="ShoppingService" package="org.solent.com504.oodd.cart.model.service" visibility="public" xPosition="662.0" yPosition="97.0">
+      <Methods>
+        <Method name="getAvailableItems" returnType="List&lt;ShoppingItem&gt;" visibility="public"/>
+        <Method name="getAvailableCategories" returnType="List&lt;String&gt;" visibility="public"/>
+        <Method name="getAvailableByCategory" returnType="String" visibility="public">
+          <Argument type="String" name="category"/>
+        </Method>
+        <Method name="searchAvailableItems" returnType="String" visibility="public">
+          <Argument type="String" name="searchQuery"/>
+        </Method>
+        <Method name="checkStock" returnType="ShoppingCart" visibility="public">
+          <Argument type="ShoppingCart" name="cart"/>
+        </Method>
+        <Method name="purchaseItems" returnType="Card" visibility="public">
+          <Argument type="ShoppingCart" name="shoppingCart"/>
+          <Argument type="User" name="purchaser"/>
+          <Argument type="Card" name="purchaserCard"/>
+        </Method>
+        <Method name="getNewItemByName" returnType="String" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Enum name="InvoiceStatus" package="org.solent.com504.oodd.cart.model.dto" visibility="public" xPosition="994.0" yPosition="1323.0">
+      <Literals>
+        <Literal name="BACKLOG"/>
+        <Literal name="PROCESSING"/>
+        <Literal name="COMPLETE"/>
+      </Literals>
+    </Enum>
+    <Enum name="UserRole" package="org.solent.com504.oodd.cart.model.dto" visibility="public" xPosition="1362.0" yPosition="1352.0">
+      <Literals>
+        <Literal name="ANONYMOUS"/>
+        <Literal name="CUSTOMER"/>
+        <Literal name="ADMINISTRATOR"/>
+      </Literals>
+    </Enum>
+    <Interface name="UserRepository" package="" visibility="public" xPosition="1565.0" yPosition="471.0">
+      <Methods>
+        <Method name="findByUsername" returnType="String" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="findByNames" returnType="String" visibility="public">
+          <Argument type="String" name="firstName"/>
+          <Argument type="String" name="secondName"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="ShoppingItemCatalogRepository" package="" visibility="public" xPosition="388.0" yPosition="403.0">
+      <Methods>
+        <Method name="findByName" returnType="String" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="findByNameIgnoreCase" returnType="String" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="findByCategory" returnType="String" visibility="public">
+          <Argument type="String" name="category"/>
+        </Method>
+        <Method name="findActive" returnType="List&lt;ShoppingItem&gt;" visibility="public"/>
+        <Method name="findAvailableCategories" returnType="List&lt;String&gt;" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="InvoiceRepository" package="" visibility="public" xPosition="887.0" yPosition="450.0">
+      <Methods>
+        <Method name="findByPurchaser_Id" returnType="List&lt;Invoice&gt;" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findByPurchaser_UsernameContainingIgnoreCase" returnType="List&lt;Invoice&gt;" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="item" source="org.solent.com504.oodd.cart.model.dto.OrderItem" target="org.solent.com504.oodd.cart.model.dto.ShoppingItem" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="purchaser" source="org.solent.com504.oodd.cart.model.dto.Invoice" target="org.solent.com504.oodd.cart.model.dto.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.bank.TransactionRequest" target="org.solent.com504.oodd.bank.Card" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.service.ShoppingCart" target="org.solent.com504.oodd.cart.model.dto.ShoppingItem" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.dto.Invoice" target="org.solent.com504.oodd.cart.model.dto.OrderItem" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="DTO" source="UserRepository" target="org.solent.com504.oodd.cart.model.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.dto.OrderItem" target="org.solent.com504.oodd.cart.model.dto.ShoppingItem" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.bank.Transaction" target="org.solent.com504.oodd.bank.TransactionRequest" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.service.ShoppingService" target="org.solent.com504.oodd.cart.model.service.ShoppingCart" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="userRole" source="org.solent.com504.oodd.cart.model.dto.User" target="org.solent.com504.oodd.cart.model.dto.UserRole" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.bank.Transaction" target="org.solent.com504.oodd.bank.TransactionResponse" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="DTO" source="InvoiceRepository" target="org.solent.com504.oodd.cart.model.dto.Invoice" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="DTO" source="ShoppingItemCatalogRepository" target="org.solent.com504.oodd.cart.model.dto.ShoppingItem" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="fromCard" source="org.solent.com504.oodd.bank.TransactionRequest" target="org.solent.com504.oodd.bank.Card" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="address" source="org.solent.com504.oodd.cart.model.dto.User" target="org.solent.com504.oodd.cart.model.dto.Address" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="toCard" source="org.solent.com504.oodd.bank.TransactionRequest" target="org.solent.com504.oodd.bank.Card" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="invoiceStatus" source="org.solent.com504.oodd.cart.model.dto.Invoice" target="org.solent.com504.oodd.cart.model.dto.InvoiceStatus" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="CatalogRepo" source="org.solent.com504.oodd.cart.model.service.ShoppingService" target="ShoppingItemCatalogRepository" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="InvoiceRepo" source="org.solent.com504.oodd.cart.model.service.ShoppingService" target="InvoiceRepository" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="transactionRequest" source="org.solent.com504.oodd.bank.Transaction" target="org.solent.com504.oodd.bank.TransactionRequest" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.service.ShoppingService" target="org.solent.com504.oodd.cart.model.dto.ShoppingItem" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.dto.Invoice" target="org.solent.com504.oodd.cart.model.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.dto.Invoice" target="org.solent.com504.oodd.cart.model.dto.InvoiceStatus" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="transactionResponse" source="org.solent.com504.oodd.bank.Transaction" target="org.solent.com504.oodd.bank.TransactionResponse" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.dto.User" target="org.solent.com504.oodd.cart.model.dto.UserRole" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="BankingService" source="org.solent.com504.oodd.cart.model.service.ShoppingService" target="org.solent.com504.oodd.cart.model.service.IBankingService" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.dto.User" target="org.solent.com504.oodd.cart.model.dto.Address" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="purchasedItems" source="org.solent.com504.oodd.cart.model.dto.Invoice" target="org.solent.com504.oodd.cart.model.dto.OrderItem" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;OrderItem&gt;"/>
+    <UseRelation source="org.solent.com504.oodd.cart.model.service.IBankingService" target="org.solent.com504.oodd.bank.Transaction" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
