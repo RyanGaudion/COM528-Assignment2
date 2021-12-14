@@ -156,6 +156,7 @@ public class CatalogController {
     /**
      * POST request to update or create a catalog item
      * @param newName name from the page form
+     * @param action either empty or delete
      * @param itemId ID of the Item if editing
      * @param inputPrice price from the page form
      * @param inputQuantity quantity from the page form
@@ -169,6 +170,7 @@ public class CatalogController {
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.POST)
     public String updateItem(
             @RequestParam(value = "name", required = true) String newName,            
+            @RequestParam(value = "action", required = false) String action,
             @RequestParam(value = "id", required = false) Long itemId,
             @RequestParam(value = "price", required = false) String inputPrice,
             @RequestParam(value = "quantity", required = false) String inputQuantity,             
@@ -182,6 +184,8 @@ public class CatalogController {
 
         LOG.debug("post updateItem called for id=" + itemId);
 
+        
+        
         // security check if party is allowed to access or modify this party
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
@@ -197,15 +201,39 @@ public class CatalogController {
         if(itemId != null){
             shoppingItem = catalogRepo.findById(itemId);
         }
+        
+        
         ShoppingItem modifyItem;
         if (shoppingItem == null || shoppingItem.isEmpty()) {
-            LOG.error("viewModifyItem Postcalled for unknown id=" + itemId);
+            LOG.error("viewModifyItem Post called for unknown id=" + itemId);
             modifyItem = new ShoppingItem();
         }
         else{
             modifyItem = shoppingItem.get();
         }        
         
+        
+        
+        //Delete item
+        if(action != null && action.equals("delete")){
+            if (shoppingItem == null || shoppingItem.isEmpty()) {
+                errorMessage = "Unable to delete item - please try setting the item to de-activated instead";
+            }
+            else{
+                try{
+                    message = "Successfully deleted item: " + shoppingItem.get().getName();
+                    catalogRepo.delete(shoppingItem.get());
+                    model.addAttribute("message", message);
+                    return ("redirect:/catalog");
+                }
+                catch(Exception ex){
+                    LOG.error(ex);
+                    message = "";
+                    errorMessage = "Unable to delete item - this may be due to the fact the item is included in a previous order - please try setting the item to de-activated instead";
+                }
+            }
+        }
+        else{
         List<ShoppingItem> existingItems = catalogRepo.findByNameIgnoreCase(newName);
         //If adding new item - check name doesn't already exist
         Boolean invalid = false;
@@ -298,8 +326,11 @@ public class CatalogController {
             }
         }
 
+        
+        }
         model.addAttribute("modifyItem", modifyItem);
 
+        
         // add message if there are any 
         model.addAttribute("errorMessage", errorMessage);
         if(errorMessage.equals("")){
@@ -309,5 +340,6 @@ public class CatalogController {
         model.addAttribute("selectedPage", "viewModifyItem");
 
         return "viewModifyItem";
+        
     }
 }
