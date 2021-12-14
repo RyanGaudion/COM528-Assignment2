@@ -23,10 +23,14 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.solent.com504.oodd.bank.Card;
+import org.solent.com504.oodd.cardchecker.CardChecker;
+import org.solent.com504.oodd.cardchecker.CardValidationResult;
 import org.solent.com504.oodd.cart.dao.impl.UserRepository;
 import org.solent.com504.oodd.cart.model.dto.Address;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
+import static org.solent.com504.oodd.cart.spring.web.MVCController.LOG;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -410,6 +414,9 @@ public class UserAndLoginController {
      * @param mobile new value for the user
      * @param password new value for the user
      * @param password2 new value for the user
+     * @param cardnumber new value for the user's saved card
+     * @param enddate new value for the user's saved card
+     * @param issuenumber new value for the user's saved card
      * @param action empty or update password
      * @param model
      * @param session
@@ -434,7 +441,11 @@ public class UserAndLoginController {
             @RequestParam(value = "telephone", required = false) String telephone,
             @RequestParam(value = "mobile", required = false) String mobile,
             @RequestParam(value = "password", required = false) String password,
-            @RequestParam(value = "password2", required = false) String password2,
+            @RequestParam(value = "password2", required = false) String password2,            
+            @RequestParam(value = "cardnumber", required = false) String cardnumber,
+            @RequestParam(value = "enddate", required = false) String enddate,
+            @RequestParam(value = "issuenumber", required = false) String issuenumber,
+
             @RequestParam(value = "action", required = false) String action,
             Model model,
             HttpSession session) {
@@ -529,15 +540,52 @@ public class UserAndLoginController {
         address.setMobile(mobile);
         address.setTelephone(telephone);
 
-        modifyUser.setAddress(address);
+        
+        Card card = new Card();
+        if(cardnumber != null && cardnumber.length() > 0){
+            //Validate
+            CardValidationResult result = CardChecker.checkValidity(cardnumber);
+            LOG.info("Validating: " + cardnumber + " is valid: " + result.getIsValid() + " message: " + result.getMessage());
+            if(!result.getIsValid()){
+                errorMessage = "Validating Card Failed: " + result.getMessage();
+            }
+            else{
+                //Pay & Create Order
+            
+                if(!card.setCardnumber(cardnumber)){
+                    errorMessage = "Invalid Card Number";
+                }
+                if(enddate != null && !card.setEndDate(enddate)){
+                    errorMessage = "Invalid End Date - make sure the end date is later than the current date";
+                }
+                if(issuenumber != null && !card.setIssueNumber(issuenumber)){
+                    errorMessage = "Invalid Issue Number";
+                }
+            }
+        }
 
-        modifyUser = userRepository.save(modifyUser);
+
+        
+
+
+        
+        
+        
+        
+        
+        modifyUser.setAddress(address);
+        modifyUser.setSavedCard(card);
+        
+        if(errorMessage.equals("")){
+            modifyUser = userRepository.save(modifyUser);
+            message = "User " + modifyUser.getUsername() + " updated successfully";
+        }
 
         model.addAttribute("modifyUser", modifyUser);
 
         // add message if there are any 
+        model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("message", "User " + modifyUser.getUsername() + " updated successfully");
 
         model.addAttribute("selectedPage", "home");
 

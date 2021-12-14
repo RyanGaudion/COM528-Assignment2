@@ -17,11 +17,10 @@
     
     <div class="col-xs-6 col-md-6">
         <form action="./checkout" method="POST"> 
-            
-            <p>Card Number: <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardnumber" required/>
-            <p>Card Holder Name: <input type="text" name="cardname" required></p>            
-            <p>Card End Date: (in format MM/yy) <input type="text" name="cardenddate" required></p>            
-            <p>Card Issue Number: <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardissuenumber"></p>
+            <p>Card Number: <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardnumber" required value="${user.savedCard.cardnumber}"/>
+            <p>Card Holder Name: <input type="text" name="cardname" required value="${user.firstName}"></p>            
+            <p>Card End Date: (in format MM/yy) <input type="text" name="cardenddate" required value="${user.savedCard.endDate}"></p>            
+            <p>Card Issue Number: <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardissuenumber" value="${user.savedCard.issueNumber}"></p>
             <p>Card CVV:  <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="cardcvv" required></p>
             <c:if test="${sessionUser.userRole !='ANONYMOUS' && !message.toLowerCase().startsWith('success') }">
                 <div class="row">

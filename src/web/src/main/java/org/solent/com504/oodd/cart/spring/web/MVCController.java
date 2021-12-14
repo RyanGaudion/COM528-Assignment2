@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 import org.solent.com504.oodd.bank.Card;
 import org.solent.com504.oodd.cardchecker.CardChecker;
 import org.solent.com504.oodd.cardchecker.CardValidationResult;
+import org.solent.com504.oodd.cart.dao.impl.UserRepository;
 import org.solent.com504.oodd.cart.model.dto.OrderItem;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
@@ -54,6 +55,9 @@ public class MVCController {
     //private ShoppingService shoppingService = WebObjectFactory.getShoppingService();
     @Autowired
     ShoppingService shoppingService;
+    
+    @Autowired
+    UserRepository userRepo;
 
     // note that scope is session in configuration
     // so the shopping cart is unique for each web session
@@ -102,6 +106,9 @@ public class MVCController {
 
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
+        
+
+        
         model.addAttribute("sessionUser", sessionUser);
 
         // used to set tab selected
@@ -144,6 +151,12 @@ public class MVCController {
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
+        List<User> purchaser = userRepo.findByUsername(sessionUser.getUsername());
+        if(purchaser.size() > 0){
+            User purchaseUser = purchaser.get(0);
+            model.addAttribute("user", purchaseUser);    
+        }
+        
         // used to set tab selected
         model.addAttribute("selectedPage", "checkout");
 
@@ -154,7 +167,7 @@ public class MVCController {
         List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
         Double shoppingcartTotal = shoppingCart.getTotal();
-
+        
         // populate model with values
         model.addAttribute("shoppingCartItems", shoppingCartItems);
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);

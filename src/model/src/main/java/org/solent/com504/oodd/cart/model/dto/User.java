@@ -132,7 +132,10 @@ public class User {
      * @param card
      */
     public void setSavedCard(Card card) {
-        card.clearCVV();
+        try{
+            card.clearCVV();
+        }
+        catch(Exception ex){}
         this.savedCard = card;
     }
 
@@ -237,7 +240,7 @@ public class User {
     // no password or hashed password
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", username=" + username + ", password=NOT SHOWN, address=" + address + ", userRole=" + userRole + '}';
+        return "User{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", username=" + username + ", password=NOT SHOWN, address=" + address + ", userRole=" + userRole + ", savedCard= " + savedCard + '}';
     }
 
 }

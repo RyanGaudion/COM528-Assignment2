@@ -162,7 +162,7 @@ Potential Additional Features (for future phases):
 - Card details are validated & rest client sends money ✅
 
 Potential Additional Features (for future phases):
-- Load card details from account (only require entering of CVV)
+- Load card details from account (only require entering of CVV) ✅
 
 ### Users 
 - Create a user ✅

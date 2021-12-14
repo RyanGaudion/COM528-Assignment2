@@ -101,8 +101,9 @@ public class UserRepositoryTest {
         User user = new User();
         user.setSavedCard(userCard);
         
-        User user1 = userRepository.save(user);
         userRepository.deleteAll();
+        User user1 = userRepository.save(user);
+        
         
         
         assertEquals("", user1.getSavedCard().getCVV());        
