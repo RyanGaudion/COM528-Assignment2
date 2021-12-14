@@ -216,6 +216,7 @@ public class MVCController {
         
         if(!result.getIsValid()){
             errorMessage = result.getMessage();
+            LOG.error("Checkout Failed: " + errorMessage);
         }
         else{
             
@@ -245,6 +246,7 @@ public class MVCController {
                         boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
                         if(!purchased){
                             errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                            LOG.error("Checkout Failed: " + errorMessage);
                         }
                         else{
                             message = "Successfully purchased items";
@@ -260,10 +262,14 @@ public class MVCController {
                     errorMessage = stockMessage;
                 }
             }
+            else{
+                LOG.error("Checkout Failed: " + errorMessage);
+            }
         }
         
         List<OrderItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
         Double shoppingcartTotal = shoppingCart.getTotal();
+        
 
         // populate model with values
         model.addAttribute("shoppingCartItems", shoppingCartItems);
