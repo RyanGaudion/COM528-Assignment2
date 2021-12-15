@@ -41,6 +41,8 @@ Note - these use cases have been added after development of all the original use
 | UC21		| Admin  | Admin adds a category to an item and clicks save | Returning to view that item shows the new category |
 | UC22		| Customer  | Customer clicks on a category on the home page | Home page limits the item list to products that are in the selected category |
 | UC23		    | Admin  | Admin clicks on an order and clicks refund | Money is transferred from the shopkeeper's bank account into the customers account |
+| UC24 | Customer/Admin | Logged in user saves card details in their profile | Opening up the checkout automatically populates their card details.
+| UC25 | Admin | Opens up a catalog item and clicks delete | If the item is not included in any orders, the item is delete from the Database |
 
 # Test Plan
 For this application I will provide Unit Tests to cover every low level element including Models, Services and Repositories using JUnit. This will, by itself, provide a large test coverage of the system. Unit tests alone however will only provide testing of individual components on their own. In order to provide integration testing, testing of components working together, I will perform manual User Interface tests. These tests not only make sure the UI is functional but also test the system as a whole - integrating multiple components of the system into single tests.  
@@ -48,75 +50,80 @@ For this application I will provide Unit Tests to cover every low level element 
 For this application I have decided to write manual tests from the point of view of each of the Roles in the system
 
 ### Anonymous Tests
-| Test case ID 	| Use case ID  | Action  	 | Expected Result | Date Passed |
-| ----------- 	| ---------- | ---------- | ----------- | ----------- |
-| TC1			| UC1 | New user loads up the site  | All products are available to be viewed on this page | Passed - 14/12/21 |
-| TC2.0			| UC1.2 | New user searches for a product  | All products matching the search criteria are displayed | Passed - 14/12/21 |
-| TC2.1			| UC1.2 | New user searches for a product that is out of stock  | The product is not displayed | `Failed` - Requirements have changed for out of stock items to still be displayed, only Deactivated items should not be displayed.  |
-| TC2.1v2			| UC1.2 | New user searches for a product that is Deactivated  | The product is not displayed | Passed - 14/12/21  |
-| TC3.0    		| UC2 | New user adds an item to their cart  | Heading to the cart page shows the product in the cart | Passed - 14/12/21 |
-| TC3.1    		| UC2 | New user adds the same item to their cart again  | Heading to the cart page shows the product quantity has increased by 1 | Passed - 14/12/21 |
-| TC4   		| UC3 | New user removes item from cart  | Quantity of item in cart is decreased by 1 | Passed - 14/12/21 |
-| TC5.0   		| UC5 | New user clicks "login or create a new account" and then clicks "create a new account"  | Page loads containing all required inputs for a new account to be created | Passed - 14/12/21 |
-| TC5.1   		| UC5 | User enters account details and submits  | Account is created and user is logged in automatically | Passed - 14/12/21 |
-| TC5.2 		| UC5 |  User clicks on cart  | Items are still stored in the cart and are not lost | Passed - 14/12/21 |
-| TC6   		| UC5 & UC4 | User clicks logout  | Account is no longer associated with the session | Passed - 14/12/21 |
-| TC7.0   		| UC4 | User clicks login  | Page loads with all required inputs for sign in | Passed - 14/12/21 |
-| TC7.1   		| UC4 | User enters account details  | User is automatically logged in to their account | Passed - 14/12/21 |
+| Test case ID 	| Use case ID  | Action  	 | Expected Result | V1.0.0 Test | V1.2.0 Test |
+| ----------- 	| ---------- | ---------- | ----------- | ----------- | ----------- |
+| TC1			| UC1 | New user loads up the site  | All products are available to be viewed on this page | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC2.0			| UC1.2 | New user searches for a product  | All products matching the search criteria are displayed | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC2.1			| UC1.2 | New user searches for a product that is out of stock  | The product is not displayed | `Failed` - Requirements have changed for out of stock items to still be displayed, only Deactivated items should not be displayed.  | N/A - 15/12/21 |
+| TC2.1v2			| UC1.2 | New user searches for a product that is Deactivated  | The product is not displayed | Passed - 14/12/21  | Passed - 15/12/21 |
+| TC3.0    		| UC2 | New user adds an item to their cart  | Heading to the cart page shows the product in the cart | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC3.1    		| UC2 | New user adds the same item to their cart again  | Heading to the cart page shows the product quantity has increased by 1 | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC3.2    		| UC2 | New user keeps adding the same item to the cart  | Message is displayed to show they have added the maximum quantity | N/A | Passed - 15/12/21 |
+| TC4   		| UC3 | New user removes item from cart  | Quantity of item in cart is decreased by 1 | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC5.0   		| UC5 | New user clicks "login or create a new account" and then clicks "create a new account"  | Page loads containing all required inputs for a new account to be created | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC5.1   		| UC5 | User enters account details and submits  | Account is created and user is logged in automatically | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC5.2 		| UC5 |  User clicks on cart  | Items are still stored in the cart and are not lost | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC6   		| UC5 & UC4 | User clicks logout  | Account is no longer associated with the session | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC7.0   		| UC4 | User clicks login  | Page loads with all required inputs for sign in | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC7.1   		| UC4 | User enters account details  | User is automatically logged in to their account | Passed - 14/12/21 | Passed - 15/12/21 |
 
 ### Customer Tests
 The following tests must be performed by a logged in user. These tests must be completed as well as the following anonymous tests which must be re-tested as the customer role:  
 -  `TC1`, `TC2`, `TC3`, `TC4` (Passed - 14/12/21)
 
-| Test case ID 	| Use case ID | Action  	 | Expected Result | Date Passed |
-| ----------- 	| ---------- | ---------- | ----------- | ----------- |
-| TC10			| UC6.1 | User clicks on shopping cart and clicks checkout  | Page loads for user to enter card details | Passed - 14/12/21 |
-| TC10.1		| UC6.2 | User enters valid card details  | Success message is shown | Passed - 14/12/21 |
-| TC10.2		| UC6.2 | User enters valid card details  | Money in the Bank Rest API has been moved to the correct account | Passed - 14/12/21 |
-| TC10.2.2		| UC6.3 | User enters valid card details  | The Quantity of the item in inventory is reduced | Passed - 14/12/21 |
-| TC10.3		| UC6.4 & UC6.5 | User enters invalid card details  | Error message is shown | Passed - 14/12/21 |
-| TC11		    | UC7 | User clicks on the orders page  | All the user's orders as well as their status are displayed | Passed - 14/12/21 |
+| Test case ID 	| Use case ID | Action  	 | Expected Result | V1.0.0 Test | V1.2.0 Test |
+| ----------- 	| ---------- | ---------- | ----------- | ----------- | ----------- |
+| TC10			| UC6.1 | User clicks on shopping cart and clicks checkout  | Page loads for user to enter card details | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC10.1		| UC6.2 | User enters valid card details  | Success message is shown | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC10.2		| UC6.2 | User enters valid card details  | Money in the Bank Rest API has been moved to the correct account | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC10.2.2		| UC6.3 | User enters valid card details  | The Quantity of the item in inventory is reduced | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC10.3		| UC6.4 & UC6.5 | User enters invalid card details  | Error message is shown | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC11		    | UC7 | User clicks on the orders page  | All the user's orders as well as their status are displayed | Passed - 14/12/21 | Passed - 15/12/21 |
 
 ### Admin Tests
-| Test case ID 	| Use case ID | Action  	 | Expected Result | Date Passed |
-| ----------- 	| ---------- | ---------- | ----------- | ----------- |
-| TC20.1			| UC8 | Admin clicks add item on the catalog page  | Page loads for admin to enter product details for item | Passed - 14/12/21 |
-| TC20.2		| UC8 | Admin enters all the required info for an item and clicks save  | The product is viewable on the catalog page | Passed - 14/12/21 |
-| TC21	    	| UC9 | Admin deletes an item  | The product is no longer viewable in the catalog page | `Failed` - Requirement changed to be able to deactivate an item instead of deleting an item in order to retain the item in the database in order to stay visible on user's orders |
-| TC21v2	    	| UC9 | Admin deactivates an item  | The product is no longer viewable in the catalog page | Passed - 14/12/21 |
-| TC21.1    	| UC9 | Admin deletes an item  | The product is still visible in orders that contain it | `Failed` - Requirement changed to be able to deactivate an item instead of deleting an item in order to retain the item in the database in order to stay visible on user's orders   |
-| TC21.1v2    	| UC9 | Admin deactivates an item  | The product is still visible in orders that contain it |  Passed - 14/12/21  |
-| TC22      	| UC10 | Admin updates an item's detail | The product's details are updated in the catalog page | Passed - 14/12/21  |
-| TC23      	| UC10 | Admin changes a product's quantity to 0 | The product is no longer displayed on the catalog page  | `Failed` - Requirement changed to still show out of stock items - just to mark them as out of stock |
-| TC23v2      	| UC10 | Admin changes a product's quantity to 0 | The product is displayed as "item out of stock"  | Passed - 14/12/2021 |
-| TC23.1     	| UC10 | Admin changes a product's quantity back to a number greater than 0 | The product is viewable again from the catalog page and able to be added to the shopping cart | Passed - 14/12/2021 |
-| TC24      	| UC11 | Admin opens the orders page | A page loads containing all the orders  | Passed - 14/12/2021 |
-| TC25      	| UC12 | Admin searches the orders page | Page results are limited based upon those that match the search query  | Passed - 14/12/2021 |
-| TC26      	| UC13 | Admin clicks edit on an order | The order loads, allowing the Admin to change the order status  | Passed - 14/12/2021 |
-| TC26.1      	| UC13 | Admin changes the status of the order and clicks update | The order on the user's account shows the new updated state  | Passed - 14/12/2021 |
-| TC27      	| UC14 | Admin clicks on the users page | A page loads containing all the users in the system  | Passed - 14/12/2021 |
-| TC27.1     	| UC15 | Admin clicks modify user on the users page | A page loads containing all information about the user  | Passed - 14/12/2021 |
-| TC27.2     	| UC15 | Admin edits user's details | The details are changed on the user's my profile page  | Passed - 14/12/2021 |
-| TC27.3     	| UC16 | Admin edits user's state to de-activated | The user is unable to log in to the system  | Passed - 14/12/2021 |
+| Test case ID 	| Use case ID | Action  	 | Expected Result | V1.0.0 Test | V1.2.0 Test |
+| ----------- 	| ---------- | ---------- | ----------- | ----------- | ----------- |
+| TC20.1			| UC8 | Admin clicks add item on the "manage catalog" page  | Page loads for admin to enter product details for item | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC20.2		| UC8 | Admin enters all the required info for an item and clicks save  | The product is viewable on the catalog page | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC21	    	| UC9, UC25 | Admin deletes an item  | The product is no longer viewable in the catalog page | `Failed` - Requirement changed to be able to deactivate an item instead of deleting an item in order to retain the item in the database in order to stay visible on user's orders | Passed - 15/12/21 |
+| TC21v2	    	| UC9 | Admin deactivates an item  | The product is no longer viewable in the catalog page | Passed - 14/12/21 | Passed - 15/12/21 |
+| TC21.1    	| UC9, UC25 | Admin deletes an item  | The product is still visible in orders that contain it | `Failed` - Requirement changed to be able to deactivate an item instead of deleting an item in order to retain the item in the database in order to stay visible on user's orders   | `Passed` - Trying to delete an item that is included in orders tells you to de-activate it instead |
+| TC21.1v2    	| UC9 | Admin deactivates an item  | The product is still visible in orders that contain it |  Passed - 14/12/21  | Passed - 15/12/21 |
+| TC22      	| UC10 | Admin updates an item's detail | The product's details are updated in the catalog page | Passed - 14/12/21  | Passed - 15/12/21 |
+| TC23      	| UC10 | Admin changes a product's quantity to 0 | The product is no longer displayed on the catalog page  | `Failed` - Requirement changed to still show out of stock items - just to mark them as out of stock | N/A  |
+| TC23v2      	| UC10 | Admin changes a product's quantity to 0 | The product is displayed as "item out of stock"  | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC23.1     	| UC10 | Admin changes a product's quantity back to a number greater than 0 | The product is viewable again from the catalog page and able to be added to the shopping cart | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC24      	| UC11 | Admin opens the "manage orders" page | A page loads containing all the orders  | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC25      	| UC12 | Admin searches the orders page | Page results are limited based upon those that match the search query  | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC26      	| UC13 | Admin clicks modify on an order | The order loads, allowing the Admin to change the order status  | Passed - 14/12/2021 |  Passed - 15/12/21 |
+| TC26.1      	| UC13 | Admin changes the status of the order and clicks update | The order on the user's account shows the new updated state  | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC27      	| UC14 | Admin clicks on the users page | A page loads containing all the users in the system  | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC27.1     	| UC15 | Admin clicks modify user on the users page | A page loads containing all information about the user  | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC27.2     	| UC15 | Admin edits user's details | The details are changed on the user's my profile page  | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC27.3     	| UC16 | Admin edits user's state to de-activated | The user is unable to log in to the system  | Passed - 14/12/2021 | Passed - 15/12/21 |
 
 ### De-activated Tests
-| Test case ID 	| Use case ID | Action  	 | Expected Result | Date Passed |
-| ----------- 	| ---------- | ---------- | ----------- | ----------- |
-| TC30			| UC17 | De-activated user tries to login  | Message is shown to let the user know their account might be locked | Passed - 14/12/2021 |
+| Test case ID 	| Use case ID | Action  	 | Expected Result | V1.0.0 Test | V1.2.0 Test |
+| ----------- 	| ---------- | ---------- | ----------- | ----------- | ----------- |
+| TC30			| UC17 | De-activated user tries to login  | Message is shown to let the user know their account might be locked | Passed - 14/12/2021 | Passed - 15/12/21 |
 
 ## Additional Features Tests
 Note - the following tests have been added to match the additional feature use cases above. These tests, along with the use cases, were added after all development of core features was complete.
 
-| Test case ID 	| Use case ID | Action  	 | Expected Result | Date Passed |
-| ----------- 	|  ----------  | ---------- | ----------- | ----------- |
-| TC40.1			| UC20 | Admin clicks Choose File on modify item page, then chooses an image file locally and then clicks save | Popup appears allowing user to select image file, selecting file populates chosen file name & clicking save shows success message | Passed - 14/12/2021 |
-| TC40.2			| UC20 | User searches for the above item | Item details are shown along side the image being displayed | Passed - 14/12/2021 |
-| TC41			| UC21 | Admin enters category on modify item page, then clicks save | "Successfully updated" message is displayed and category is saved | Passed - 14/12/2021 |
-| TC42.1			| UC22 | User loads up homepage after category is added  | Added category is shown in the list of categories | Passed - 14/12/2021 |
-| TC42.2			| UC22 | User clicks on a category of their choice  | Home page items are filtered down based upon the category selected | Passed - 14/12/2021 |
-| TC43.1			| UC23 | Admin clicks "View/modify Order" on modify order page  | Order details are loaded alongside a "Refund" and "Update" button | Passed - 14/12/2021 |
-| TC43.2			| UC23 | Admin clicks "Refund"  | IsRefunded status changes to true and success message is displayed to user | Passed - 14/12/2021 |
-| TC43.3			| UC23 | Admin checks bank balance from external bank application | Balance is updated to move money from shop holder card to user's card | Passed - 14/12/2021 |
+| Test case ID 	| Use case ID | Action  	 | Expected Result | V1.0.0 Test | V1.2.0 Test |
+| ----------- 	|  ----------  | ---------- | ----------- | ----------- | ----------- |
+| TC40.1			| UC20 | Admin clicks Choose File on modify item page, then chooses an image file locally and then clicks save | Popup appears allowing user to select image file, selecting file populates chosen file name & clicking save shows success message | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC40.2			| UC20 | User searches for the above item | Item details are shown along side the image being displayed | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC41			| UC21 | Admin enters category on modify item page, then clicks save | "Successfully updated" message is displayed and category is saved | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC42.1			| UC22 | User loads up homepage after category is added  | Added category is shown in the list of categories | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC42.2			| UC22 | User clicks on a category of their choice  | Home page items are filtered down based upon the category selected | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC43.1			| UC23 | Admin clicks "View/modify Order" on modify order page  | Order details are loaded alongside a "Refund" and "Update" button | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC43.2			| UC23 | Admin clicks "Refund"  | IsRefunded status changes to true and success message is displayed to user | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC43.3			| UC23 | Admin checks bank balance from external bank application | Balance is updated to move money from shop holder card to user's card | Passed - 14/12/2021 | Passed - 15/12/21 |
+| TC44.1			| UC24 | Customer logs in and clicks user profile | Space for the user to enter card details appears at the bottom of the form | N/A | Passed - 15/12/21 |
+| TC44.2			| UC24 | Customer enters in-valid card details and clicks save/update | Error message appears telling the user their card details were incorrect | N/A | Passed - 15/12/21 |
+| TC44.3			| UC24 | Customer enters valid card details and clicks save | Message says the details have been saved successfully | N/A | Passed - 15/12/21 |
+| TC44.4			| UC24 | Customer opens the checkout to purchase an item | All the card details (other than the CVV) have been populated automatically | N/A | Passed - 15/12/21 |
 
 # Features
 Below you can see the feature list for the application, this list is split into sections - grouped by either the pages the feature will be on or the group of pages they relate to. I have also included "Potential Additional Features" for each page - these are to be started if development of all core features is completed and tested. Not all the Additional Features will get started but they provide a path forward to improve the application in future phases.

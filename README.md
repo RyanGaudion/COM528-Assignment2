@@ -36,6 +36,9 @@ Logging is handled by Log4j2 and the log config can be found at `web\src\main\re
 | app-shoppingcart      | `DEBUG` | ${sys:catalina.base}/logs/app/app-shoppingcart.log       | This contains all logs from level Debug and above from all namespaces of the application | 
 | app-shoppingcart-transactions  | `INFO` | ${sys:catalina.base}/logs/app/app-shoppingcart-transactions.log        | This file contains all bank transactions between the shopping cart and the Bank API |
 
+## Setup
+As an administrator in the shopping cart application you can setup the details to use within the application by signing in and clicking "Manage Properties". From this page you can configure all the properties for the application including API url and Bank details.
+
 ## Issues 
 If you're seeing unexpected behavior then make sure to delete the application.properties file in your tomcat instance's temp folder.
 
@@ -47,6 +50,15 @@ mvn clean install
 In order to run the application it is recommended to use Netbeans with Tomcat setup as a Server. You can then load in all projects in the solution, right click on the web project and click "Build with Dependencies".
 
 Once this is built - simply right click "Run" on the web project to run the application.
+
+## Cargo Run
+
+Alternatively you can use the cargo plugin to run the application. First make sure TomCat is stopped and then navigate to the web directory after `mvn clean install` and run the following line.
+
+```
+mvn cargo:run
+```
+then navigate to http://localhost:8080/shoppingCartApplication/
 
 ## JavaDoc Creation
 To view JavaDocs, navigate to the project's source (src) folder within a command prompt and run:

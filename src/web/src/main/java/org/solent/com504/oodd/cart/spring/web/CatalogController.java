@@ -19,19 +19,26 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
+import static org.solent.com504.oodd.cart.spring.web.MVCController.LOG;
 import static org.solent.com504.oodd.cart.spring.web.UserAndLoginController.LOG;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,8 +57,11 @@ public class CatalogController {
     @Autowired
     ShoppingItemCatalogRepository catalogRepo;
     
+    final static Logger LOG = LogManager.getLogger(CatalogController.class);
+    
     private User getSessionUser(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        LOG.info("Got session user");
         if (sessionUser == null) {
             sessionUser = new User();
             sessionUser.setUsername("anonymous");
@@ -73,6 +83,8 @@ public class CatalogController {
         String message = "";
         String errorMessage = "";
 
+        LOG.info("Get Catalog");
+        
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
@@ -86,6 +98,7 @@ public class CatalogController {
         model.addAttribute("catalogListSize", catalogList.size());
         model.addAttribute("catalogList", catalogList);
         model.addAttribute("selectedPage", "catalog");
+        LOG.warn(errorMessage);
         return "catalog";
     }
     
@@ -124,6 +137,7 @@ public class CatalogController {
 
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
+        LOG.warn(errorMessage);
         return "viewModifyItem";
     }
     
@@ -165,7 +179,7 @@ public class CatalogController {
      * @param file image file if uploaded
      * @param model mvc model
      * @param session web session
-     * @return the viewmodifyitem pag
+     * @return the viewmodifyitem page
      */
     @RequestMapping(value = {"/viewModifyItem"}, method = RequestMethod.POST)
     public String updateItem(
@@ -330,16 +344,43 @@ public class CatalogController {
         }
         model.addAttribute("modifyItem", modifyItem);
 
-        
+           
         // add message if there are any 
         model.addAttribute("errorMessage", errorMessage);
         if(errorMessage.equals("")){
             model.addAttribute("message", "Item " + modifyItem.getName()+ " updated successfully");
         }
-
+        LOG.warn(errorMessage);
         model.addAttribute("selectedPage", "viewModifyItem");
 
         return "viewModifyItem";
         
+    }
+    
+    /**
+     * Exception handler page 
+     * @param e exception to show
+     * @param model mvc model
+     * @param request web request
+     * @return error page
+     */
+
+    @ExceptionHandler(Exception.class)
+    public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
+        LOG.error(e);
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        final String strStackTrace = sw.toString(); // stack trace as a string
+        String urlStr = "not defined";
+        if (request != null) {
+            StringBuffer url = request.getRequestURL();
+            urlStr = url.toString();
+        }
+        model.addAttribute("requestUrl", urlStr);
+        model.addAttribute("strStackTrace", strStackTrace);
+        model.addAttribute("exception", e);
+        //logger.error(strStackTrace); // send to logger first
+        return "error"; // default friendly exception message for sessionUser
     }
 }

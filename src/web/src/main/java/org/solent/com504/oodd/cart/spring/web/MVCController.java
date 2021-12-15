@@ -66,6 +66,7 @@ public class MVCController {
 
     private User getSessionUser(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        LOG.debug("Got session user");
         if (sessionUser == null) {
             sessionUser = new User();
             sessionUser.setUsername("anonymous");
@@ -107,7 +108,7 @@ public class MVCController {
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         
-
+        LOG.info("Get/Post Cart");
         
         model.addAttribute("sessionUser", sessionUser);
 
@@ -132,7 +133,7 @@ public class MVCController {
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
-
+        LOG.warn(errorMessage);
         return "cart";
     }
     
@@ -151,6 +152,8 @@ public class MVCController {
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
+        LOG.info("Reached GET Checkout");
+        
         List<User> purchaser = userRepo.findByUsername(sessionUser.getUsername());
         if(purchaser.size() > 0){
             User purchaseUser = purchaser.get(0);
@@ -173,7 +176,7 @@ public class MVCController {
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
-
+        LOG.warn(errorMessage);
         return "checkout";
     }
     
@@ -202,6 +205,8 @@ public class MVCController {
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
+        LOG.info("Checkout POST");
+        
         // used to set tab selected
         model.addAttribute("selectedPage", "checkout");
 
@@ -276,7 +281,7 @@ public class MVCController {
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
-
+        LOG.warn(errorMessage);
         return "checkout";
     }
 
@@ -305,7 +310,8 @@ public class MVCController {
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
-
+        LOG.info("Home - Get/Post - ", action);
+        
         // used to set tab selected
         model.addAttribute("selectedPage", "home");
 
@@ -368,7 +374,8 @@ public class MVCController {
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
-
+        
+        LOG.warn(errorMessage);
         return "home";
     }
 
@@ -387,6 +394,7 @@ public class MVCController {
 
     @ExceptionHandler(Exception.class)
     public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
+        LOG.error(e);
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
