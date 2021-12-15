@@ -15,15 +15,20 @@
  */
 package org.solent.com504.oodd.cart.spring.web;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
+import static org.solent.com504.oodd.cart.spring.web.MVCController.LOG;
 import org.solent.com504.oodd.properties.dao.impl.PropertiesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +47,7 @@ public class PropertiesController {
     
     private User getSessionUser(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        LOG.info("Got session user");
         if (sessionUser == null) {
             sessionUser = new User();
             sessionUser.setUsername("anonymous");
@@ -73,7 +79,7 @@ public class PropertiesController {
             HttpSession session) {
         
         
-        LOG.info("Input values " + action + url + username + password + shopKeeperCard);
+        LOG.info("Properties Input values " + action + url + username + password + shopKeeperCard);
         
         String message = "";
         User sessionuser = getSessionUser(session);
@@ -117,13 +123,35 @@ public class PropertiesController {
         model.addAttribute("username", newusername);
         model.addAttribute("password", newpassword);
 
-
-
-
-
         // used to set tab selected
         model.addAttribute("selectedPage", "properties");
         
         return "properties";
+    }
+    
+    /**
+     * Exception handler page 
+     * @param e exception to show
+     * @param model mvc model
+     * @param request web request
+     * @return error page
+     */
+    @ExceptionHandler(Exception.class)
+    public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
+        LOG.error(e);
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        final String strStackTrace = sw.toString(); // stack trace as a string
+        String urlStr = "not defined";
+        if (request != null) {
+            StringBuffer url = request.getRequestURL();
+            urlStr = url.toString();
+        }
+        model.addAttribute("requestUrl", urlStr);
+        model.addAttribute("strStackTrace", strStackTrace);
+        model.addAttribute("exception", e);
+        //logger.error(strStackTrace); // send to logger first
+        return "error"; // default friendly exception message for sessionUser
     }
 }

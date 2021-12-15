@@ -54,6 +54,7 @@ public class UserAndLoginController {
 
     private User getSessionUser(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        LOG.debug("Got session user");
         if (sessionUser == null) {
             sessionUser = new User();
             sessionUser.setUsername("anonymous");
@@ -72,6 +73,8 @@ public class UserAndLoginController {
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(Model model,
             HttpSession session) {
+        
+        LOG.debug("Logged out user");
         String message = "you have been successfully logged out";
         String errorMessage = "";
         // logout of session and clear
@@ -94,6 +97,7 @@ public class UserAndLoginController {
         String message = "log into site using username";
         String errorMessage = "";
 
+        LOG.info("Get login");
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
@@ -108,7 +112,7 @@ public class UserAndLoginController {
         model.addAttribute("errorMessage", errorMessage);
         // used to set tab selected
         model.addAttribute("selectedPage", "home");
-
+        LOG.warn(errorMessage);
         return "login";
 
     }
@@ -174,6 +178,7 @@ public class UserAndLoginController {
             User loginUser = userList.get(0);
             if (!loginUser.isValidPassword(password)) {
                 model.addAttribute("errorMessage", "invalid username or password");
+                LOG.warn(errorMessage);
                 return "login";
             }
 
@@ -192,6 +197,7 @@ public class UserAndLoginController {
             model.addAttribute("errorMessage", errorMessage);
             // used to set tab selected
             model.addAttribute("selectedPage", "home");
+            LOG.warn(errorMessage);
             return "redirect:/home";
         } else {
             model.addAttribute("errorMessage", "unknown action requested:" + action);
@@ -199,6 +205,7 @@ public class UserAndLoginController {
             model.addAttribute("errorMessage", errorMessage);
             // used to set tab selected
             model.addAttribute("selectedPage", "home");
+            LOG.warn(errorMessage);
             return "home";
         }
     }
@@ -223,6 +230,8 @@ public class UserAndLoginController {
             HttpSession session) {
         String message = "register new user";
         String errorMessage = "";
+        
+        LOG.info("get register");
 
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
@@ -302,10 +311,12 @@ public class UserAndLoginController {
             model.addAttribute("modifyUser", modifyUser);
             model.addAttribute("message", message);
             model.addAttribute("errorMessage", errorMessage);
+            LOG.warn(errorMessage);
             return "viewModifyUser";
         } else {
             LOG.debug("unknown action " + action);
             model.addAttribute("errorMessage", "unknown action " + action);
+            LOG.warn(errorMessage);
             return "home";
         }
     }
@@ -323,6 +334,8 @@ public class UserAndLoginController {
         String message = "";
         String errorMessage = "";
 
+        LOG.debug("Get users");
+        
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
@@ -336,6 +349,8 @@ public class UserAndLoginController {
         model.addAttribute("userListSize", userList.size());
         model.addAttribute("userList", userList);
         model.addAttribute("selectedPage", "users");
+        model.addAttribute("errorMessage", errorMessage);
+        LOG.warn(errorMessage);
         return "users";
     }
 
@@ -391,6 +406,7 @@ public class UserAndLoginController {
 
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
+        LOG.warn(errorMessage);
         return "viewModifyUser";
     }
 
@@ -497,6 +513,7 @@ public class UserAndLoginController {
                 model.addAttribute("modifyUser", modifyUser);
                 message = "password updated for user :" + modifyUser.getUsername();
                 model.addAttribute("message", message);
+                LOG.warn(errorMessage);
                 return "viewModifyUser";
             }
         }
@@ -586,7 +603,7 @@ public class UserAndLoginController {
         model.addAttribute("errorMessage", errorMessage);
 
         model.addAttribute("selectedPage", "home");
-
+        LOG.warn(errorMessage);
         return "viewModifyUser";
     }
 
@@ -607,6 +624,7 @@ public class UserAndLoginController {
     public String myExceptionHandler(final Exception e, Model model,
             HttpServletRequest request
     ) {
+        LOG.error(e);
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);

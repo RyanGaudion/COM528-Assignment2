@@ -15,11 +15,16 @@
  */
 package org.solent.com504.oodd.cart.spring.web;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.solent.com504.oodd.bank.Card;
 import org.solent.com504.oodd.bank.Transaction;
 import org.solent.com504.oodd.cart.dao.impl.InvoiceRepository;
@@ -28,10 +33,13 @@ import org.solent.com504.oodd.cart.model.dto.InvoiceStatus;
 import org.solent.com504.oodd.cart.model.dto.User;
 import org.solent.com504.oodd.cart.model.dto.UserRole;
 import org.solent.com504.oodd.cart.model.service.IBankingService;
+import static org.solent.com504.oodd.cart.spring.web.CatalogController.LOG;
+import static org.solent.com504.oodd.cart.spring.web.MVCController.LOG;
 import static org.solent.com504.oodd.cart.spring.web.UserAndLoginController.LOG;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,8 +58,12 @@ public class InvoiceController {
     @Autowired
     IBankingService bankingService;
     
+    final static Logger LOG = LogManager.getLogger(InvoiceController.class);
+
+    
     private User getSessionUser(HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        LOG.info("Got session user");
         if (sessionUser == null) {
             sessionUser = new User();
             sessionUser.setUsername("anonymous");
@@ -81,7 +93,9 @@ public class InvoiceController {
 
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
-
+        
+        LOG.debug("Fetch all orders");
+        
         if (!UserRole.ADMINISTRATOR.equals(sessionUser.getUserRole())) {
             errorMessage = "you must be an administrator to access users information";
             return "home";
@@ -99,6 +113,7 @@ public class InvoiceController {
         model.addAttribute("ordersListSize", invoiceList.size());
         model.addAttribute("ordersList", invoiceList);
         model.addAttribute("selectedPage", "adminOrders");
+        LOG.warn(errorMessage);
         return "orders";
     }
     
@@ -115,6 +130,8 @@ public class InvoiceController {
         String message = "";
         String errorMessage = "";
 
+        LOG.info("Getting my orders");
+        
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
@@ -123,6 +140,7 @@ public class InvoiceController {
         model.addAttribute("ordersListSize", invoiceList.size());
         model.addAttribute("ordersList", invoiceList);
         model.addAttribute("selectedPage", "myOrders");
+        LOG.warn(errorMessage);
         return "orders";
     }
     
@@ -168,6 +186,7 @@ public class InvoiceController {
 
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
+        LOG.warn(errorMessage);
         return "viewModifyOrder";
     }
     
@@ -191,7 +210,7 @@ public class InvoiceController {
         String message = "";
         String errorMessage = "";
         
-        LOG.debug(action);
+        LOG.debug("View modify order: " + action);
         
         // security check if party is allowed to access or modify this invoice
         User sessionUser = getSessionUser(session);
@@ -256,7 +275,34 @@ public class InvoiceController {
         model.addAttribute("message", message);
 
         model.addAttribute("selectedPage", "viewModifyOrder");
-
+        LOG.warn(errorMessage);
         return "viewModifyOrder";
+    }
+    
+    /**
+     * Exception handler page 
+     * @param e exception to show
+     * @param model mvc model
+     * @param request web request
+     * @return error page
+     */
+
+    @ExceptionHandler(Exception.class)
+    public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
+        LOG.error(e);
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        final String strStackTrace = sw.toString(); // stack trace as a string
+        String urlStr = "not defined";
+        if (request != null) {
+            StringBuffer url = request.getRequestURL();
+            urlStr = url.toString();
+        }
+        model.addAttribute("requestUrl", urlStr);
+        model.addAttribute("strStackTrace", strStackTrace);
+        model.addAttribute("exception", e);
+        //logger.error(strStackTrace); // send to logger first
+        return "error"; // default friendly exception message for sessionUser
     }
 }
