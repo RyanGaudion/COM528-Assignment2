@@ -51,6 +51,15 @@ In order to run the application it is recommended to use Netbeans with Tomcat se
 
 Once this is built - simply right click "Run" on the web project to run the application.
 
+## Cargo Run
+
+Alternatively you can use the cargo plugin to run the application. First make sure TomCat is stopped and then navigate to the web directory after `mvn clean install` and run the following line.
+
+```
+mvn cargo:run
+```
+then navigate to http://localhost:8080/shoppingCartApplication/
+
 ## JavaDoc Creation
 To view JavaDocs, navigate to the project's source (src) folder within a command prompt and run:
 
