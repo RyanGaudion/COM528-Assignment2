@@ -45,6 +45,8 @@ If you're seeing unexpected behavior then make sure to delete the application.pr
 Limitation - When uploading a file as an image the application is limited to images under 1048576 bytes (1mb) due to an upload file size limit with tomcat.
 
 # Building & Testing the App
+Before building or testing the app make sure you have the correct bank api URL set in both `src/service/src/test/resources/service-test.properties` and `src/dao/src/main/resources/application.default.properties` otherwise the banking service tests will fail resulting in surefire failing the build.  
+
 Running the following command in the project root folder (src) will build the project with Maven and will also run all the tests for the Project Solution:
 
 mvn clean install
